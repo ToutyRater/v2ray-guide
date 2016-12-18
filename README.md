@@ -1,9 +1,10 @@
-# V2Ray 指南
+# V2Ray 配置指南
+本指南地址：[https://toutyrater.github.io/v2ray-guide-pages](https://toutyrater.github.io/v2ray-guide-pages)
 
 ## 什么是 V2Ray？
 > V2Ray 是一个模块化的代理软件包，它的目标是提供常用的代理软件模块，简化网络代理软件的开发。
 
-听起来有点文绕口的，是什么意思呢？简单来说，它就是一个代理，可以用来科学上网。至于什么模块化、简化开发那是跟开发者说的，咱吃瓜群众会用 V2Ray 就好了。
+听起来有点绕口的，是什么意思呢？简单来说，它就是一个代理，可以用来科学上网。至于什么模块化、简化开发那是跟开发者说的，咱吃瓜群众会用 V2Ray 就好了。
 
 V2Ray 用户手册：[https://www.v2ray.com](https://www.v2ray.com)
 
