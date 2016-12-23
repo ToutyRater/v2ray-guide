@@ -9,8 +9,8 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   "log" : {
     "access": "/var/log/v2ray/access.log",
     "error": "/var/log/v2ray/error.log",
-    "loglevel": "info" //为调试V2Ray，建议使用Info
-  },
+    "loglevel": "info" //为更好地观察 http 伪装是否工作正常以及反馈潜在 bug 给 V2Ray 作者，建议使用Info，同时使用 WireShark 抓包验证
+  },
   "inbound": {
     "port": 80, //推荐80端口，更好地迷惑防火墙（好吧实际上并没有什么卵用
     "protocol": "vmess",
@@ -27,7 +27,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
       "network": "tcp",
       "security": "none",
       "tlsSettings": {
-        "allowInsecure": true, //如果为false，下行的certificates必须指定，linux路径指定方式为：”/path/to/certificate“，windows下为："C:\\CA\\"
+        "allowInsecure": true, //如果为false，下行的certificates必须指定
         "certificates": [
           {
             "certificateFile": "/path/to/certificate.crt",
@@ -36,7 +36,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
         ]
       },
       "tcpSettings": {
-        "connectionReuse": true, //拥塞控制
+        "connectionReuse": true, //由 V2Ray 进行拥塞控制
         "header": {
           "type": "http",
           "request": {
@@ -44,7 +44,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
             "method": "GET",
             "path": ["/"],
             "headers": {
-              "Host": ["mp.weixin.qq.com", "rj.baidu.com"], //可随意改变，但服务器与客户端必须一致，下行的User-Agent也是如此
+              "Host": ["mp.weixin.qq.com", "rj.baidu.com"], //可随意改变，但服务器与客户端必须一致，下行的 User-Agent 也是如此
               "User-Agent": [
                 "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
                         "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
