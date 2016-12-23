@@ -1,6 +1,6 @@
 # http伪装
 
-V2Ray自2.5版本开始提供[HTTP伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5.1)，后经作者不断完善，现已相当成熟。这里给出一个http伪装的服务器端与客户端配置文件示例：
+V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 http 伪装的服务器端与客户端配置文件示例：
 
 服务端配置文件：
 
