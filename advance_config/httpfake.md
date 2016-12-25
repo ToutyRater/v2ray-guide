@@ -1,10 +1,12 @@
 # http伪装
 
-V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 http 伪装的服务器端与客户端配置文件示例：
+V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 http 伪装的服务器端与客户端配置文件示例。
+
+关于 HTTP 头字段的内容及含义，[Wikipedia](https://zh.wikipedia.org/wiki/HTTP%E5%A4%B4%E5%AD%97%E6%AE%B5%E5%88%97%E8%A1%A8) 有简要的说明，可参阅。
 
 服务端配置文件：
 
-```
+```javascript
 {
   "log" : {
     "access": "/var/log/v2ray/access.log",
@@ -25,18 +27,8 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     },
     "streamSettings": {
       "network": "tcp",
-      "security": "none",
-      "tlsSettings": {
-        "allowInsecure": true, //如果为false，下行的certificates必须指定
-        "certificates": [
-          {
-            "certificateFile": "/path/to/certificate.crt",
-            "keyFile": "/path/to/key.key"
-          }
-        ]
-      },
       "tcpSettings": {
-        "connectionReuse": true, //由 V2Ray 进行拥塞控制
+        "connectionReuse": true, //TCP 连接重用
         "header": {
           "type": "http",
           "request": {
@@ -107,26 +99,12 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
         }
       ]
     }
-  },
-  "transport": {
-    "kcpSettings": {
-      "mtu": 1350,
-      "tti": 20,
-      "uplinkCapacity": 5,
-      "downlinkCapacity": 20,
-      "congestion": false,
-      "readBufferSize": 1,
-      "writeBufferSize": 1,
-      "header": {
-        "type": "none"
-      }
-    }
   }
 }
 ```
 客户端配置文件：
 
-```
+```javascript
 {
   "log": {
     "loglevel": "info"
@@ -159,16 +137,6 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     },
     "streamSettings": {
       "network": "tcp",
-      "security": "none",
-      "tlsSettings": {
-        "allowInsecure": true,
-        "certificates": [
-          {
-            "certificateFile": "C:\\path\\to\\certificate.crt",
-            "keyFile": "C:\\path\\to\\key.key"
-          }
-        ]
-      },
       "tcpSettings": {
         "connectionReuse": true,
         "header": {
@@ -200,22 +168,6 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
             }
           }
         }
-      },
-      "kcpSettings": {
-        "mtu": 1350,
-        "tti": 20,
-        "uplinkCapacity": 5,
-        "downlinkCapacity": 20,
-        "congestion": false,
-        "readBufferSize": 1,
-        "writeBufferSize": 1,
-        "header": {
-          "type": "none"
-        }
-      },
-      "wsSettings": {
-        "connectionReuse": true,
-        "path": ""
       }
     }
   },
@@ -288,20 +240,6 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
           "outboundTag": "direct"
         }
       ]
-    }
-  },
-  "transport": {
-    "kcpSettings": {
-      "mtu": 1350,
-      "tti": 20,
-      "uplinkCapacity": 5,
-      "downlinkCapacity": 20,
-      "congestion": false,
-      "readBufferSize": 1,
-      "writeBufferSize": 1,
-      "header": {
-        "type": "none"
-      }
     }
   }
 }
