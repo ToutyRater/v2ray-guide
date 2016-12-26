@@ -49,10 +49,10 @@ acme.sh  --issue -d mydomain.tk   --standalone
 ### 安装证书和密钥
 将证书和密钥安装到 /etc/v2ray 中：
 ```
-acme.sh --installcert -d mydomain.tk --certpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key
+acme.sh --installcert -d mydomain.tk --fullchainpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key
 ```
 **无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
-## 3. 配置V2Ray
+## 3. 配置 V2Ray
 
 服务器配置：
 ```javascript
@@ -75,7 +75,7 @@ acme.sh --installcert -d mydomain.tk --certpath /etc/v2ray.crt --keypath /etc/v2
         "certificates": [
           {
             "certificateFile": "/etc/v2ray/v2ray.crt", //证书文件
-            "keyFile": "/root/acmessl/cert.key" //密钥文件
+            "keyFile": "/root/acmessl/v2ray.key" //密钥文件
           }
         ]
       }
