@@ -1,6 +1,6 @@
 # http伪装
 
-V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 http 伪装的服务器端与客户端配置文件示例。
+V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 HTTP 伪装的服务器端与客户端配置文件示例。
 
 关于 HTTP 头字段的内容及含义，[Wikipedia](https://zh.wikipedia.org/wiki/HTTP%E5%A4%B4%E5%AD%97%E6%AE%B5%E5%88%97%E8%A1%A8) 有简要的说明，可参阅。
 
@@ -11,7 +11,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   "log" : {
     "access": "/var/log/v2ray/access.log",
     "error": "/var/log/v2ray/error.log",
-    "loglevel": "info" //为更好地观察 http 伪装是否工作正常以及反馈潜在 bug 给 V2Ray 作者，建议使用Info，同时使用 WireShark 抓包验证
+    "loglevel": "info" //为更好地观察 HTTP 伪装是否工作正常以及反馈潜在 bug 给 V2Ray 作者，建议设置为 info，同时可使用 WireShark 抓包验证
   },
   "inbound": {
     "port": 80, //推荐80端口，更好地迷惑防火墙（好吧实际上并没有什么卵用
@@ -19,9 +19,9 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     "settings": {
       "clients": [
         {
-          "id": "_UUID_",
+          "id": "b12614c5-5ca4-4eba-a215-c61d642116ce",
           "level": 1,
-          "alterId": _AlterID_
+          "alterId": 64
         }
       ]
     },
@@ -29,14 +29,14 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
       "network": "tcp",
       "tcpSettings": {
         "connectionReuse": true, //TCP 连接重用
-        "header": {
+        "header": { // header 这一项是关于数据包伪装的设置，可自定义合理的内容，但要确保服务器与客户端一致
           "type": "http",
           "request": {
             "version": "1.1",
             "method": "GET",
             "path": ["/"],
             "headers": {
-              "Host": ["mp.weixin.qq.com", "rj.baidu.com"], //可随意改变，但服务器与客户端必须一致，下行的 User-Agent 也是如此
+              "Host": ["www.cloudflare.com", "www.amazon.com"], // 伪装的域名，如果注册有域名解析到了你的 VPS，使用自己的域名会使伪装更真实
               "User-Agent": [
                 "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
                         "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
@@ -51,7 +51,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
             "status": "200",
             "reason": "OK",
             "headers": {
-              "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"], //可随意改变，但服务器与客户端必须一致
+              "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"], 
               "Transfer-Encoding": ["chunked"],
               "Connection": ["keep-alive"],
               "Pragma": "no-cache"
@@ -128,8 +128,8 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
           "port": 80,
           "users": [
             {
-              "id": "_UUID_",
-              "alterId": _AlterID_
+              "id": "b12614c5-5ca4-4eba-a215-c61d642116ce",
+              "alterId": 64
             }
           ]
         }
@@ -139,14 +139,14 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
       "network": "tcp",
       "tcpSettings": {
         "connectionReuse": true,
-        "header": {
+        "header": {  //这里的 header 要与服务器保持一致
           "type": "http",
           "request": {
             "version": "1.1",
             "method": "GET",
             "path": ["/"],
             "headers": {
-              "Host": ["mp.weixin.qq.com", "rj.baidu.com"],
+              "Host": ["www.cloudflare.com", "www.amazon.com"],
               "User-Agent": [
                 "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
                         "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"

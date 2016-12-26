@@ -5,7 +5,7 @@
 {
   "log":{
     "loglevel": "warning",
-    "access": "D:\\v2ray\\access.log", 
+    "access": "D:\\v2ray\\access.log",
     "error": "D:\\v2ray\\error.log"
   },
   "inbound": {
@@ -63,7 +63,7 @@
 {
   "log":{
     "loglevel": "warning",
-    "access": "/var/log/v2ray/access.log", 
+    "access": "/var/log/v2ray/access.log",
     "error": "/var/log/v2ray/error.log"
   },
   "inbound": {
@@ -93,4 +93,4 @@
 -----
 到这里为止的配置已经可以满足基本的翻墙需求了。但是如果仅仅止步于此，那么也没什么使用 V2Ray 的必要，还不如用 Shadowsocks，毕竟 Shadowsocks 的配置不过 10 行，网上文章又多。
 
-教程到这里还不到一半，后面还有许多强大的功能等着我们来挖掘呢。少年，来吧！
+教程到这里还没完结，后面还有许多强大的功能等着我们来挖掘呢。少年，来吧！

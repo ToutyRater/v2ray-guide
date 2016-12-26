@@ -28,7 +28,7 @@ V2Ray 项目地址：[https://github.com/v2ray/v2ray-core](https://github.com/v2
     * 动态端口：动态改变通信的端口，对抗对长时间大流量端口的限速封锁
     * 路由功能：可以随意设定指定数据包的流向
     * 传出代理：看名字可能不太好理解，其实差不多可以称之为多重代理。类似于 Tor 的代理
-    * DNS：
+    * DNS
     * 可以有多个传入传出：配合路由功能可以搞出许多有用的配置
     * 数据包伪装：类似于 Shadowsocks-rss 的混淆，另外对于 mKCP 的数据包也可伪装
     * websocket协议：可以 PaaS 平台搭建V2Ray，通过 websocket 代理。也可以通过它使用 cdn（如 cloudflare） 中转，抗封锁效果更好
