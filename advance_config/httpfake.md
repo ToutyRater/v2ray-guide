@@ -1,4 +1,4 @@
-# http伪装
+# HTTP 伪装
 
 V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 HTTP 伪装的服务器端与客户端配置文件示例。
 
@@ -51,7 +51,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
             "status": "200",
             "reason": "OK",
             "headers": {
-              "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"], 
+              "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"],
               "Transfer-Encoding": ["chunked"],
               "Connection": ["keep-alive"],
               "Pragma": "no-cache"
