@@ -8,7 +8,7 @@
 
 V2Ray 用户手册：[https://www.v2ray.com](https://www.v2ray.com)
 
-V2Ray 项目地址：[https://www.v2ray.com](https://github.com/v2ray/v2ray-core)
+V2Ray 项目地址：[https://github.com/v2ray/v2ray-core](https://github.com/v2ray/v2ray-core)
 
 ## V2Ray 跟 Shadowsocks 有什么区别？
 区别还是有的，Shadowsocks 只是一个简单的代理工具，而 V2Ray 作者将 V2Ray 定位为一个平台，任何开发者都可以利用 V2Ray 提供的模块开发出新的代理软件。
