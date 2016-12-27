@@ -1,0 +1,8 @@
+.code-filename{
+	background-color: rgba(0,0,0,0.07);
+	display: inline-block;
+	padding: 2px 8px;
+	font-size: small;
+	line-height: inherit;
+	margin-bottom: 0px !important;
+}

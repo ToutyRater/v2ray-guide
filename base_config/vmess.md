@@ -13,7 +13,7 @@ V2Ray 使用 inbound 和 outbound 的概念，这个概念非常清晰地体现�
 文本编辑器有许多，比如说 sublime text、vs code、atom、notepad++，上面这些都是跨平台的，具体如何使用请自行 google 吧。这些软件都可以做到高亮显示、折叠、格式化等，建议使用，如果你不想安装软件，网上也有一些在线的 json 编辑器，还自动检查语法。如果你非要用 Windows 的记事本我也无话可说。
 
 对于 Linux 有一个软件叫 jq，可以执行这样的指令检查配置文件的语法是否正确：
-```shell
+```
 jq . config.json
 ```
 这里的 config.json 是当前目录下的 config.json。特别注意命令中的点 . 不能省去。

@@ -1,4 +1,4 @@
-# V2Ray 配置指南
+# 前言
 本指南地址：[https://toutyrater.github.io/v2ray-guide-pages](https://toutyrater.github.io/v2ray-guide-pages)
 
 ## 什么是 V2Ray？

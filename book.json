@@ -1,0 +1,18 @@
+{
+  "language": "zh",
+  "title" : "V2Ray 配置指南",
+  "description": "关于 V2Ray 配置的详细教程",
+  "plugins": [
+     "splitter",
+     "tbfed-pagefooter",
+     "codeblock-filename",
+     "anchors",
+     "anchor-navigation-ex",
+     "theme-comscore"
+   ],
+    "tbfed-pagefooter": {
+      "copyright":"&copy ToutyRater",
+      "modify_label": "该文件修订时间：",
+      "modify_format": "YYYY-MM-DD HH:mm"
+    }
+}

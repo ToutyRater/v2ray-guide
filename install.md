@@ -39,22 +39,22 @@ V2Ray 官方提供了一个一键安装脚本，这个脚本适用于 Debian 系
 本教程默认使用 Debian 8 系统，带 Systemd。
 
 首先确保使用的是 root 账户，在 root 账户下安装 curl：
-```shell
+```
 apt-get install curl
 ```
 
 如果是 Centos，则执行以下命令安装 curl:
-```shell
+```
 yum install curl
 ```
 
 然后使用一键脚本安装 V2Ray:
-```shell
-bash <(curl -L -s https://install.direct/go.sh)
+```
+curl https://install.direct/go.sh | bash
 ```
 
 看到类似于下面这样的提示之后算是安装成功了
-```shell
+```
 Installing V2Ray v2.9 on x86_64
 Downloading https://github.com/v2ray/v2ray-core/releases/download/v2.9/v2ray-linux-64.zip directly.
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -85,17 +85,17 @@ V2Ray v2.9 is installed.
 在安装完 V2Ray 之后，修改配置文件重启 V2Ray 即可，配置文件路径为 /etc/v2ray/config.json。
 
 对于 Systemd 系统，可以使用以下命令启动 V2Ray:
-```shell
+```
 systemctl start v2ray
 ```
 
 停止运行 V2Ray：
-```shell
+```
 systemctl stop v2ray
 ```
 
 重启 V2Ray:
-```shell
+```
 systemctl restart v2ray
 ```
 

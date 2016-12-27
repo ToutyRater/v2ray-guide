@@ -1,6 +1,6 @@
 # Summary
 
-* [V2Ray 配置指南](README.md)
+* [前言](README.md)
 * [安装](install.md)
 * [JSON](json.md)
 * [基本配置](base_config/README.md)
