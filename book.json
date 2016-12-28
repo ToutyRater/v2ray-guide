@@ -1,18 +1,29 @@
 {
-  "language": "zh",
   "title" : "V2Ray 配置指南",
   "description": "关于 V2Ray 配置的详细教程",
   "plugins": [
      "splitter",
      "tbfed-pagefooter",
      "codeblock-filename",
+     "editlink",
      "anchors",
      "anchor-navigation-ex",
      "theme-comscore"
-   ],
+  ],
+  "pluginsConfig":{
     "tbfed-pagefooter": {
       "copyright":"&copy ToutyRater",
-      "modify_label": "该文件修订时间：",
+      "modify_label": "本页最后修订于：",
       "modify_format": "YYYY-MM-DD HH:mm"
+    },
+    "editlink": {
+      "base": "https://github.com/toutyrater/v2ray-guide/edit/master",
+      "label": "修订补充"
+    }
+  },
+     "links" : {
+        "sidebar" : {
+            "My GitHub" : "https://github.com/ToutyRater"
+        }
     }
 }

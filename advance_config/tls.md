@@ -11,7 +11,7 @@
 
  但是，Shadowsocks 的作者 clowwindy 却认为[翻墙不该用 SSL](https://gist.github.com/clowwindy/5947691)。那么到底该不该用？对此我不作评论，各位自行思考。这里我只教大家如何开启 TLS。
 
- ## 1. 注册一个域名
+ ## 注册一个域名
 
 如果已经注册有域名了可以跳过。
 域名有免费的有付费的，总体来说付费的会优于免费的，具体差别请 Google。如果你不舍得为一个域名每年花点钱，用个免费域名也可以。为了方便，这里我将以免费域名为例。
@@ -24,14 +24,20 @@
 
 **注册好域名之后务必记得设置 DNS 解析到你的 VPS !**
 
-以下假设注册的域名为 mydomain.tk，请将之替换成自己的域名。
+**据了解，在 freenom 注册的域名在对应的 IP 上要有一个网站，否则注册之后域名会被回收。如果您只是想用免费域名在 V2Ray 用一下 TLS，又不愿意（懒得、不会）建站，建议您看看您的亲朋好友谁有手上有域名的，向他们要一个二级域名就行了**
 
-## 2. 证书生成
+以下假设注册的域名为 mydomain.me，请将之替换成自己的域名。
+
+
+## 证书生成
 使用 TLS 需要证书，证书也有免费付费的，同样的这里使用免费证书，证书认证机构为 [Let's Encrypt](https://letsencrypt.org/)。
-证书的生成有许多方法，这里使用的是最简单的方法：使用 [acme.sh](https://github.com/Neilpang/acme.sh) 脚本生成，本部分说明节选自[acme.sh Wiki](https://github.com/Neilpang/acme.sh/wiki/%E8%AF%B4%E6%98%8E)。
-需要更多关于 acme.sh 请参考该 wiki。
+证书的生成有许多方法，这里使用的是最简单的方法：使用 [acme.sh](https://github.com/Neilpang/acme.sh) 脚本生成，本部分说明部分内容参考于[acme.sh README](https://github.com/Neilpang/acme.sh/blob/master/README.md)
 
-证书生成只需在服务器上操作，现在开始：
+不严格来说，证书有两种，一种是 ECC 证书（内置公钥是 ECDSA 公钥），一种是 RSA 证书（内置 RSA 公钥）。简单来说，同等长度 ECC 比 RSA 更安全,也就是说在具有同样安全性的情况下，ECC 的密钥长度比 RSA 短得多（加密解密会更快）。但问题是 ECC 的兼容性会差一些，Android 4.x 以下和 Windows XP 不支持。只要您的设备不是非常老的老古董，强烈建议使用 ECC 证书。
+
+以下将给出两种证书的生成方法。
+
+证书生成只需在服务器上操作。
 
 ### 安装 acme.sh
 执行以下命令，acme.sh 会安装到 ~/.acme.sh 目录下：
@@ -42,17 +48,30 @@ curl  https://get.acme.sh | sh
 
 执行以下命令生成证书：
 ```
-acme.sh  --issue -d mydomain.tk   --standalone
+acme.sh  --issue -d mydomain.me --standalone -k ec-256
 ```
-此命令会临时监听 80 端口，请确保执行该命令前 80 端口没有使用。
+`-k` 表示密钥长度，后面的值可以是 `ec-256` 、`ec-284`、`2048`、`3072`、`4096`、`8192`，带有 `ec` 表示生成的是 ECC 证书，没有则是 RSA 证书。在安全性上 256 位的 ECC 证书等同于 3072 位的 RSA 证书。
+
+上面的命令会临时监听 80 端口，请确保执行该命令前 80 端口没有使用。或者使用 `--httpport` 指定其它未使用的端口，如：
+```
+acme.sh  --issue -d mydomain.me --standalone -k ec-256 --httpport 88
+```
 
 ### 安装证书和密钥
+
+#### ECC 证书
 将证书和密钥安装到 /etc/v2ray 中：
 ```
-acme.sh --installcert -d mydomain.tk --fullchainpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key
+acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
 ```
-**无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
-## 3. 配置 V2Ray
+#### RSA 证书
+```
+acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key
+```
+
+**注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
+
+## 配置 V2Ray
 
 服务器配置：
 ```javascript
