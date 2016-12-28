@@ -31,9 +31,9 @@
 
 ## 证书生成
 使用 TLS 需要证书，证书也有免费付费的，同样的这里使用免费证书，证书认证机构为 [Let's Encrypt](https://letsencrypt.org/)。
-证书的生成有许多方法，这里使用的是最简单的方法：使用 [acme.sh](https://github.com/Neilpang/acme.sh) 脚本生成，本部分说明部分内容参考于[acme.sh README](https://github.com/Neilpang/acme.sh/blob/master/README.md)
+证书的生成有许多方法，这里使用的是最简单的方法：使用 [acme.sh](https://github.com/Neilpang/acme.sh) 脚本生成，本部分说明部分内容参考于[acme.sh README](https://github.com/Neilpang/acme.sh/blob/master/README.md)。
 
-不严格来说，证书有两种，一种是 ECC 证书（内置公钥是 ECDSA 公钥），一种是 RSA 证书（内置 RSA 公钥）。简单来说，同等长度 ECC 比 RSA 更安全,也就是说在具有同样安全性的情况下，ECC 的密钥长度比 RSA 短得多（加密解密会更快）。但问题是 ECC 的兼容性会差一些，Android 4.x 以下和 Windows XP 不支持。只要您的设备不是非常老的老古董，强烈建议使用 ECC 证书。
+证书有两种，一种是 ECC 证书（内置公钥是 ECDSA 公钥），一种是 RSA 证书（内置 RSA 公钥）。简单来说，同等长度 ECC 比 RSA 更安全,也就是说在具有同样安全性的情况下，ECC 的密钥长度比 RSA 短得多（加密解密会更快）。但问题是 ECC 的兼容性会差一些，Android 4.x 以下和 Windows XP 不支持。只要您的设备不是非常老的老古董，强烈建议使用 ECC 证书。
 
 以下将给出两种证书的生成方法。
 
@@ -45,7 +45,7 @@
 curl  https://get.acme.sh | sh
 ```
 ### 使用 acme.sh 生成证书
-
+#### 证书生成
 执行以下命令生成证书：
 ```
 acme.sh  --issue -d mydomain.me --standalone -k ec-256
@@ -56,17 +56,28 @@ acme.sh  --issue -d mydomain.me --standalone -k ec-256
 ```
 acme.sh  --issue -d mydomain.me --standalone -k ec-256 --httpport 88
 ```
+#### 证书更新
+由于 Let's Encrypt 的证书有效期只有 3 个月，因此需要 90 天至少要更新一次证书，acme.sh 脚本会每 60 天自动更新证书。也可以手动更新。
 
+手动更新 ECC 证书，执行：
+```
+acme.sh --renew -d mydomain.com --force --ecc
+```
+
+如果是 RSA 证书则执行：
+```
+acme.sh --renew -d mydomain.com --force
+```
 ### 安装证书和密钥
 
 #### ECC 证书
 将证书和密钥安装到 /etc/v2ray 中：
 ```
-acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
+acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
 ```
 #### RSA 证书
 ```
-acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /etc/v2ray/v2ray.key
+acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key
 ```
 
 **注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
@@ -94,7 +105,7 @@ acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /e
         "certificates": [
           {
             "certificateFile": "/etc/v2ray/v2ray.crt", //证书文件
-            "keyFile": "/root/acmessl/v2ray.key" //密钥文件
+            "keyFile": "/etc/v2ray/v2ray.key" //密钥文件
           }
         ]
       }
@@ -123,7 +134,7 @@ acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /e
     "settings": {
       "vnext": [
         {
-          "address": "mydomain.tk",
+          "address": "mydomain.me",
           "port": 443,
           "users": [
             {
@@ -141,3 +152,19 @@ acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray.crt --keypath /e
   }
 }
 ```
+
+## 验证
+一般来说，按照以上步骤操作完成，V2Ray 客户端能够正常联网说明 TLS 已经成功启用。但是有个工具进行验证无疑更令人放心。
+验证的方法有很多，我仅介绍一种小白化一点的，便是 [Qualys SSL Labs's SSL Server Test](https://www.ssllabs.com/ssltest/index.html)。
+
+**注意：使用 Qualys SSL Labs's SSL Server Test 要求使用 443 端口，意味着你服务器配置的 inbound.port 应当是 443**
+
+打开 [Qualys SSL Labs's SSL Server Test](https://www.ssllabs.com/ssltest/index.html)，在
+Hostname 中输入你的域名，点提交，过一会结果就出来了。
+![](tls_test1.png)
+
+![](tls_test2.png)
+这是对于你的 TLS/SSL 的一个总体评分，我这里评分为 A，看来还不错。有这样的界面算是成功了。
+
+![](tls_test3.png)
+这是关于证书的信息。从图中可以看出，我的这个证书有效期是从 2016 年 12 月 27 号到 2017 年的 3 月 27 号，密钥是 256 位的 ECC，证书签发机构是 Let's Encrypt，重要的是最后一行，`Trusted` 为 `Yes`,表明我这个证书可信。
