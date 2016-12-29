@@ -6,7 +6,7 @@
 
 骚年别紧张。V2Ray 集成有 Shadowsocks 模块的，用 V2Ray 配置成 Shadowsocks 服务器或者 Shadowsocks 客户端都是可以的。
 
-原理与vmess大同小异，不过多说明，直接给配置。
+原理与 VMess 大同小异，不过多说明，直接给配置。
 
 客户端：
 ```javascript
