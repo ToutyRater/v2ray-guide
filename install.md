@@ -36,67 +36,64 @@ V2Ray 官方提供了一个一键安装脚本，这个脚本适用于 Debian 系
 
 现在市面上绝大多数 linux 发行版的最新版本都内置了 Systemd，在支持 Systemd 的系统中，V2Ray 的安装脚本会添加一个 Systemd 的单元文件可以使得开机后自动运行软件，以及当 V2Ray 意外停止运行时自动启动 V2Ray（应该类似于 supervisord 托管服务），推荐用户使用带 Systemd 的系统。
 
-本教程默认使用 Debian 8 系统，带 Systemd。
+本指南默认使用 Debian 8 系统，带 Systemd。
 
 首先确保使用的是 root 账户，在 root 账户下安装 curl：
 ```
-apt-get install curl
+$ sudo apt-get install curl
 ```
 
 如果是 Centos，则执行以下命令安装 curl:
 ```
-yum install curl
+$ sudo yum install curl
 ```
 
 然后使用一键脚本安装 V2Ray:
 ```
-curl https://install.direct/go.sh | bash
-```
-
-看到类似于下面这样的提示之后算是安装成功了
-```
-Installing V2Ray v2.9 on x86_64
-Downloading https://github.com/v2ray/v2ray-core/releases/download/v2.9/v2ray-linux-64.zip directly.
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   595    0   595    0     0    405      0 --:--:--  0:00:01 --:--:--   405
-100 2325k  100 2325k    0     0   249k      0  0:00:09  0:00:09 --:--:--  543k
+$ sudo curl https://install.direct/go.sh | bash
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100  4915  100  4915  0     0    293      0  0:00:16  0:00:16 --:--:--   791
+bash: line 88: /usr/bin/v2ray/v2ray: No such file or directory
+Installing V2Ray v2.12.1 on x86_64
+Downloading https://github.com/v2ray/v2ray-core/releases/download/v2.12.1/v2ray-linux-64.zip directly.
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100   595    0   595  0     0    446      0 --:--:--  0:00:01 --:--:--   447
+100 2358k  100 2358k  0     0   270k      0  0:00:08  0:00:08 --:--:--  609k
 Extracting V2Ray package to /tmp/v2ray.
 Archive:  /tmp/v2ray/v2ray.zip
-  inflating: /tmp/v2ray/v2ray-v2.9-linux-64/systemd/v2ray.service
-  inflating: /tmp/v2ray/v2ray-v2.9-linux-64/systemv/v2ray
-  inflating: /tmp/v2ray/v2ray-v2.9-linux-64/v2ray
-  inflating: /tmp/v2ray/v2ray-v2.9-linux-64/vpoint_socks_vmess.json
-  inflating: /tmp/v2ray/v2ray-v2.9-linux-64/vpoint_vmess_freedom.json
-Shutting down V2Ray service.
-Restarting V2Ray service.
-V2Ray v2.9 is installed.
+inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/systemd/v2ray.service
+inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/systemv/v2ray
+inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/v2ray
+inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/vpoint_socks_vmess.json
+inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/vpoint_vmess_freedom.json
+PORT:36832
+UUID:65d5fad7-af42-4ee9-b5df-a2d0998e8cd7
+V2Ray v2.12.1 is installed.
 ```
-因为脚本没有检测命令出错的情况，有时候哪怕没有安装成功最后也会显示 V2Ray v2.X is installed，因此看到这句话不代表成功安装了，主要还是看安装的整个过程有没有错误提示。也可以执行 `systemctl status v2ray` 查看是否安装成功，当有类似下面的信息就代表安装成功了：
+看到类似于这样的输出算安装成功了，但是注意因为脚本没有检测命令出错的情况，有时候哪怕没有安装成功最后也会显示 V2Ray v2.X is installed，因此看到这句话不代表成功安装了，主要还是看安装的整个过程有没有错误提示。也可以执行 `systemctl status v2ray` 查看 V2Ray 的状态判断是否安装成功，当有类似下面的信息就代表安装成功了：
 ```
+$ sudoo  systemctl status v2ray
 ● v2ray.service - V2Ray Service
    Loaded: loaded (/lib/systemd/system/v2ray.service; enabled)
-   Active: active (running) since Fri 2016-12-09 10:30:03 EST; 5min ago
- Main PID: 11751 (v2ray)
-   CGroup: /system.slice/v2ray.service
-           └─11751 /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json
-
+   Active: inactive (dead)
 ```
 在安装完 V2Ray 之后，修改配置文件重启 V2Ray 即可，配置文件路径为 /etc/v2ray/config.json。
 
 对于 Systemd 系统，可以使用以下命令启动 V2Ray:
 ```
-systemctl start v2ray
+$sudo systemctl start v2ray
 ```
 
 停止运行 V2Ray：
 ```
-systemctl stop v2ray
+$ sudo  systemctl stop v2ray
 ```
 
 重启 V2Ray:
 ```
-systemctl restart v2ray
+$ sudo systemctl restart v2ray
 ```
 
 在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。

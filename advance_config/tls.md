@@ -31,7 +31,7 @@
 
 ## 证书生成
 使用 TLS 需要证书，证书也有免费付费的，同样的这里使用免费证书，证书认证机构为 [Let's Encrypt](https://letsencrypt.org/)。
-证书的生成有许多方法，这里使用的是最简单的方法：使用 [acme.sh](https://github.com/Neilpang/acme.sh) 脚本生成，本部分说明部分内容参考于[acme.sh README](https://github.com/Neilpang/acme.sh/blob/master/README.md)。
+证书的生成有许多方法，这里使用的是比较简单的方法：使用 [acme.sh](https://github.com/Neilpang/acme.sh) 脚本生成，本部分说明部分内容参考于[acme.sh README](https://github.com/Neilpang/acme.sh/blob/master/README.md)。
 
 证书有两种，一种是 ECC 证书（内置公钥是 ECDSA 公钥），一种是 RSA 证书（内置 RSA 公钥）。简单来说，同等长度 ECC 比 RSA 更安全,也就是说在具有同样安全性的情况下，ECC 的密钥长度比 RSA 短得多（加密解密会更快）。但问题是 ECC 的兼容性会差一些，Android 4.x 以下和 Windows XP 不支持。只要您的设备不是非常老的老古董，强烈建议使用 ECC 证书。
 
@@ -42,42 +42,87 @@
 ### 安装 acme.sh
 执行以下命令，acme.sh 会安装到 ~/.acme.sh 目录下：
 ```
-curl  https://get.acme.sh | sh
+$ curl  https://get.acme.sh | sh
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100   671  100   671    0     0    680      0 --:--:-- --:--:-- --:--:--   679
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100  112k  100  112k    0     0   690k      0 --:--:-- --:--:-- --:--:--  693k
+[Fri 30 Dec 01:03:32 GMT 2016] Installing from online archive.
+[Fri 30 Dec 01:03:32 GMT 2016] Downloading https://github.com/Neilpang/acme.sh/archive/master.tar.gz
+[Fri 30 Dec 01:03:33 GMT 2016] Extracting master.tar.gz
+[Fri 30 Dec 01:03:33 GMT 2016] Installing to /home/user/.acme.sh
+[Fri 30 Dec 01:03:33 GMT 2016] Installed to /home/user/.acme.sh/acme.sh
+[Fri 30 Dec 01:03:33 GMT 2016] Installing alias to '/home/user/.profile'
+[Fri 30 Dec 01:03:33 GMT 2016] OK, Close and reopen your terminal to start using acme.sh
+[Fri 30 Dec 01:03:33 GMT 2016] Installing cron job
+no crontab for user
+no crontab for user
+[Fri 30 Dec 01:03:33 GMT 2016] Good, bash is found, so change the shebang to use bash as preferred.
+[Fri 30 Dec 01:03:33 GMT 2016] OK
+[Fri 30 Dec 01:03:33 GMT 2016] Install success!
+
 ```
 ### 使用 acme.sh 生成证书
 #### 证书生成
 执行以下命令生成证书：
 ```
-acme.sh  --issue -d mydomain.me --standalone -k ec-256
+$ sudo  acme.sh  --issue -d mydomain.me --standalone -k ec-256
+[Fri Dec 30 08:59:12 HKT 2016] Standalone mode.
+[Fri Dec 30 08:59:12 HKT 2016] Single domain='mydomain.me'
+[Fri Dec 30 08:59:12 HKT 2016] Getting domain auth token for each domain
+[Fri Dec 30 08:59:12 HKT 2016] Getting webroot for domain='mydomain.me'
+[Fri Dec 30 08:59:12 HKT 2016] _w='no'
+[Fri Dec 30 08:59:12 HKT 2016] Getting new-authz for domain='mydomain.me'
+[Fri Dec 30 08:59:14 HKT 2016] The new-authz request is ok.
+[Fri Dec 30 08:59:14 HKT 2016] mydomain.me is already verified, skip.
+[Fri Dec 30 08:59:14 HKT 2016] mydomain.me is already verified, skip http-01.
+[Fri Dec 30 08:59:14 HKT 2016] mydomain.me is already verified, skip http-01.
+[Fri Dec 30 08:59:14 HKT 2016] Verify finished, start to sign.
+[Fri Dec 30 08:59:16 HKT 2016] Cert success.
+-----BEGIN CERTIFICATE-----
+MIIEMTCCAxmgAwIBAgISA1+gJF5zwUDjNX/6Xzz5fo3lMA0GCSqGSIb3DQEBCwUA
+MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNjEyMjkyMzU5MDBaFw0x
+NzAzMjkyMzU5MDBaMBcxFTATBgNVBAMTDHdlYWtzYW5kLmNvbTBZMBMGByqGSM49
+****************************************************************
+4p40tm0aMB837XQ9jeAXvXulhVH/7/wWZ8/vkUUvuHSCYHagENiq/3DYj4a85Iw9
++6u1r7atYHJ2VwqSamiyTGDQuhc5wdXIQxY/YQQqkAmn5tLsTZnnOavc4plANT40
+zweiG8vcIvMVnnkM0TSz8G1yzv1nOkruN3ozQkLMu6YS7lk/ENBN7DBtYVSmJeU2
+VAXE+zgRaP7JFOqK6DrOwhyE2LSgae83Wq/XgXxjfIo1Zmn2UmlE0sbdNKBasnf9
+gPUI45eltrjcv8FCSTOUcT7PWCa3
+-----END CERTIFICATE-----
+[Fri Dec 30 08:59:16 HKT 2016] Your cert is in  /root/.acme.sh/mydomain.me_ecc/mydomain.me.cer
+[Fri Dec 30 08:59:16 HKT 2016] Your cert key is in  /root/.acme.sh/mydomain.me_ecc/mydomain.me.key
+[Fri Dec 30 08:59:16 HKT 2016] The intermediate CA cert is in  /root/.acme.sh/mydomain.me_ecc/ca.cer
+[Fri Dec 30 08:59:16 HKT 2016] And the full chain certs is there:  /root/.acme.sh/mydomain.me_ecc/fullchain.cer
 ```
 `-k` 表示密钥长度，后面的值可以是 `ec-256` 、`ec-284`、`2048`、`3072`、`4096`、`8192`，带有 `ec` 表示生成的是 ECC 证书，没有则是 RSA 证书。在安全性上 256 位的 ECC 证书等同于 3072 位的 RSA 证书。
 
-上面的命令会临时监听 80 端口，请确保执行该命令前 80 端口没有使用。或者使用 `--httpport` 指定其它未使用的端口，如：
-```
-acme.sh  --issue -d mydomain.me --standalone -k ec-256 --httpport 88
-```
+上面的命令会临时监听 80 端口，请确保执行该命令前 80 端口没有使用。
 #### 证书更新
 由于 Let's Encrypt 的证书有效期只有 3 个月，因此需要 90 天至少要更新一次证书，acme.sh 脚本会每 60 天自动更新证书。也可以手动更新。
 
 手动更新 ECC 证书，执行：
 ```
-acme.sh --renew -d mydomain.com --force --ecc
+$ sudo acme.sh --renew -d mydomain.com --force --ecc
 ```
 
 如果是 RSA 证书则执行：
 ```
-acme.sh --renew -d mydomain.com --force
+$ sudo acme.sh --renew -d mydomain.com --force
 ```
 ### 安装证书和密钥
 
 #### ECC 证书
 将证书和密钥安装到 /etc/v2ray 中：
 ```
-acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
+$ sudo acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
 ```
 #### RSA 证书
 ```
-acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key
+$ sudo acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key
 ```
 
 **注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
