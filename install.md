@@ -38,7 +38,7 @@ V2Ray 官方提供了一个一键安装脚本，这个脚本适用于 Debian 系
 
 本指南默认使用 Debian 8 系统，带 Systemd。
 
-首先确保使用的是 root 账户，在 root 账户下安装 curl：
+因为脚本运行过程中需要将 V2Ray 设置开机启动以及可能需要安装 unzip 和 daemon 软件，所以需要 su 环境，请先运行 `sudo su`，或者在命令前加 `sudo`。
 ```
 $ sudo apt-get install curl
 ```
