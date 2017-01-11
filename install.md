@@ -131,7 +131,7 @@ An unified platform for anti-censorship.
 ```
 在不指定配置文件的情况下，V2Ray 默认配置文件的是当前目录的 config.json，也可手动指定，如指定配置文件是 /tmp/v2rayconfig.json 则执行：
 ```
-$ ./v2ray /tmp/v2rayconfig.json
+$ ./v2ray -config /tmp/v2rayconfig.json
 ```
 
 ### 编译安装
