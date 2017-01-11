@@ -84,7 +84,7 @@ $ sudoo  systemctl status v2ray
 
 对于 Systemd 系统，可以使用以下命令启动 V2Ray:
 ```
-$sudo systemctl start v2ray
+$ sudo systemctl start v2ray
 ```
 
 停止运行 V2Ray：
@@ -107,7 +107,7 @@ $ wget https://github.com/v2ray/v2ray-core/releases/download/v2.14.1/v2ray-linux
 ```
 解压 V2Ray：
 ```
-unzip v2ray-linux-64.zip
+$ unzip v2ray-linux-64.zip
 Archive:  v2ray-linux-64.zip
   inflating: v2ray-v2.14.1-linux-64/systemd/v2ray.service  
   inflating: v2ray-v2.14.1-linux-64/systemv/v2ray  
