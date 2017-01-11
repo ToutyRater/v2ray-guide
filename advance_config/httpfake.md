@@ -6,6 +6,8 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
 
 ## 配置
 
+从 V2Ray 的实现角度来说，使用 HTTP 伪装的同时完全可以使用动态端口。但我个人并不建议这么做，因为从实际情况来看，基本上不会有人在一个服务器上开使用多个端口 Web 服务。
+
 ### 服务器
 
 ```javascript
@@ -104,7 +106,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   }
 }
 ```
-## 客户端
+### 客户端
 
 ```javascript
 {
