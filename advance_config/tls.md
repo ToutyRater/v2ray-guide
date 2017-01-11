@@ -1,22 +1,22 @@
 # TLS
 从 v1.19 起引入了 TLS，TLS 中文译名是传输层安全，如果你没听说过，请 Google 了解一下。以下给出些我认为介绍较好的文章链接：
 
- [阮一峰的网络日志：SSL/TLS协议运行机制的概述](http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
+ [SSL/TLS协议运行机制的概述](http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
 
- [维基百科：传输层安全协议](https://zh.wikipedia.org/wiki/%E5%82%B3%E8%BC%B8%E5%B1%A4%E5%AE%89%E5%85%A8%E5%8D%94%E8%AD%B0)
+ [传输层安全协议](https://zh.wikipedia.org/wiki/%E5%82%B3%E8%BC%B8%E5%B1%A4%E5%AE%89%E5%85%A8%E5%8D%94%E8%AD%B0)
 
- [编程随想的博客：扫盲 HTTPS 和 SSL/TLS 协议[1]：背景知识、协议的需求、设计的难点](https://program-think.blogspot.com/2014/11/https-ssl-tls-1.html)
+ [扫盲 HTTPS 和 SSL/TLS 协议[1]：背景知识、协议的需求、设计的难点](https://program-think.blogspot.com/2014/11/https-ssl-tls-1.html)
 
- [编程随想的博客：扫盲 HTTPS 和 SSL/TLS 协议[2]：可靠密钥交换的难点，以及身份认证的必要性](https://program-think.blogspot.com/2014/11/https-ssl-tls-2.html)
+ [扫盲 HTTPS 和 SSL/TLS 协议[2]：可靠密钥交换的难点，以及身份认证的必要性](https://program-think.blogspot.com/2014/11/https-ssl-tls-2.html)
 
  但是，Shadowsocks 的作者 clowwindy 却认为[翻墙不该用 SSL](https://gist.github.com/clowwindy/5947691)。那么到底该不该用？对此我不作评论，各位自行思考。这里我只教大家如何开启 TLS。
 
- ## 注册一个域名
+## 注册一个域名
 
 如果已经注册有域名了可以跳过。
 域名有免费的有付费的，总体来说付费的会优于免费的，具体差别请 Google。如果你不舍得为一个域名每年花点钱，用个免费域名也可以。为了方便，这里我将以免费域名为例。
 
-关于如何注册一个免费域名，我发现有个家伙写得很详细，就不多说了。请参考：
+关于如何注册一个免费域名，我发现有一位网友写得很详细，就不多说了。请参考：
 
 [教你申请.tk/.ml/.cf/.gq/.ga等免费域名](https://www.dou-bi.co/dbwz-3/)
 
@@ -129,7 +129,7 @@ $ sudo acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt
 
 ## 配置 V2Ray
 
-服务器配置：
+### 服务器
 ```javascript
 {
   "inbound": {
@@ -163,7 +163,7 @@ $ sudo acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt
 }
 ```
 
-客户端配置：
+### 客户端
 
 ```javascript
 {
