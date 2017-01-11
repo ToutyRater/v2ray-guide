@@ -6,7 +6,7 @@
 
 ## 重要！！！
 
-系统时间一定要正确。对于 V2Ray，它的验证方式包含时间，如果时间不正确，服务器会认为你这是不合法的请求。
+系统时间一定要正确！对于 V2Ray，它的验证方式包含时间，如果时间不正确，服务器会认为你这是不合法的请求。
 只要互联网校准时间就好了，具体请 Google。
 
 -----
@@ -28,7 +28,7 @@
 
 ## 服务器安装
 
-在 Linux 操作系统， V2Ray 的安装有一键脚本安装、手动安装、编译安装 3 种方式，强烈推荐使用一键脚本安装，该脚本是 V2Ray 官方提供的。
+在 Linux 操作系统， V2Ray 的安装有一键脚本安装、手动安装、编译安装 3 种方式，选择其中一种即可。推荐使用一键脚本安装，该脚本由 V2Ray 官方提供。
 
 ### 使用一键安装脚本安装
 
@@ -38,7 +38,8 @@ V2Ray 官方提供了一个一键安装脚本，这个脚本适用于 Debian 系
 
 本指南默认使用 Debian 8 系统，带 Systemd。
 
-因为脚本运行过程中需要将 V2Ray 设置开机启动以及可能需要安装 unzip 和 daemon 软件，所以需要 su 环境，请先运行 `sudo su`，或者在命令前加 `sudo`。
+
+首先需要安装 curl，Debian 执行
 ```
 $ sudo apt-get install curl
 ```
@@ -99,11 +100,43 @@ $ sudo systemctl restart v2ray
 在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
 
 ### 手动安装
-到[这里](https://github.com/v2ray/v2ray-core/releases)下载解压赋予执行权限运行（看不懂的话就用脚本安装吧，展开说太啰嗦了）
+以 64 位系统 V2Ray v2.14.1 为例，其它版本请看 [Releases](https://github.com/v2ray/v2ray-core/releases)。
+通过 wget 下载 V2Ray:
+```
+$ wget https://github.com/v2ray/v2ray-core/releases/download/v2.14.1/v2ray-linux-64.zip
+```
+解压 V2Ray：
+```
+unzip v2ray-linux-64.zip
+Archive:  v2ray-linux-64.zip
+  inflating: v2ray-v2.14.1-linux-64/systemd/v2ray.service  
+  inflating: v2ray-v2.14.1-linux-64/systemv/v2ray  
+  inflating: v2ray-v2.14.1-linux-64/v2ray  
+  inflating: v2ray-v2.14.1-linux-64/vpoint_socks_vmess.json  
+  inflating: v2ray-v2.14.1-linux-64/vpoint_vmess_freedom.json
+```
+上述命令会将 V2Ray 解压到当前目录下，可以看得出解压出来的是名字为 v2ray-v2.14.1-linux-64 的文件夹，V2Ray 就在这个文件夹内，所以先进入该文件夹：
+```
+$ cd v2ray-v2.14.1-linux-64
+```
+然后给 V2Ray 赋予执行权限：
+```
+$ chmod +x v2ray
+```
+看一下版本：
+```
+$ ./v2ray -version
+V2Ray v2.14.1 (One for all) 20170110
+An unified platform for anti-censorship.
+```
+在不指定配置文件的情况下，V2Ray 默认配置文件的是当前目录的 config.json，也可手动指定，如指定配置文件是 /tmp/v2rayconfig.json 则执行：
+```
+$ ./v2ray /tmp/v2rayconfig.json
+```
 
 ### 编译安装
 请参考[这里](https://www.v2ray.com/chapter_04/04_compile.html)
 
 -----
 
-本小节讲了如何安装 V2Ray，如何配置请看后文。
+本小节讲了如何安装 V2Ray，关于如何配置请看后文。

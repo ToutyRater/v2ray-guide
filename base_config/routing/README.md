@@ -24,11 +24,11 @@
     "settings": {
       "vnext": [
         {
-          "address": "v2ray.cool",
-          "port": 10086,  
+          "address": "serveraddr.com",
+          "port": 16823,  
           "users": [
             {
-              "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  
+              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
               "alterId": 64
             }
           ]
@@ -101,10 +101,10 @@
     "error": "D:\\v2ray\\error.log"
   },
   "inbound": {
-    "port": 1080, // 监听端口
-    "protocol": "socks", // 入口协议为 SOCKS 5
+    "port": 1080,
+    "protocol": "socks",
     "settings": {
-      "auth": "noauth",  // 不认证
+      "auth": "noauth",  
     }
   },
   "outbound": {
@@ -112,11 +112,11 @@
     "settings": {
       "vnext": [
         {
-          "address": "v2ray.cool", // 服务器 IP 地址
-          "port": 10086,  // 服务器端口
+          "address": "serveraddr.com", // 服务器 IP 地址
+          "port": 16823,  // 服务器端口
           "users": [
             {
-              "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  // 用户 ID，须与服务器端配置相同
+              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，须与服务器端配置相同
               "alterId": 64
             }
           ]

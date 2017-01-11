@@ -4,7 +4,9 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
 
 关于 HTTP 头字段的内容及含义，[Wikipedia](https://zh.wikipedia.org/wiki/HTTP%E5%A4%B4%E5%AD%97%E6%AE%B5%E5%88%97%E8%A1%A8) 有简要的说明，可参阅。
 
-服务端配置文件：
+## 配置
+
+### 服务器
 
 ```javascript
 {
@@ -19,7 +21,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     "settings": {
       "clients": [
         {
-          "id": "b12614c5-5ca4-4eba-a215-c61d642116ce",
+          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
           "level": 1,
           "alterId": 64
         }
@@ -102,7 +104,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   }
 }
 ```
-客户端配置文件：
+## 客户端
 
 ```javascript
 {
@@ -124,11 +126,11 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     "settings": {
       "vnext": [
         {
-          "address": "_Server_IP_",
+          "address": "serveraddr.com",
           "port": 80,
           "users": [
             {
-              "id": "b12614c5-5ca4-4eba-a215-c61d642116ce",
+              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
               "alterId": 64
             }
           ]

@@ -1,11 +1,14 @@
 # 广告过滤
 
-客户端
+## 配置
+
+### 客户端
+
 ```javascript
 {
   "log":{
     "loglevel": "warning",
-    "access": "D:\\v2ray\\access.log", 
+    "access": "D:\\v2ray\\access.log",
     "error": "D:\\v2ray\\error.log"
   },
   "inbound": {
@@ -20,11 +23,11 @@
     "settings": {
       "vnext": [
         {
-          "address": "v2ray.cool",
-          "port": 10086,
+          "address": "serveraddr.com",
+          "port": 16823,
           "users": [
             {
-              "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  
+              "id": "2b831381d-6324-4d53-ad4f-8cda48b30811",  
               "alterId": 64
             }
           ]
@@ -83,21 +86,22 @@
 }
 ```
 
-服务器：
+### 服务器
+
 ```javascript
 {
   "log":{
     "loglevel": "warning",
-    "access": "/var/log/v2ray/access.log", 
+    "access": "/var/log/v2ray/access.log",
     "error": "/var/log/v2ray/error.log"
   },
   "inbound": {
-    "port": 10086,
+    "port": 16823,
     "protocol": "vmess",    
     "settings": {
       "clients": [
         {
-          "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",
+          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
           "alterId": 64
         }
       ]
@@ -109,6 +113,8 @@
   }
 }
 ```
+
+## 说明
 
 在本小节的配置变化只在于客户端配置的 outboundDetour 和 routing 添加了新的内容，请大家自行比较。
 

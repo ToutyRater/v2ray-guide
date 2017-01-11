@@ -6,9 +6,10 @@
 
 但是，对于软件开发者来说使用查看日志是一种非常有效的调试手段。咱普通使用日志可以知道软件的运行状况，并且当软件出现异常时提供日志给开发者可以令开发者更加容易找到问题的根源，促进软件问题的修复。
 
-具体配置如下：
+## 配置
 
-客户端配置：
+### 客户端配置
+
 ```javascript
 {
   "log":{
@@ -28,11 +29,11 @@
     "settings": {
       "vnext": [
         {
-          "address": "v2ray.cool",
-          "port": 10086,  
+          "address": "serveraddr.com",
+          "port": 16823,  
           "users": [
             {
-              "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  
+              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
               "alterId": 64
             }
           ]
@@ -43,7 +44,8 @@
 }
 ```
 
-服务器配置：
+### 服务器配置
+
 ```javascript
 {
   "log":{
@@ -52,12 +54,12 @@
     "error": "/var/log/v2ray/error.log"
   },
   "inbound": {
-    "port": 10086,
+    "port": 16823,
     "protocol": "vmess",   
     "settings": {
       "clients": [
         {
-          "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  
+          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
           "alterId": 64
         }
       ]
