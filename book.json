@@ -7,8 +7,10 @@
      "codeblock-filename",
      "editlink",
      "anchors",
-     "anchor-navigation-ex",
-     "theme-comscore"
+     "page-toc-button",
+     "theme-comscore",
+     "-search",
+     "search-plus"
   ],
   "pluginsConfig":{
     "tbfed-pagefooter": {
