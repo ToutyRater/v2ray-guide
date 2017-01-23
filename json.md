@@ -7,6 +7,7 @@ V2Ray 的配置文件为 JSON 格式，Shadowsocks 的配置也是 JSON 格式�
 - 所有字符串都要加双引号 " "，键是字符串，所以键也要加双引号，数字不用加双引号
 - 布尔类型也不用加双引号，布尔值只有两个就是 true 和 false，意思就是真和假
 - 对象没有顺序，即大括号 {} 括起来的内容顺序是怎么样都没关系，如
+
   ```javascript
   {
     "ip":"8.8.8.8",
@@ -14,6 +15,7 @@ V2Ray 的配置文件为 JSON 格式，Shadowsocks 的配置也是 JSON 格式�
     "isDNS":true
   }
   ```
+
   ```javascript
   {
     "ip":"8.8.8.8",
@@ -21,4 +23,5 @@ V2Ray 的配置文件为 JSON 格式，Shadowsocks 的配置也是 JSON 格式�
     "port":53
   }
   ```
+  
   上面两个 JSON 实际上是等效的

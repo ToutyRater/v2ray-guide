@@ -4,10 +4,23 @@
 
 -----
 
-## 重要！！！
+## 时间校准
 
-系统时间一定要正确！对于 V2Ray，它的验证方式包含时间，如果时间不正确，服务器会认为你这是不合法的请求。
-只要联网校准时间就好了，具体请 Google。
+对于 V2Ray，它的验证方式包含时间，就算是配置没有任何问题，如果时间不正确，也无法连接 V2Ray 服务器的，服务器会认为你这是不合法的请求。所以系统时间一定要正确，只要保证时间误差在**一分钟**之内就没问题。
+对于 VPS(Linux) 可以执行命令 `date -R` 查看时间：
+```
+$ date -R
+Sun, 22 Jan 2017 10:10:36 -0500
+```
+输出结果中的 -0500 代表的是时区为西 5 区，如果转换成东 8 区时间则为 `2017-01-22 23:10:36`。
+
+如果时间不准确，可以使用 `date --set` 修改时间：
+
+```
+$ sudo date --set="2017-01-22 16:16:23"
+Sun 22 Jan 16:16:23 GMT 2017
+```
+时区是什么无所谓，但是时间一定要准确，因为 V2Ray 会自动转换时区。一般来说，VPS 购买安装好系统之后时间都是准确的，尽管时区可能不一样。所以通常情况下时间不准确都是发生在客户端(PC)上。关于 PC 上如何修改时间不多说了。
 
 -----
 
@@ -32,23 +45,26 @@
 
 ### 使用一键安装脚本安装
 
-V2Ray 官方提供了一个一键安装脚本，这个脚本适用于 Debian 系列操作系统，如果非 Debian 系列但支持 Systemd 也可使用。比如说，Centos 6.x 非 debian系也不带有 Systemd，因此在 CentOS 6.x 不可使用官方提供的脚本安装 V2Ray。但是 CentOS 7.x 内置有 Systemd 的所以可以使用脚本安装。
+V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系列或者支持 Systemd 的 Linux 操作系统使用。比如说，Centos 6.x 非 debian系也不带有 Systemd，因此在 CentOS 6.x 不可使用官方提供的脚本安装 V2Ray，但是 CentOS 7.x 内置有 Systemd 的所以可以使用脚本安装；Ubuntu 14.04 虽然没有 Systemd，但属于 Debian 系列，同样可以使用这个脚本。
 
 现在市面上绝大多数 Linux 发行版的最新版本都内置了 Systemd，在支持 Systemd 的系统中，V2Ray 的安装脚本会添加一个 Systemd 的单元文件可以使得开机后自动运行软件，以及当 V2Ray 意外停止运行时自动启动 V2Ray（应该类似于 supervisord 托管服务），推荐用户使用带 Systemd 的系统。
 
 本指南默认使用 Debian 8 系统，带 Systemd。
 
 首先需要安装 curl，Debian 执行
+
 ```
 $ sudo apt-get install curl
 ```
 
 如果是 CentOS，则执行以下命令安装 curl:
+
 ```
 $ sudo yum install curl
 ```
 
 然后使用一键脚本安装 V2Ray:
+
 ```
 $ sudo curl https://install.direct/go.sh | bash
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -81,30 +97,37 @@ $ sudoo  systemctl status v2ray
    Loaded: loaded (/lib/systemd/system/v2ray.service; enabled)
    Active: inactive (dead)
 ```
+
 在安装完 V2Ray 之后，修改配置文件重启 V2Ray 即可，配置文件路径为 /etc/v2ray/config.json。
 
 对于支持 Systemd 的操作系统，可以使用以下命令启动 V2Ray:
+
 ```
 $ sudo systemctl start v2ray
 ```
 
 停止运行 V2Ray：
+
 ```
 $ sudo  systemctl stop v2ray
 ```
 
 重启 V2Ray:
+
 ```
 $ sudo systemctl restart v2ray
 ```
 
 对于不支持 Systemd 的操作系统，运行、停止运行和重启 V2Ray 的命令分别是：
+
 ```
 $ sudo v2ray start
 ```
+
 ```
 $ sudo v2ray stop
 ```
+
 ```
 $ sudo v2ray restart
 ```
@@ -115,10 +138,13 @@ $ sudo v2ray restart
 
 以 64 位系统 V2Ray v2.12.1 为例，其它版本请看 [Releases](https://github.com/v2ray/v2ray-core/releases)。
 通过 wget 下载 V2Ray:
+
 ```
 $ wget https://github.com/v2ray/v2ray-core/releases/download/v2.12.1/v2ray-linux-64.zip
 ```
+
 解压 V2Ray：
+
 ```
 $ unzip v2ray-linux-64.zip
 Archive:  v2ray-linux-64.zip
@@ -128,21 +154,29 @@ Archive:  v2ray-linux-64.zip
   inflating: v2ray-v2.12.1-linux-64/vpoint_socks_vmess.json  
   inflating: v2ray-v2.12.1-linux-64/vpoint_vmess_freedom.json
 ```
+
 上述命令会将 V2Ray 解压到当前目录下，可以看得出解压出来的是名字为 v2ray-v2.12.1-linux-64 的文件夹，V2Ray 就在这个文件夹内，所以先进入该文件夹：
+
 ```
 $ cd v2ray-v2.12.1-linux-64
 ```
+
 然后给 V2Ray 赋予执行权限：
+
 ```
 $ chmod +x v2ray
 ```
+
 看一下 V2Ray 版本：
+
 ```
 $ ./v2ray -version
 V2Ray v2.12.1 (One for all) 20161226
 An unified platform for anti-censorship.
 ```
+
 在不指定配置文件的情况下，V2Ray 默认配置文件的是当前目录的 config.json，也可手动指定，如指定配置文件是 /tmp/v2rayconfig.json 则执行：
+
 ```
 $ ./v2ray -config /tmp/v2rayconfig.json
 ```

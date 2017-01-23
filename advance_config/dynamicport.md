@@ -3,6 +3,7 @@
 V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动态变化端口，对于对抗封锁或许有效，请大家自行验证。
 
 ## 基本动态端口
+
 服务器 inbound 的端口作为主端口，在 inboundDetour 开动态监听的端口，客户端不用额外设定。
 
 ### 服务器配置
@@ -47,6 +48,7 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
 ```
 
 ### 客户端配置
+
 ```javascript
 {
   "outbound":{
@@ -74,6 +76,7 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
 在 inbound 和 inboundDetour 加入 streamSettings 并将 network 设置为 kcp 即可。
 
 ### 服务器配置
+
 ```javascript
 {
   "inbound":{
@@ -120,6 +123,7 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
 ```
 
 ### 客户端配置
+
 ```javascript
 {
   "outbound":{
@@ -226,6 +230,7 @@ V2Ray 可以添加多个服务器，V2Ray 会随机选择一个服务器。可�
 ```
 
 ### 客户端配置
+
 ```javascript
 {
   "outbound":{

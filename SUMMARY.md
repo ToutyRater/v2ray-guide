@@ -14,6 +14,7 @@
     * [小结](base_config/sumup.md)
 * [高级技巧](advance_config/README.md)
     * [动态端口](advance_config/dynamicport.md)
+    * [WebSocket](advance_config/websocket.md)
     * [传出代理](advance_config/outboundproxy.md)
     * [HTTP 伪装](advance_config/httpfake.md)
     * [TLS](advance_config/tls.md)
