@@ -6,7 +6,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
 
 ## 配置
 
-从 V2Ray 的实现角度来说，使用 HTTP 伪装的同时完全可以使用动态端口。但我个人并不建议这么做，因为从实际情况来看，基本上不会有人在一个服务器上开使用多个端口 Web 服务。
+从 V2Ray 的实现角度来说，使用 HTTP 伪装的同时完全可以使用动态端口。但我个人并不建议这么做，因为从实际情况来看，基本上不会有人在一个服务器上开使用多个端口的 Web 服务。
 
 ### 服务器
 
@@ -115,12 +115,9 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   },
   "inbound": {
     "port": 1080,
-    "listen": "127.0.0.1",
     "protocol": "socks",
     "settings": {
-      "auth": "noauth",
-      "udp": false,
-      "ip": "127.0.0.1"
+      "auth": "noauth"
     }
   },
   "outbound": {
@@ -182,42 +179,11 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
       "tag": "direct"
     }
   ],
-  "dns": {
-    "servers": [
-      "8.8.8.8",
-      "8.8.4.4",
-      "localhost"
-    ]
-  },
   "routing": {
     "strategy": "rules",
     "settings": {
       "domainStrategy": "IPIfNonMatch",
       "rules": [
-        {
-          "type": "field",
-          "port": "1-52",
-          "outboundTag": "direct"
-        },
-        {
-          "type": "field",
-          "port": "54-79",
-          "outboundTag": "direct"
-        },
-        {
-          "type": "field",
-          "port": "81-442",
-          "outboundTag": "direct"
-        },
-        {
-          "type": "field",
-          "port": "444-65535",
-          "outboundTag": "direct"
-        },
-        {
-          "type": "chinasites",
-          "outboundTag": "direct"
-        },
         {
           "type": "field",
           "ip": [
@@ -237,6 +203,10 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
             "fc00::/7",
             "fe80::/10"
           ],
+          "outboundTag": "direct"
+        },
+        {
+          "type": "chinasites",
           "outboundTag": "direct"
         },
         {
