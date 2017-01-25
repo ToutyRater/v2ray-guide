@@ -111,7 +111,7 @@ V2Ray 的配置文件格式就像这样：
 ```
 
 单纯从配置格式来看，outbound 和 outboundDetour 没有任何区别。但是实际上 outbound 和 outboundDetour 也有两点不同：
-* **配置中 outbound 只能并且必须设置一个传出的配置，而 inboundDetour 可以设置任意多个传出配置**
+* **配置中 outbound 只能并且必须设置一个传出的配置，而 outboundDetour 可以设置任意多个传出配置**
 * **当没有配置路由规则或者路由没有匹配的情况下，默认由 outbound 将数据包发出去**。
 
 在上面给出的传入和传出配置格式当中，有一些参数不曾提到过，主要是因为：
