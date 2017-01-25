@@ -1,6 +1,6 @@
 # mKCP
 
-mKCP 其实就是在 V2Ray 上实现的 [KCP](https://github.com/skywind3000/kcp)。
+mKCP 其实就是在 V2Ray 上实现的 [KCP](https://github.com/skywind3000/kcp) 协议。
 相对于 TCP 来说，mKCP 在某些网络环境下具有更大的优势，但是 mKCP 有一个很明显的缺点就是会比 TCP 耗费更多的流量，所以请酌情使用。
 
 ## 配置
@@ -103,6 +103,6 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
 
 客户端的上行对于服务器来说是下行，同样地客户端的下行是服务器的上行，mKCP 设置当中服务器和客户端都有 uplinkCapacity 和 downlinkCapacity，所以客户端的上传速率由服务器的 downlinkCapacity 和客户端的 uplinkCapacity 中的最小值决定，客户端的下载速率也是同样的道理。因此，建议将服务器和客户端的 downlinkCapacity 设成一个很大的值，然后分别修改两端的 uplinkCapacity 以调整上下行速率。
 
-还有一个 header 参数可以于 mKCP 进行伪装，这是 mKCP 的一个优势。具体的伪装在 type 参数设置，type 可以设置成 utp、srtp、wechat-video 或者 none，这四个可以分别将 mKCP 数据伪装成 BT 下载、视频通话、微信视频通话以及不进行伪装。**这里的 type 参数，客户端与服务器要一致**
+还有一个 header 参数可以对 mKCP 进行伪装，这是 mKCP 的一个优势。具体的伪装在 type 参数设置，type 可以设置成 utp、srtp、wechat-video 或者 none，这四个可以分别将 mKCP 数据伪装成 BT 下载、视频通话、微信视频通话以及不进行伪装。**这里的 type 参数，客户端与服务器要一致**
 
 至于上述配置里有但是我没有说明的参数，是 V2Ray 的默认值，我个人建议是保持默认。如果你需要了解或者修改，请参考手册。
