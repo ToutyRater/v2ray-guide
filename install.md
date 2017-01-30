@@ -70,7 +70,7 @@ $ sudo yum install curl
 然后使用一键脚本安装 V2Ray:
 
 ```
-$ sudo curl https://install.direct/go.sh | bash
+$ curl https://install.direct/go.sh | sudo bash
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                Dload  Upload   Total   Spent    Left  Speed
 100  4915  100  4915  0     0    293      0  0:00:16  0:00:16 --:--:--   791
