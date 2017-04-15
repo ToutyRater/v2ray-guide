@@ -63,7 +63,3 @@ WebSocket 的配置其实很简单，就跟 mKCP 一样把 network 一改就行�
   }
 }
 ```
-
-### 注意事项
-
-WebSocket 比较特殊，与 mKCP 还有 TCP 不同，它不能搭配动态端口使用。如果你配置了动态端口的 network 使用了 ws 是无法联网的！
