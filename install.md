@@ -96,7 +96,7 @@ V2Ray v2.12.1 is installed.
 看到类似于这样的输出算安装成功了，但是注意因为脚本没有检测命令出错的情况，有时候哪怕没有安装成功最后也会显示 `V2Ray v2.X is installed`，因此看到这句话不代表成功安装了，主要还是看安装的整个过程有没有错误提示。也可以执行 `systemctl status v2ray` 查看 V2Ray 的状态判断是否安装成功，当有类似下面的信息就代表安装成功了：
 
 ```
-$ sudoo  systemctl status v2ray
+$ sudo  systemctl status v2ray
 ● v2ray.service - V2Ray Service
    Loaded: loaded (/lib/systemd/system/v2ray.service; enabled)
    Active: inactive (dead)
