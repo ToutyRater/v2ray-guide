@@ -1,7 +1,5 @@
 # V2Ray 配置指南
 
-本指南地址：[https://toutyrater.github.io/v2ray-guide-pages](https://toutyrater.github.io/v2ray-guide-pages)
-
 ## 什么是 V2Ray？
 
 > V2Ray 是一个模块化的代理软件包，它的目标是提供常用的代理软件模块，简化网络代理软件的开发。
