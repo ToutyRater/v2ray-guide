@@ -48,7 +48,7 @@
     }
   ],
   "routing": {
-    "strategy": "rules"，
+    "strategy": "rules",
     "settings": {
       "domainStrategy": "IPIfNonMatch",
       "rules": [
