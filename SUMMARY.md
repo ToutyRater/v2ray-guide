@@ -12,6 +12,7 @@
         * [广告过滤](base_config/routing/adblock.md)
     * [小结](base_config/sumup.md)
 * [高级应用](advance_config/README.md)
+    * [Mux](advance_config/mux.md)
     * [mKCP](advance_config/mkcp.md)
     * [动态端口](advance_config/dynamicport.md)
     * [传出代理](advance_config/outboundproxy.md)
