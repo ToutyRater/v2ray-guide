@@ -10,6 +10,8 @@ V2Ray 用户手册：[https://www.v2ray.com](https://www.v2ray.com)
 
 V2Ray 项目地址：[https://github.com/v2ray/v2ray-core](https://github.com/v2ray/v2ray-core)
 
+V2Ray Telegram 使用开发群链接：[https://t.me/projectv2ray](https://t.me/projectv2ray)
+
 ## V2Ray 跟 Shadowsocks 有什么区别？
 
 区别还是有的，Shadowsocks 只是一个简单的代理工具，而 V2Ray 作者将 V2Ray 定位为一个平台，任何开发者都可以利用 V2Ray 提供的模块开发出新的代理软件。
@@ -27,12 +29,13 @@ V2Ray 项目地址：[https://github.com/v2ray/v2ray-core](https://github.com/v2
 * **更完善的协议:** V2Ray 使用了新的自行研发的 VMess 协议，改进了 Shadowsocks 一些已有的缺点，更难被墙检测到
 * **更强大的性能:** 相对于 Shadowsocks，V2Ray 的网络性能更好，具体数据可以看[官方博客](https://www.v2ray.com/blog/2017/speed.html)
 * **更丰富的功能:** V2Ray 比起 Shadowsocks 多了许多功能，以下是部分 V2Ray 的功能
-    * mKCP: V2Ray 的 KCP 协议实现，不必另行安装 kcptun
+    * mKCP: KCP 协议在 V2Ray 上的实现，不必另行安装 kcptun
     * 动态端口：动态改变通信的端口，对抗对长时间大流量端口的限速封锁
-    * 路由功能：可以随意设定指定数据包的流向
+    * 路由功能：可以随意设定指定数据包的流向，去广告、反跟踪都可以
     * 传出代理：看名字可能不太好理解，其实差不多可以称之为多重代理。类似于 Tor 的代理
-    * 数据包伪装：类似于 Shadowsocks-rss 的混淆，另外对于 mKCP 的数据包也可伪装
+    * 数据包伪装：类似于 Shadowsocks-rss 的混淆，另外对于 mKCP 的数据包也可伪装，伪装常见流量，令识别更困难
     * WebSocket 协议：可以 PaaS 平台搭建V2Ray，通过 websocket 代理。也可以通过它使用 cdn（如 cloudflare） 中转，抗封锁效果更好
+    * MUX:多路复用，进一步提高科学上网的并发性能
 
 ## 哪有十全十美的东西？
 
