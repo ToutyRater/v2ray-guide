@@ -73,7 +73,7 @@ no crontab for user
 
 执行以下命令生成证书：
 ```
-$ sudo  acme.sh  --issue -d mydomain.me --standalone -k ec-256
+$ sudo ~/.acme.sh/acme.sh --issue -d mydomain.me --standalone -k ec-256
 [Fri Dec 30 08:59:12 HKT 2016] Standalone mode.
 [Fri Dec 30 08:59:12 HKT 2016] Single domain='mydomain.me'
 [Fri Dec 30 08:59:12 HKT 2016] Getting domain auth token for each domain
@@ -113,12 +113,12 @@ gPUI45eltrjcv8FCSTOUcT7PWCa3
 
 手动更新 ECC 证书，执行：
 ```
-$ sudo acme.sh --renew -d mydomain.com --force --ecc
+$ sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force --ecc
 ```
 
 如果是 RSA 证书则执行：
 ```
-$ sudo acme.sh --renew -d mydomain.com --force
+$ sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force
 ```
 
 ### 安装证书和密钥
@@ -127,13 +127,13 @@ $ sudo acme.sh --renew -d mydomain.com --force
 
 将证书和密钥安装到 /etc/v2ray 中：
 ```
-$ sudo acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
+$ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
 ```
 
 #### RSA 证书
 
 ```
-$ sudo acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key
+$ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key
 ```
 
 **注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
