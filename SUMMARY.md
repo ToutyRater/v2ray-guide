@@ -1,6 +1,7 @@
 # Summary
 
 * [前言](README.md)
+* [开篇](start.md)
 * [安装](install.md)
 * [JSON](json.md)
 * [基本配置](base_config/README.md)
