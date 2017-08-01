@@ -1,10 +1,10 @@
 # Summary
 
 * [前言](README.md)
-* [开篇](start.md)
-* 预备篇
-  * [安装](prep/install.md)
-  * [JSON](prep/json.md)
+* [预备篇](README.md)
+  * [开始之前](prep/start.md)
+  * [安装 V2Ray](prep/install.md)
+  * [配置格式](prep/json.md)
 * [基本篇](base_config/README.md)
     * [VMess](base_config/vmess.md)
     * [Shadowsocks](base_config/Shadowsocks.md)
