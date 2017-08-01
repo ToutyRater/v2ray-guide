@@ -45,29 +45,22 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 ## 服务器安装
 
-在 Linux 操作系统， V2Ray 的安装有一键脚本安装、手动安装、编译安装 3 种方式，选择其中一种即可。推荐使用一键脚本安装，该脚本由 V2Ray 官方提供。
+在 Linux 操作系统， V2Ray 的安装有脚本安装、手动安装、编译安装 3 种方式，选择其中一种即可，本指南仅提供使用使用脚本安装的方法，并仅推荐使用脚本安装，该脚本由 V2Ray 官方提供。
 
-### 使用一键安装脚本安装
+### 使用脚本安装 V2ray
 
-V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系列或者支持 Systemd 的 Linux 操作系统使用。比如说，Centos 6.x 非 debian系也不带有 Systemd，因此在 CentOS 6.x 不可使用官方提供的脚本安装 V2Ray，但是 CentOS 7.x 内置有 Systemd 的所以可以使用脚本安装；Ubuntu 14.04 虽然没有 Systemd，但属于 Debian 系列，同样可以使用这个脚本。
+V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系列或者支持 Systemd 的 Linux 操作系统使用。
 
-现在市面上绝大多数 Linux 发行版的最新版本都内置了 Systemd，在支持 Systemd 的系统中，V2Ray 的安装脚本会添加一个 Systemd 的单元文件可以使得开机后自动运行软件，以及当 V2Ray 意外停止运行时自动启动 V2Ray（应该类似于 supervisord 托管服务），推荐用户使用带 Systemd 的系统。
+**除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8 以上或者 Ubuntu 16.10 以上的 Linux 系统。**
+本指南默认使用 Debian 8 系统作为示范。
 
-本指南默认使用 Debian 8 系统，带 Systemd。
-
-首先需要安装 curl，Debian 执行
+首先需要安装 curl，执行
 
 ```
 $ sudo apt-get install curl
 ```
 
-如果是 CentOS，则执行以下命令安装 curl:
-
-```
-$ sudo yum install curl
-```
-
-然后使用一键脚本安装 V2Ray:
+然后使用脚本安装 V2Ray:
 
 ```
 $ curl https://install.direct/go.sh | sudo bash
@@ -122,73 +115,6 @@ $ sudo  systemctl stop v2ray
 $ sudo systemctl restart v2ray
 ```
 
-对于不支持 Systemd 的操作系统，运行、停止运行和重启 V2Ray 的命令分别是：
-
-```
-$ sudo v2ray start
-```
-
-```
-$ sudo v2ray stop
-```
-
-```
-$ sudo v2ray restart
-```
 
 在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
 
-### 手动安装
-
-以 64 位系统 V2Ray v2.12.1 为例，其它版本请看 [Releases](https://github.com/v2ray/v2ray-core/releases)。
-通过 wget 下载 V2Ray:
-
-```
-$ wget https://github.com/v2ray/v2ray-core/releases/download/v2.12.1/v2ray-linux-64.zip
-```
-
-解压 V2Ray：
-
-```
-$ unzip v2ray-linux-64.zip
-Archive:  v2ray-linux-64.zip
-  inflating: v2ray-v2.12.1-linux-64/systemd/v2ray.service  
-  inflating: v2ray-v2.12.1-linux-64/systemv/v2ray  
-  inflating: v2ray-v2.12.1-linux-64/v2ray  
-  inflating: v2ray-v2.12.1-linux-64/vpoint_socks_vmess.json  
-  inflating: v2ray-v2.12.1-linux-64/vpoint_vmess_freedom.json
-```
-
-上述命令会将 V2Ray 解压到当前目录下，可以看得出解压出来的是名字为 v2ray-v2.12.1-linux-64 的文件夹，V2Ray 就在这个文件夹内，所以先进入该文件夹：
-
-```
-$ cd v2ray-v2.12.1-linux-64
-```
-
-然后给 V2Ray 赋予执行权限：
-
-```
-$ chmod +x v2ray
-```
-
-看一下 V2Ray 版本：
-
-```
-$ ./v2ray -version
-V2Ray v2.12.1 (One for all) 20161226
-An unified platform for anti-censorship.
-```
-
-在不指定配置文件的情况下，V2Ray 默认配置文件的是当前目录的 config.json，也可手动指定，如指定配置文件是 /tmp/v2rayconfig.json 则执行：
-
-```
-$ ./v2ray -config /tmp/v2rayconfig.json
-```
-
-### 编译安装
-
-请参考[这里](https://www.v2ray.com/chapter_04/04_compile.html)
-
------
-
-本小节讲了如何安装 V2Ray，关于如何配置请看后文。
