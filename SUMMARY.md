@@ -20,3 +20,5 @@
     * [HTTP 伪装](advance_config/httpfake.md)
     * [TLS](advance_config/tls.md)
     * [WebSocket](advance_config/websocket.md)
+* [应用篇](app/README.md)
+    * [路由规则之移动端] (app/routing-for-android.md)
