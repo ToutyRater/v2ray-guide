@@ -2,8 +2,9 @@
 
 * [前言](README.md)
 * [开篇](start.md)
-* [安装](install.md)
-* [JSON](json.md)
+* 预备篇
+  * [安装](prep/install.md)
+  * [JSON](prep/json.md)
 * [基本篇](base_config/README.md)
     * [VMess](base_config/vmess.md)
     * [Shadowsocks](base_config/Shadowsocks.md)
