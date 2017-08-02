@@ -43,9 +43,7 @@
 
 ### 安装 acme.sh
 
-首先安装acme.sh所需要的依赖项，主要是netcat，对于RedHat/CentOS/Fedora系统执行`yum -y install nc`,对于Debian/Ubuntu系统执行`apt-get -y install netcat`
-
-执行以下命令，acme.sh 会安装到 ~/.acme.sh 目录下,安装成功后再执行`source ~/.bashrc`以确保相关命令生效。
+执行以下命令，acme.sh 会安装到 ~/.acme.sh 目录下。
 ```
 $ curl  https://get.acme.sh | sh
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -69,11 +67,25 @@ no crontab for user
 [Fri 30 Dec 01:03:33 GMT 2016] Install success!
 
 ```
+安装成功后再执行`source ~/.bashrc`以确保脚本所设置的命令别名生效。
+
+如果安装报错，那么可能是因为系统缺少acme.sh所需要的依赖项，acme.sh的依赖项主要是netcat(nc)，我们通过以下命令来安装这些依赖项。
+- 对于RedHat/CentOS/Fedora系统执行
+ ```
+ yum -y install nc
+ ```
+- 对于Debian/Ubuntu系统执行
+ ```
+ apt-get -y install netcat
+ ```
+
 ### 使用 acme.sh 生成证书
 
 #### 证书生成
 
 执行以下命令生成证书：
+
+以下的命令会临时监听 80 端口，请确保执行该命令前 80 端口没有使用
 ```
 $ sudo ~/.acme.sh/acme.sh --issue -d mydomain.me --standalone -k ec-256
 [Fri Dec 30 08:59:12 HKT 2016] Standalone mode.
@@ -106,8 +118,6 @@ gPUI45eltrjcv8FCSTOUcT7PWCa3
 [Fri Dec 30 08:59:16 HKT 2016] And the full chain certs is there:  /root/.acme.sh/mydomain.me_ecc/fullchain.cer
 ```
 `-k` 表示密钥长度，后面的值可以是 `ec-256` 、`ec-284`、`2048`、`3072`、`4096`、`8192`，带有 `ec` 表示生成的是 ECC 证书，没有则是 RSA 证书。在安全性上 256 位的 ECC 证书等同于 3072 位的 RSA 证书。
-
-上面的命令会临时监听 80 端口，请确保执行该命令前 80 端口没有使用。
 
 #### 证书更新
 
