@@ -13,7 +13,7 @@ git config user.name "Rater"
 git config user.email "ToutyRater@users.noreply.github.com"
 git remote add upstream "https://${GH_TOKEN}@github.com/ToutyRater/toutyrater.github.io"
 
-git checkout -b gh-pages
+git checkout -b master
 git add -A
 git commit -m 'update'
 git push upstream gh-pages -f
