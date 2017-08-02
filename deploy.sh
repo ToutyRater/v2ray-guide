@@ -7,7 +7,7 @@ gitbook install
 gitbook build
 
 cd _book
-rm .travis.yml deploy.sh .gitignoregi
+rm .travis.yml deploy.sh .gitignoreg
 git init
 git config user.name "Rater"
 git config user.email "ToutyRater@users.noreply.github.com"
