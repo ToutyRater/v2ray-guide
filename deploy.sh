@@ -16,4 +16,4 @@ git remote add upstream "https://${GH_TOKEN}@github.com/ToutyRater/toutyrater.gi
 git checkout -b master
 git add -A
 git commit -m 'update'
-git push upstream gh-pages -f
+git push upstream master -f
