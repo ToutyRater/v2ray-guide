@@ -51,7 +51,7 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系列或者支持 Systemd 的 Linux 操作系统使用。
 
-**除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8 以上或者 Ubuntu 16.10 以上的 Linux 系统。**
+**除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
 本指南默认使用 Debian 8 系统作为示范。
 
 首先需要安装 curl，执行
