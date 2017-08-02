@@ -57,6 +57,7 @@ V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系
 首先需要安装 curl，执行
 
 ```
+$ sudo apt-get update
 $ sudo apt-get install curl
 ```
 
