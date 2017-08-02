@@ -43,7 +43,9 @@
 
 ### 安装 acme.sh
 
-执行以下命令，acme.sh 会安装到 ~/.acme.sh 目录下：
+首先安装acme.sh所需要的依赖项，主要是netcat，对于RedHat/CentOS/Fedora系统执行`yum -y install nc`,对于Debian/Ubuntu系统执行`apt-get -y install netcat`
+
+执行以下命令，acme.sh 会安装到 ~/.acme.sh 目录下,安装成功后再执行`source ~/.bashrc`以确保相关命令生效。
 ```
 $ curl  https://get.acme.sh | sh
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
