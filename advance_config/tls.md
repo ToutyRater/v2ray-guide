@@ -67,17 +67,14 @@ no crontab for user
 [Fri 30 Dec 01:03:33 GMT 2016] Install success!
 
 ```
-安装成功后再执行`source ~/.bashrc`以确保脚本所设置的命令别名生效。
+安装成功后再执行 `source ~/.bashrc` 以确保脚本所设置的命令别名生效。
 
-如果安装报错，那么可能是因为系统缺少acme.sh所需要的依赖项，acme.sh的依赖项主要是netcat(nc)，我们通过以下命令来安装这些依赖项。
-- 对于RedHat/CentOS/Fedora系统执行
- ```
- yum -y install nc
- ```
-- 对于Debian/Ubuntu系统执行
- ```
- apt-get -y install netcat
- ```
+如果安装报错，那么可能是因为系统缺少 acme.sh 所需要的依赖项，acme.sh 的依赖项主要是 netcat(nc)，我们通过以下命令来安装这些依赖项，然后重新安装一遍 acme.sh:
+
+```
+$ sudo apt-get -y install netcat
+```
+ 
 
 ### 使用 acme.sh 生成证书
 
