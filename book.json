@@ -12,9 +12,7 @@
   ],
   "pluginsConfig":{
     "tbfed-pagefooter": {
-      "copyright":"&copy ToutyRater",
-      "modify_label": "本页最后修订于：",
-      "modify_format": "YYYY-MM-DD HH:mm"
+      "copyright":"&copy ToutyRater"
     },
     "editlink": {
       "base": "https://github.com/toutyrater/v2ray-guide/edit/master",
