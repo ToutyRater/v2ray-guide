@@ -52,51 +52,71 @@ V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系
 **除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
 本指南默认使用 Debian 8 系统作为示范。
 
-首先需要安装 curl，执行
+
+ 
+首先下载脚本：
+```
+$ wget https://toutyrater.github.io/install-release.sh
+--2017-08-04 23:23:10--  https://toutyrater.github.io/install-release.sh
+Resolving toutyrater.github.io (toutyrater.github.io)... 151.101.129.147, 151.101.1.147, 151.101.193.147, ...
+Connecting to toutyrater.github.io (toutyrater.github.io)|151.101.129.147|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 9960 (9.7K) [application/x-sh]
+Saving to: ‘install-release.sh’
+
+install-release.sh                  100%[====================================================================>]   9.73K  --.-KB/s   in 0s     
+
+2017-08-04 23:23:10 (53.5 MB/s) - ‘install-release.sh’ saved [9960/9960]
+```
+
+然后执行脚本安装 V2Ray:
 
 ```
-$ sudo apt-get update
-$ sudo apt-get install curl
-```
-
-然后使用脚本安装 V2Ray:
-
-```
-$ curl https://install.direct/go.sh | sudo bash
-% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                               Dload  Upload   Total   Spent    Left  Speed
-100  4915  100  4915  0     0    293      0  0:00:16  0:00:16 --:--:--   791
-bash: line 88: /usr/bin/v2ray/v2ray: No such file or directory
-Installing V2Ray v2.12.1 on x86_64
-Downloading https://github.com/v2ray/v2ray-core/releases/download/v2.12.1/v2ray-linux-64.zip directly.
-% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                               Dload  Upload   Total   Spent    Left  Speed
-100   595    0   595  0     0    446      0 --:--:--  0:00:01 --:--:--   447
-100 2358k  100 2358k  0     0   270k      0  0:00:08  0:00:08 --:--:--  609k
+$ sudo  bash install-release.sh 
+Installing curl
+Updating software repo
+Installing curl
+Selecting previously unselected package curl.
+(Reading database ... 36028 files and directories currently installed.)
+Preparing to unpack .../curl_7.38.0-4+deb8u5_amd64.deb ...
+Unpacking curl (7.38.0-4+deb8u5) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up curl (7.38.0-4+deb8u5) ...
+Installing V2Ray v2.33 on x86_64
+Donwloading V2Ray.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   608    0   608    0     0   2403      0 --:--:-- --:--:-- --:--:--  2412
+100 2583k  100 2583k    0     0  1229k      0  0:00:02  0:00:02 --:--:-- 1847k
+Installing unzip
+Installing unzip
+Selecting previously unselected package unzip.
+(Reading database ... 36035 files and directories currently installed.)
+Preparing to unpack .../unzip_6.0-16+deb8u3_amd64.deb ...
+Unpacking unzip (6.0-16+deb8u3) ...
+Processing triggers for mime-support (3.58) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up unzip (6.0-16+deb8u3) ...
 Extracting V2Ray package to /tmp/v2ray.
 Archive:  /tmp/v2ray/v2ray.zip
-inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/systemd/v2ray.service
-inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/systemv/v2ray
-inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/v2ray
-inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/vpoint_socks_vmess.json
-inflating: /tmp/v2ray/v2ray-v2.12.1-linux-64/vpoint_vmess_freedom.json
-PORT:36832
-UUID:65d5fad7-af42-4ee9-b5df-a2d0998e8cd7
-V2Ray v2.12.1 is installed.
+  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/readme.md  
+  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/systemd/v2ray.service  
+  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/systemv/v2ray  
+  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/v2ray  
+  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/vpoint_socks_vmess.json  
+  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/vpoint_vmess_freedom.json  
+PORT:40827
+UUID:505f001d-4aa8-4519-9c54-6b65749ee3fb
+Created symlink from /etc/systemd/system/multi-user.target.wants/v2ray.service to /lib/systemd/system/v2ray.service.
+V2Ray v2.33 is installed.
 ```
 
-看到类似于这样的输出算安装成功了，但是注意因为脚本没有检测命令出错的情况，有时候哪怕没有安装成功最后也会显示 `V2Ray v2.X is installed`，因此看到这句话不代表成功安装了，主要还是看安装的整个过程有没有错误提示。也可以执行 `systemctl status v2ray` 查看 V2Ray 的状态判断是否安装成功，当有类似下面的信息就代表安装成功了：
+看到类似于这样的提示就算安装成功了。如果安装不成功脚本会有红色的提示语句，只需按照提示除错再重新执行一遍脚本安装 V2Ray。对于错误提示如果看不懂，使用翻译软件翻译一下就好。
 
-```
-$ sudo  systemctl status v2ray
-● v2ray.service - V2Ray Service
-   Loaded: loaded (/lib/systemd/system/v2ray.service; enabled)
-   Active: inactive (dead)
-```
 
 在安装完 V2Ray 之后，修改配置文件重启 V2Ray 即可，配置文件路径为 /etc/v2ray/config.json。
 
-对于支持 Systemd 的操作系统，可以使用以下命令启动 V2Ray:
+使用以下命令启动 V2Ray:
 
 ```
 $ sudo systemctl start v2ray
@@ -113,7 +133,6 @@ $ sudo  systemctl stop v2ray
 ```
 $ sudo systemctl restart v2ray
 ```
-
 
 在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
 
