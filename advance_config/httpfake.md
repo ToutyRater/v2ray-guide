@@ -1,12 +1,12 @@
 # HTTP 伪装
 
-V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2ray-core/releases/tag/v2.5)，后经作者不断完善，现已相当成熟。这里给出一个 HTTP 伪装的服务器端与客户端配置文件示例。
+V2Ray 自 v2.5 版本开始提供 HTTP 伪装功能，后经作者不断完善，到现在已经非常成熟稳定了。V2Ray 的 HTTP 伪装功能可以可以将 V2Ray 的流量伪装成正常的 HTTP 协议的。这里给出一个 HTTP 伪装的服务器端与客户端配置文件示例。
 
-关于 HTTP 头字段的内容及含义，[Wikipedia](https://zh.wikipedia.org/wiki/HTTP%E5%A4%B4%E5%AD%97%E6%AE%B5%E5%88%97%E8%A1%A8) 有简要的说明，可参阅。
+配置中关于 HTTP 头字段的内容及含义，[Wikipedia](https://zh.wikipedia.org/wiki/HTTP%E5%A4%B4%E5%AD%97%E6%AE%B5%E5%88%97%E8%A1%A8) 有简要的说明，可参阅。
 
 ## 配置
 
-从 V2Ray 的实现角度来说，使用 HTTP 伪装的同时完全可以使用动态端口。但我个人并不建议这么做，因为从实际情况来看，基本上不会有人在一个服务器上开使用多个端口的 Web 服务。
+从 V2Ray 的实现角度来说，使用 HTTP 伪装的同时完全可以使用动态端口。但我个人并不建议这么做，因为从实际情况来看，基本上不会有人在一个服务器上开使用多个端口的 Web 服务。如果你觉得 HTTP 伪装的配置过于复杂不懂得如何修改，那请直接使用下面的配置即可。
 
 ### 服务器
 
@@ -15,7 +15,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   "log" : {
     "access": "/var/log/v2ray/access.log",
     "error": "/var/log/v2ray/error.log",
-    "loglevel": "info" //为更好地观察 HTTP 伪装是否工作正常以及反馈潜在 bug 给 V2Ray 作者，建议设置为 info，同时可使用 WireShark 抓包验证
+    "loglevel": "warning"
   },
   "inbound": {
     "port": 80, //推荐80端口，更好地迷惑防火墙（好吧实际上并没有什么卵用
@@ -32,24 +32,8 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     "streamSettings": {
       "network": "tcp",
       "tcpSettings": {
-        "connectionReuse": true, //TCP 连接重用
         "header": { // header 这一项是关于数据包伪装的设置，可自定义合理的内容，但要确保服务器与客户端一致
           "type": "http",
-          "request": {
-            "version": "1.1",
-            "method": "GET",
-            "path": ["/"],
-            "headers": {
-              "Host": ["www.cloudflare.com", "www.amazon.com"], // 伪装的域名，如果注册有域名解析到了你的 VPS，使用自己的域名会使伪装更真实
-              "User-Agent": [
-                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
-                        "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-              ],
-              "Accept-Encoding": ["gzip, deflate"],
-              "Connection": ["keep-alive"],
-              "Pragma": "no-cache"
-            }
-          },
           "response": {
             "version": "1.1",
             "status": "200",
@@ -111,7 +95,7 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
 ```javascript
 {
   "log": {
-    "loglevel": "info"
+    "loglevel": "warning"
   },
   "inbound": {
     "port": 1080,
@@ -139,7 +123,6 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
     "streamSettings": {
       "network": "tcp",
       "tcpSettings": {
-        "connectionReuse": true,
         "header": {  //这里的 header 要与服务器保持一致
           "type": "http",
           "request": {
@@ -153,17 +136,6 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
                         "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
               ],
               "Accept-Encoding": ["gzip, deflate"],
-              "Connection": ["keep-alive"],
-              "Pragma": "no-cache"
-            }
-          },
-          "response": {
-            "version": "1.1",
-            "status": "200",
-            "reason": "OK",
-            "headers": {
-              "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"],
-              "Transfer-Encoding": ["chunked"],
               "Connection": ["keep-alive"],
               "Pragma": "no-cache"
             }
@@ -218,3 +190,9 @@ V2Ray 自 2.5 版本开始提供[ HTTP 伪装功能](https://github.com/v2ray/v2
   }
 }
 ```
+
+## 更新历史
+
+- 2017-08-05
+
+删掉部分不必要的配置，减少配置文件大小
