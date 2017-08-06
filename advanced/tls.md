@@ -63,7 +63,7 @@ no crontab for user
 [Fri 30 Dec 01:03:33 GMT 2016] Install success!
 
 ```
-安装成功后再执行 `source ~/.bashrc` 以确保脚本所设置的命令别名生效。
+安装成功后执行 `source ~/.bashrc` 以确保脚本所设置的命令别名生效。
 
 如果安装报错，那么可能是因为系统缺少 acme.sh 所需要的依赖项，acme.sh 的依赖项主要是 netcat(nc)，我们通过以下命令来安装这些依赖项，然后重新安装一遍 acme.sh:
 
@@ -216,6 +216,7 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
 ```
 
 ## 验证
+
 一般来说，按照以上步骤操作完成，V2Ray 客户端能够正常联网说明 TLS 已经成功启用。但要是有个可靠的方法来验证是否正常开启 TLS 无疑更令人放心。
 验证的方法有很多，我仅介绍一种小白化一点的，便是 [Qualys SSL Labs's SSL Server Test](https://www.ssllabs.com/ssltest/index.html)。
 
@@ -233,7 +234,7 @@ Hostname 中输入你的域名，点提交，过一会结果就出来了。
 
 ## 温馨提醒
 
-**不要被某 rocket 客户端给迷惑了，也不要想当然地把在 SS 和 SSR 的观念带过来。V2Ray 的 TLS 不是伪装！不是混淆！这是真正的 TLS！前文提到的 WS(WebSocks)也不是伪装**
+**不要被 shadowrocket 给迷惑了，也不要想当然地把在 SS 和 SSR 的观念带过来。V2Ray 的 TLS 不是伪装！不是混淆！这是真正的 TLS！因此才需要域名需要证书。后文提到的 WS(WebSocks) 也不是伪装**
 
 
 -----
