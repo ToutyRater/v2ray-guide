@@ -6,10 +6,10 @@
 
 这个 DNS 可以总结为两点：
 
-1. 只为 V2Ray 内部的 routing 服务 
-2. 只有当 domainStrategy 设置成 IPIfNonMatch 才会工作
+1. 只为 V2Ray 内部的 routing 和 freedom 服务
+2. 只有当 routings 的 domainStrategy 设置成 IPIfNonMatch 或 freedom 的 domainStrategy 设置成 useIP 才会工作
 
-其实就这么简单。再说多点就是如果你的 domainStrategy 设置成了 IPIfNonMatch，在你上网时 V2Ray 找不到对应的路由域名规则，V2Ray 才会使用 DNS 设置的服务器将域名解析成IP，其它的它可不管。
+其实就这么简单。再说多点就是如果你的 domainStrategy 设置成了 IPIfNonMatch，在你上网时 V2Ray 找不到对应的路由域名规则，V2Ray 才会使用 DNS 设置的服务器将域名解析成IP，其它的它可不管。freedom 同理。
 
 如果你想了解更多，可以参考我曾经向 Raymond 提的[问题](https://github.com/v2ray/v2ray-core/issues/316)，但我认为没必要去看。另外我也曾专门抓包分析过 V2Ray 内置的 DNS 过程，也为了写这一小节打了几页纸的草稿解说这个 DNS。但是最终没有按稿子写，因为觉得没必要，我认为上面的几句话已经足以说清楚。如果你看不明白，那就不要纠缠，DNS 的缺省完全不会对 V2Ray 的使用有影响。如果你觉得我说得太过简扼，那应该是你想得太复杂。
 

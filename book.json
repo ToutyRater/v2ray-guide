@@ -3,7 +3,6 @@
   "description": "关于 V2Ray 配置的详细教程",
   "plugins": [
      "splitter",
-     "tbfed-pagefooter",
      "codeblock-filename",
      "editlink",
      "anchors",
@@ -11,9 +10,6 @@
      "theme-comscore"
   ],
   "pluginsConfig":{
-    "tbfed-pagefooter": {
-      "copyright":"&copy ToutyRater"
-    },
     "editlink": {
       "base": "https://github.com/toutyrater/v2ray-guide/edit/master",
       "label": "修订"
