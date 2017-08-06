@@ -21,6 +21,7 @@ Sun, 22 Jan 2017 10:10:36 -0500
 $ sudo date --set="2017-01-22 16:16:23"
 Sun 22 Jan 16:16:23 GMT 2017
 ```
+如果使用上面的命令却修改不了时间，你就要联系 VPS 提供商的客服了，要求他们提供可行的修改系统时间的方法，因为这多半是他们的锅。
 
 对 VPS 的时间校准之后接着是个人电脑，如何修改电脑上的时间我想不必我多说了。
 
@@ -49,8 +50,8 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 V2Ray 官方提供了一个一键安装脚本，这个脚本可以在 Debian 系列或者支持 Systemd 的 Linux 操作系统使用。
 
-**除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
-本指南默认使用 Debian 8 系统作为示范。
+**除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8.x 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
+本指南默认使用 Debian 8.7 系统作为示范。
 
 
  
@@ -136,9 +137,13 @@ $ sudo systemctl restart v2ray
 
 在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
 
+对于以上脚本，还有更多用法，在此不多说了，可以执行 `bash install-release.sh -h` 看帮助。
 
 ------------
 ## 更新历史
 
+- 2017-08-06 加点提醒
+
 - 2017-08-05 
 使用最新的脚本，脚本依然来自于 [V2Ray](https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/install-release.sh) 
+

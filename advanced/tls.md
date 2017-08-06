@@ -141,7 +141,7 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
 $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key
 ```
 
-**注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏**
+**注意：无论什么情况，密钥(即上面的v2ray.key)都不能泄漏，如果你不幸泄漏了密钥，可以使用 acme.sh 将原证书吊销，再生成新的证书，吊销方法请自行参考 acme.sh 的手册**
 
 ## 配置 V2Ray
 
@@ -230,3 +230,13 @@ Hostname 中输入你的域名，点提交，过一会结果就出来了。
 
 ![](/resource/images/tls_test3.png)
 这是关于证书的信息。从图中可以看出，我的这个证书有效期是从 2016 年 12 月 27 号到 2017 年的 3 月 27 号，密钥是 256 位的 ECC，证书签发机构是 Let's Encrypt，重要的是最后一行，`Trusted` 为 `Yes`,表明我这个证书可信。
+
+## 温馨提醒
+
+**不要被某 rocket 客户端给迷惑了，也不要想当然地把在 SS 和 SSR 的观念带过来。V2Ray 的 TLS 不是伪装！不是混淆！这是真正的 TLS！前文提到的 WS(WebSocks)也不是伪装**
+
+
+-----
+## 更新历史
+
+- 2017-08-06 加点提醒
