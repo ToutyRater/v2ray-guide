@@ -130,52 +130,52 @@ $ jq . config.json
 
 按照前文的指导操作,成功部署是没有问题的。然而总会有部分读者可能是看漏某些地方，导致虽然安装好了却无法连接。如果出现了这样的问题，可以尝试按下面的步骤一一进行排错。
 
-1. 打开客户端闪退
+### 打开客户端闪退
 
 可能原因：客户端的配置文件上不正确。
 
 修正方法：请仔细检查配置文件并修改正确。
 
-2. 客户端提示 Socks: unknown Socks version: 
+### 客户端提示 Socks: unknown Socks version: 
 
 可能原因：客户端配置的 inboud 设置成了 socks 而浏览器的代理协议设置为 http。
 
 修正方法：修改配置文件使客户端的 inboud 的 protocol 和浏览器代理设置的协议保持一致。
 
-3. 客户端提示 Proxy|HTTP: failed to read http request > malformed HTTP request "\x05\x01\x00"
+### 客户端提示 Proxy|HTTP: failed to read http request > malformed HTTP request "\x05\x01\x00"
 
 可能原因：客户端配置的 inboud 设置成了 https 而浏览器的代理协议设置为 socks4 或者 socks5。
 
 修正方法：修改配置文件使客户端的 inboud 的 protocol 和浏览器代理设置的协议保持一致。
 
-4. 服务器执行 `systemctl status v2ray` 输出提示 Main: failed to read config file...
+### 服务器执行 `systemctl status v2ray` 输出提示 Main: failed to read config file...
 
 可能原因：服务器的配置文件不正确。
 
 修正方法：请仔细检查配置文件并修改正确。
 
-5. 执行 `cat /var/log/v2ray/error.log` 或者 `systemctl status v2ray` 出现 rejected  Proxy|VMess|Encoding: invalid user
+### 执行 `cat /var/log/v2ray/error.log` 或者 `systemctl status v2ray` 出现 rejected  Proxy|VMess|Encoding: invalid user
 
 可能原因：服务器与客户端的系统时间或者 id 不一致或者 alterId 不一致。
 
 修正方法：请校准系统时间或将 id 以及 alterId 修改一致
 
 
-6. 以上几点都排除之后，请仔细检查：
+### 以上几点都排除之后，请仔细检查：
 
-6.1 浏览器的代理设置中的端口号与客户端的inbound 的port 是否一致
+1). 浏览器的代理设置中的端口号与客户端的inbound 的port 是否一致
 
-6.2 客户端中的outbound 设置的address与vps 的ip是否一致
+2). 客户端中的outbound 设置的address与vps 的ip是否一致
 
-6.3 客户端中的outbound 设置的address与服务器的outbound 的 port 是否一致
+3). 客户端中的outbound 设置的address与服务器的outbound 的 port 是否一致
 
-6.4 VPS 是否开启了防火墙将连接拦截了
+4). VPS 是否开启了防火墙将连接拦截了
 
-6.5 客户端是否安装在如学校、公司之类的场所，如果是，确认这些单位是否有防火墙拦截了连接
+5). 客户端是否安装在如学校、公司之类的场所，如果是，确认这些单位是否有防火墙拦截了连接
 
-对于 6.1 到 6.3，可以通过检查配置确定是否有问题。对于 6.4 和 6.5，你需要与 VPS 提供商和单位网管联系沟通。
+对于 1) 到 3)，可以通过检查配置确定是否有问题。对于 4) 和 5)，你需要与 VPS 提供商和单位网管联系沟通。
 
-7. 如果你仔细检查了以上几点并将问题排除了，结果还是无法通过 V2Ray 上网，那么你可以考虑：
+### 如果你仔细检查了以上几点并将问题排除了，结果还是无法通过 V2Ray 上网，那么你可以考虑：
  
  1). 仔细看前方的教程，一不要错漏步一步按照教程来，重新部署 V2Ray。部署过程中时刻注意[部署之前](/prep/start.md)提到的注意点。
  
@@ -183,7 +183,7 @@ $ jq . config.json
 
 
 -----
-# 更新历史
+## 更新历史
 
 - 2017-08-08 排错指引补充
 
