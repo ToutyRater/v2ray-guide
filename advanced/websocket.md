@@ -166,6 +166,7 @@ caddy serveraddr.com
           "allowInsecure": false
       }
     }
+  }
 }
 ```
 
