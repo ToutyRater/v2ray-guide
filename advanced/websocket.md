@@ -104,11 +104,11 @@ server {
   ssl_certificate_key   /etc/v2ray/v2ray.key;
   ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers           HIGH:!aNULL:!MD5;
-  server_name           your.domain.com;
+  server_name           serveraddr.com;
         location / {
         proxy_redirect off;
-        proxy_pass http://127.0.0.1:10000;#假设WebSocket监听在环回地址的10000端口上
-        proxy_http_version 1.1;
+        proxy_pass http://127.0.0.1:10000;#假设WebSocket监听在环回地址的10000端口上
+        proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $http_host;
@@ -119,7 +119,7 @@ server {
 ### Caddy 配置
 
 ```
-caddy your.domain.com
+caddy serveraddr.com
 {
   log ./caddy.log
   proxy / locaohost:10000{
