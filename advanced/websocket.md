@@ -160,7 +160,11 @@ caddy serveraddr.com
     },
     "streamSettings": {
       "network": "ws",
-      "security": "tls"
+      "security": "tls",
+      "tlsSettings": {
+          "serverName": "serveraddr.com",
+          "allowInsecure": false
+      }
     }
 }
 ```
