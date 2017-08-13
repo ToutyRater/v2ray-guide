@@ -47,7 +47,11 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 ## 服务器安装
 
+
+### 脚本安装
+
 在 Linux 操作系统， V2Ray 的安装有脚本安装、手动安装、编译安装 3 种方式，选择其中一种即可，本指南仅提供使用使用脚本安装的方法，并仅推荐使用脚本安装，该脚本由 V2Ray 官方提供。该脚本可以在 Debian 系列或者支持 Systemd 的 Linux 操作系统使用。
+
 
 **除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8.x 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
 本指南默认使用 Debian 8.7 系统作为示范。
@@ -136,6 +140,10 @@ $ sudo systemctl restart v2ray
 在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
 
 对于以上脚本，还有更多用法，在此不多说了，可以执行 `bash install-release.sh -h` 看帮助。
+
+### Docker 部署
+
+关于Docker部署v2ray的相关内容请移步应用篇[Docker部署v2ray](../app/docker-deploy-v2ray.md)
 
 ------------
 ## 更新历史
