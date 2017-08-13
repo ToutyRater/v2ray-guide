@@ -17,9 +17,9 @@ V2Ray 的配置文件格式就像这样：
   "transport": {}
 ```
 
-总的来说，V2Ray 的配置有 8 个项，每个项都可以展开成具体的配置。这 8 个配置项当中，除了 dns 和 transport 之外，其它的在本章都有涉及，关于 dns 和 transport 将在高级应用章节做说明。
+总的来说，V2Ray 的配置有 8 个项，每个项都可以展开成具体的配置。这 8 个配置项当中，除了 dns 和 transport 之外，其它的在本章都有涉及，关于 dns 和 transport 将在后文说明。
 
-要深刻理解，V2Ray 只是一个转发数据的软件，无论是客户端还是服务器，只要它从 inbound 或者 inboundDetour 当中接收到数据包，不管 V2Ray 对这些数据包做了什么（加密、解密、协议转换等），到最后肯定是要把这些数据包从 outbound 或者 outboundDetour 发出去。
+要深刻理解，V2Ray 只是一个转发数据的软件，无论是客户端还是服务器，只要它从 inbound / inboundDetour 当中接收到数据包，不管 V2Ray 对这些数据包做了什么（加密、解密、协议转换等），到最后肯定是要把这些数据包从 outbound / outboundDetour 发出去。
 
 ## inbound / outbound 和 inboundDetour / outboundDetour 的区别
 
@@ -122,4 +122,4 @@ V2Ray 的配置文件格式就像这样：
 
 V2Ray 的传入协议有 HTTP、SOCKS、VMess、Shadowsocks、Dokodemo-door；传出协议有 VMess、Shadowsocks、Blackhole、Freedom、SOCKS。
 
-在 inbound / inboundDetour和 outbound / outboundDetour当中，无论使用了什么协议，inbound /inboundDetour 或者 outbound / outboundDetour 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。
+在 inbound / inboundDetour和 outbound / outboundDetour当中，无论使用了什么协议，inbound / inboundDetour 或者 outbound / outboundDetour 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。
