@@ -30,11 +30,11 @@ Sun 22 Jan 16:16:23 GMT 2017
 -----
 
 ## 客户端安装
-点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip。解压之后会有 v2ray.exe 和 config.json 这两个文件，~~config.json 已经设置好 V2Ray 的官方服务器，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。这个时候双击运行 v2ray.exe，这个时候可以通过 config.json 设置好的 VPS 科学上网~~(由于早前官方服务器遭受未明攻击，目前已停止提供服务)。除以上两个文件外压缩包还有其它文件，文件 readme.md 是这些文件的说明，你可以通过记事本或其它的文本编辑器打开查看。本指南不再详述。
+点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip。解压之后会有 v2ray.exe 和 config.json 这两个文件，config.json 包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网。除以上两个文件外压缩包还有其它文件，文件 readme.md 是这些文件的说明，你可以通过记事本或其它的文本编辑器打开查看。本指南不再详述。
 
 ![](/resource/images/v2rayrunnig.png)
 
-但是现在还不能科学上网，因为 V2Ray 将所有选择权交给用户，它不会自动帮你设置系统代理，因此还需要在浏览器里设置代理。以火狐（Firefox）为例，点菜单 -> 选项 -> 高级 -> 设置 -> 手动代理设置，在 SOCKS Host 填上 127.0.0.1，后面的 Port 填 1080，再勾上使用 SOCKS v5 时代理 DNS (这个勾选项在旧的版本里叫做远程 DNS)。操作图见下：
+但是现在实际上还不能科学上网，因为 V2Ray 将所有选择权交给用户，它不会自动帮你设置系统代理，因此还需要在浏览器里设置代理。以火狐（Firefox）为例，点菜单 -> 选项 -> 高级 -> 设置 -> 手动代理设置，在 SOCKS Host 填上 127.0.0.1，后面的 Port 填 1080，再勾上使用 SOCKS v5 时代理 DNS (这个勾选项在旧的版本里叫做远程 DNS)。操作图见下：
 
 ![](/resource/images/firefox_proxy_setting1.png)
 
@@ -44,7 +44,7 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 ![](/resource/images/firefox_proxy_setting4.png)
 
-
+如果使用的是其它的浏览器，请自行在网上搜一下怎么设置 SOCKS 代理。
 ## 服务器安装
 
 
@@ -153,4 +153,7 @@ $ sudo systemctl restart v2ray
 - 2017-08-05 
 
 使用最新的脚本，脚本依然来自于 [V2Ray](https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/install-release.sh) 
+
+- 2017-10-07
+V2ray 官方服务器已经恢复
 
