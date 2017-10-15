@@ -122,7 +122,7 @@ server {
 caddy serveraddr.com
 {
   log ./caddy.log
-  proxy / locaohost:10000{
+  proxy / locaohost:10000 {
     websocket
     header_upstream -Origin
   }
