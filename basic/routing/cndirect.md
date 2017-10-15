@@ -13,9 +13,10 @@
   },
   "inbound": {
     "port": 1080,
+    "udp": true,
     "protocol": "socks",
     "settings": {
-      "auth": "noauth",  
+      "auth": "noauth" 
     }
   },
   "outbound": {
@@ -43,7 +44,7 @@
     }
   ],
   "routing": {
-    "strategy": "rules"，
+    "strategy": "rules",
     "settings": {
       "domainStrategy": "IPIfNonMatch",
       "rules": [
@@ -76,7 +77,7 @@
     "settings": {
       "clients": [
         {
-          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
+          "id": "b831381d-6324-4d53-ad4f-8cda48b30811"
         }
       ]
     }
