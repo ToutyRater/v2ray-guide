@@ -13,10 +13,10 @@
   },
   "inbound": {
     "port": 1080,
-    "udp": true,
     "protocol": "socks",
     "settings": {
-      "auth": "noauth" 
+      "auth": "noauth",
+      "udp": true
     }
   },
   "outbound": {
