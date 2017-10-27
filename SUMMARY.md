@@ -12,7 +12,7 @@
     * [路由功能](basic/routing/README.md)
         * [国内直连](basic/routing/cndirect.md)
         * [广告过滤](basic/routing/adblock.md)
-    * [小结](base_config/sumup.md)
+    * [小结](basic/sumup.md)
 * [高级篇](advanced/README.md)
     * [Mux](advanced/mux.md)
     * [mKCP](advanced/mkcp.md)
