@@ -74,7 +74,7 @@ install-release.sh                  100%[=======================================
 然后执行脚本安装 V2Ray:
 
 ```
-$ sudo  bash install-release.sh 
+$ sudo bash install-release.sh 
 Installing curl
 Updating software repo
 Installing curl
@@ -127,7 +127,7 @@ $ sudo systemctl start v2ray
 停止运行 V2Ray：
 
 ```
-$ sudo  systemctl stop v2ray
+$ sudo systemctl stop v2ray
 ```
 
 重启 V2Ray:
@@ -136,9 +136,11 @@ $ sudo  systemctl stop v2ray
 $ sudo systemctl restart v2ray
 ```
 
-在首次安装完成之后， V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
+在首次安装完成之后，V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
 
-对于以上脚本，还有更多用法，在此不多说了，可以执行 `bash install-release.sh -h` 看帮助。
+更新 V2Ray 的方法是**再次执行安装脚本！再次执行安装脚本！再次执行安装脚本！**
+
+对于安装脚本，还有更多用法，在此不多说了，可以执行 `bash install-release.sh -h` 看帮助。
 
 ------------
 ## 更新历史
