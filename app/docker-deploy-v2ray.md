@@ -10,19 +10,19 @@ Docker 技术是一种新的虚拟化技术,和传统的虚拟化技术不同。
 $ sudo apt-get install -y docker
 ```
 
-安装完 Docker 后我们从 [DockerHub](https://hub.docker.com/) 通过搜索找到 V2ray 官方提供的镜像, 链接[在此](https://hub.docker.com/r/v2ray/official/)。找到拉取镜像的的命令并复制下来,在网页右侧我们可以看到命令为 `docker pull v2ray/official` ,我们将其复制下来回到命令行中粘贴并执行：
+安装完 Docker 后我们从 [DockerHub](https://hub.docker.com/) 通过搜索找到 V2ray 官方提供的镜像, 链接[在此](https://hub.docker.com/r/v2ray/official/). 找到拉取镜像的的命令并复制下来,在网页右侧我们可以看到命令为 `docker pull v2ray/official` ,我们将其复制下来回到命令行中粘贴并执行：
 
 ```
 $ sudo docker pull v2ray/official
 ```
 
-待 V2Ray 的 Docker 镜像拉去完成后就可以进入下一步部署阶段.在此之前,你需要在 /etc 目录下新建一个文件夹 v2ray, 并把你的配置写好后命令为 config.json 放入 v2ray 文件夹内。待配置文件准备就绪后键入以下命令进行部署,部署前请记下配置文件中你所设置的端口号,在部署时需要将其映射到宿主机上。否则将无法访问。此处假设设定的端口号为8888,需要映射到宿主机的8888端口上。则命令为:
+待 V2Ray 的 Docker 镜像拉取完成后就可以进入下一个部署阶段. 在此之前,你需要在 /etc 目录下新建一个文件夹 v2ray, 并把你的配置写好后命名为 config.json 放入 v2ray 文件夹内. 待配置文件准备就绪后键入以下命令进行部署,部署前请记下配置文件中你所设置的端口号,在部署时需要将其映射到宿主机上. 否则将无法访问. 此处假设设定的端口号为8888,需要映射到宿主机的8888端口上. 则命令为:
 
 ```
 $ sudo docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:8888 v2ray/official  v2ray -config=/etc/v2ray/config.json
 ```
 
-键入以上命令后,命令行会出现一串字符,代表容器部署成功,可以立即通过客户端连接并开始使用了。如果还不放心,键入以下命令来查看容器的运行状态:
+键入以上命令后,命令行会出现一串字符,代表容器部署成功,可以立即通过客户端连接并开始使用了. 如果还不放心,键入以下命令来查看容器的运行状态:
 
 ```
 $ sudo docker container ls
@@ -40,12 +40,12 @@ CONTAINER ID        IMAGE                 COMMAND                  CREATED      
 ```
 $ sudo docker container start v2ray
 ```
-停止v2ray:
+停止 V2Ray:
 
 ```
 $ sudo docker container stop v2ray
 ```
-重启v2ray:
+重启 V2Ray:
 
 ```
 $ sudo docker container restart v2ray
@@ -76,7 +76,7 @@ $ sudo docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:8888 v2ray/of
 
 **除非你打算使用Nginx来转发Websocket否则不需要映射到本地，直接填写`端口号:端口号`的形式即可**
 
-另外，如果开启了动态端口，-p 标记可以多次使用来绑定多个端口。具体用法是在指令中再加上多个 -p 标记即可。
+另外，如果开启了动态端口，-p 标记可以多次使用来绑定多个端口. 具体用法是在指令中再加上多个 -p 标记即可. 
 
 更新 V2Ray 的 Docker 镜像:
 ```
