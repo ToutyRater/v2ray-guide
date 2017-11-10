@@ -16,7 +16,7 @@ $ sudo apt-get install -y docker
 $ sudo docker pull v2ray/official
 ```
 
-待 V2ray 的 Docker 镜像拉去完成后就可以进入下一步部署阶段.在此之前,你需要在 /etc 目录下新建一个文件夹 v2ray, 并把你的配置写好后命令为 config.json 放入 v2ray 文件夹内。待配置文件准备就绪后键入以下命令进行部署,部署前请记下配置文件中你所设置的端口号,在部署时需要将其映射到宿主机上。否则将无法访问。此处假设设定的端口号为8888,需要映射到宿主机的8888端口上。则命令为:
+待 V2ray 的 Docker 镜像拉取完成后就可以进入下一步部署阶段.在此之前,你需要在 /etc 目录下新建一个文件夹 v2ray, 并把你的配置写好后命名为 config.json 放入 v2ray 文件夹内。待配置文件准备就绪后键入以下命令进行部署,部署前请记下配置文件中你所设置的端口号,在部署时需要将其映射到宿主机上。否则将无法访问。此处假设设定的端口号为8888,需要映射到宿主机的8888端口上。则命令为:
 
 ```
 $ sudo docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:8888 v2ray/official  v2ray -config=/etc/v2ray/config.json
