@@ -1,4 +1,4 @@
-# Docker 部署 v2ray
+# Docker 部署 V2Ray
 
 Docker 技术是一种新的虚拟化技术,和传统的虚拟化技术不同。v2ray 同样提供 Docker 部署方式,并且通过 Docker 来部署 V2ray 会非常轻松高效。
 
