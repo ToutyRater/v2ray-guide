@@ -119,10 +119,10 @@ server {
 ### Caddy 配置
 
 ```
-caddy serveraddr.com
+serveraddr.com
 {
   log ./caddy.log
-  proxy / locaohost:10000 {
+  proxy / localhost:10000 {
     websocket
     header_upstream -Origin
   }
