@@ -119,7 +119,7 @@ server {
 ### Caddy 配置
 
 ```
-caddy serveraddr.com
+serveraddr.com
 {
   log ./caddy.log
   proxy / localhost:10000 {
