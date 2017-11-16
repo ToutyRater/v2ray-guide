@@ -6,7 +6,7 @@ chinasites 或者路由规则是域名的话不起作用。
 
 这是因为在 Android 中，V2Ray 只能接收到目标地址是 IP 的数据，因此 chinasites 和域名规则无效。不过好在 V2Ray 增加了一个功能——domain overrid，它可以从这些数据中探测出域名，然后匹配相应的域名规则。但这个功能默认关闭，因此要手动开启。
 
-开启 domain overrid 有两种方式，以下一一介绍。
+开启 domain override 有两种方式，以下一一介绍。
 
 ## 方式一
 
@@ -56,10 +56,21 @@ chinasites 或者路由规则是域名的话不起作用。
 
 因为 domain overrid 是在 inbound 上设置的，因此也可以在服务器上开启。但要注意的是在服务器使用 domain overrid 比较适用的规则是 blackhole，因为如果是要直边的话，数据包已经发给了服务器，这个时候的服务直连对于客户端来说也是走代理了，除非你这个服务器是中转节点。
 
+## 方式三
+
+依然使用Actinium客户端开启。
+下载并启用全局复制（https://play.google.com/store/apps/details?id=com.camel.corp.universalcopy）
+先导入不含有Domain Override的配置文件，并将其转化为Actinium格式。
+然后在Actinium主界面点击此配置文件查看，使用全局复制将其复制出来，另存为另一个json文件。
+在新保存的json文件里加入Domain Override并导入Actinium，即可实现此功能。
 
 --------
 ## 更新历史
 
 - 2017-08-05
 
-增加可以在服务器上使用 domain overrid 的内容
+增加可以在服务器上使用 domain override 的内容
+
+- 2017-11-16
+
+增加Actinium和全局复制搭配 使用 domain override 的内容，并修正部分拼写错误
