@@ -21,7 +21,7 @@
     * [HTTP 伪装](advanced/httpfake.md)
     * [TLS](advanced/tls.md)
     * [WebSocket](advanced/websocket.md)
-    * [WebSocket](advanced/wss_and_web.md)
+    * [WebSocket+TLS+Web](advanced/wss_and_web.md)
 * [应用篇](app/README.md)
     * [路由规则之移动端](app/routing-for-android.md)
     * [内置 DNS](app/dns.md)
