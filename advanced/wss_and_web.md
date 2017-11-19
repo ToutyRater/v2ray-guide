@@ -47,7 +47,7 @@ server {
   ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers           HIGH:!aNULL:!MD5;
   server_name           serveraddr.com;
-        location / {
+        location /ray {
         proxy_redirect off;
         proxy_pass http://127.0.0.1:10000;#假设WebSocket监听在环回地址的10000端口上
         proxy_http_version 1.1;
@@ -64,7 +64,7 @@ server {
 serveraddr.com
 {
   log ./caddy.log
-  proxy / localhost:10000 {
+  proxy /ray localhost:10000 {
     websocket
     header_upstream -Origin
   }
@@ -104,8 +104,10 @@ serveraddr.com
       "network": "ws",
       "security": "tls",
       "tlsSettings": {
-          "serverName": "serveraddr.com",
-          "allowInsecure": false
+          "serverName": "serveraddr.com"
+      },
+      "wsSettings":{
+          "path":"/ray"
       }
     }
   }
