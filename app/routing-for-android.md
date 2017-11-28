@@ -10,7 +10,7 @@ chinasites 或者路由规则是域名的话不起作用。
 
 ## 方式一
 
-这种方式是在客户端上开启，方法是在`客户端`的 inbound 和 inboundDetour 中加入 `"domainOverride": ["http", "tls"]`，配置形如：
+这种方式是在客户端上开启，方法是在`客户端`的 inbound(Detour) 中加入 `"domainOverride": ["http", "tls"]`，配置形如：
 ```javascript
 {
   "routing": {},
@@ -61,6 +61,8 @@ chinasites 或者路由规则是域名的话不起作用。
 然后在 Actinium 主界面点击此配置文件查看，使用全局复制将其复制出来，另存为另一个json文件。
 在新保存的json文件里加入 Domain Override 并导入 Actinium，即可实现此功能。
 
+--------
+在透明代理当中，也会遇到类似这种域名路由规则不起效的情况，同样的在 inbound(Detour) 中加入`"domainOverride": ["http", "tls"]` 即可。
 --------
 ## 更新历史
 
