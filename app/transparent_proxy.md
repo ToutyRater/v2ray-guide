@@ -58,13 +58,10 @@ iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A OUTPUT -p tcp -j V2RAY
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
-
-
 4. 系统开启ip转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效
   ```
 sysctl -p /etc/sysctl.conf
 ```
-
 5. 路由器设定网关地址为 192.168.1.22，或者电脑手机等设备单独设置网关地址。然后测试电脑是不是可以不开代理直接翻墙 
 6. 如果 5 可以，就保存 iptables 设置，否则重启网关之后 iptables 规则会失效。如果不可以仔细检查上面的步骤出问题了然后重新操作。重新设置 iptables 的话请先清空原有的规则
 
