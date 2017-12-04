@@ -22,8 +22,7 @@
 1. 在服务器和网关安装 V2Ray，并配置好配置文件。一定要确定搭建的 V2Ray 能够正常使用
 
 2. 在网关的配置，添加 dokodemo ，并开启 domain override。配置如下：
-
-```javascript
+  ```javascript
 {
 	"inbound":{...},
 	"outbound":{...},
@@ -45,8 +44,7 @@
 ```
 
 3. 设定 iptables 规则，确定网关能够透明代理。
-
-```
+  ```
 iptables -t nat -N V2RAY
 
 iptables -t nat -A V2RAY -d 110.231.43.65 -j RETURN
@@ -67,13 +65,11 @@ iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
 
 4. 系统开启ip转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1`，执行下列命令生效。
-
-```
+  ```
 sysctl -p /etc/sysctl.conf
 ```
 
 5. 路由器设定网关地址为 192.168.1.22，或者电脑手机等设备单独设置网关地址。然后测试电脑是不是可以不开代理直接翻墙 
-
 6. 如果 5 可以，就保存 iptables 设置，否则重启网关之后 iptables 规则会失效。如果不可以仔细检查上面的步骤出问题了然后重新操作。重新设置 iptables 的话请先清空原有的规则
 
 
