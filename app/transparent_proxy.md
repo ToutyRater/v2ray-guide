@@ -43,7 +43,7 @@
 }
 ```
 
-3. 设定 iptables 规则，确定网关能够透明代理。
+3. 设定 iptables 规则，确定网关能够透明代理
   ```
 iptables -t nat -N V2RAY
 
@@ -64,8 +64,8 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
 
-4. 系统开启ip转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1`，执行下列命令生效。
-  ```
+4. 系统开启ip转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效
+```
 sysctl -p /etc/sysctl.conf
 ```
 
