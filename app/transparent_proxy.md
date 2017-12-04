@@ -42,6 +42,7 @@
 ```
 
 3. 设定 iptables 规则，确定网关能够透明代理。
+
 ```
 iptables -t nat -N V2RAY
 
