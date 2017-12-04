@@ -25,5 +25,6 @@
 * [应用篇](app/README.md)
     * [路由规则之移动端](app/routing-for-android.md)
     * [内置 DNS](app/dns.md)
+    * [透明代理/路由器翻墙](app/transparent_proxy.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
 
