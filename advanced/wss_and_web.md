@@ -63,7 +63,7 @@ server {
 
 ### Caddy 配置
 
-因为 Caddy 会自动申请证书，所以使用 Caddy 不用指定证书、密钥。  
+因为 Caddy 会自动申请证书并自动更新，所以使用 Caddy 不用指定证书、密钥。  
 ```
 serveraddr.com
 {
