@@ -25,6 +25,7 @@
     * [不建议的配置](advanced/not_recommend.md)
 * [应用篇](app/README.md)
     * [路由规则之移动端](app/routing-for-android.md)
+    * [Android 直连问题及解决](app/dns_for_android.md)
     * [内置 DNS](app/dns.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
 
