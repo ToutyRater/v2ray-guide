@@ -15,7 +15,7 @@ V2Ray 用户手册：[https://www.v2ray.com](https://www.v2ray.com)
 
 V2Ray 项目地址：[https://github.com/v2ray/v2ray-core](https://github.com/v2ray/v2ray-core)
 
-V2Ray Telegram 使用开发群链接：[https://t.me/projectv2ray](https://t.me/projectv2ray)
+V2Ray Telegram 使用群链接：[https://t.me/projectv2ray](https://t.me/projectv2ray)
 
 ### V2Ray 跟 Shadowsocks 有什么区别？
 
