@@ -30,7 +30,7 @@
 1. 在服务器和网关安装 V2Ray，并配置好配置文件。一定要确定搭建的 V2Ray 能够正常使用
 
 2. 在网关的配置，添加 dokodemo ，并开启 domain override。配置如下：
-  ```javascript
+```javascript
 {
 	"inbound":{...},
 	"outbound":{...},
@@ -51,22 +51,14 @@
 }
 ```
 3. 设定 iptables 规则，确定网关能够透明代理
-  ```
+```
 iptables -t nat -N V2RAY
 iptables -t nat -A V2RAY -d 110.231.43.65 -j RETURN
-iptables -t nat -A V2RAY -d 0.0.0.0/8 -j RETURN
-iptables -t nat -A V2RAY -d 10.0.0.0/8 -j RETURN
-iptables -t nat -A V2RAY -d 127.0.0.0/8 -j RETURN
-iptables -t nat -A V2RAY -d 169.254.0.0/16 -j RETURN
-iptables -t nat -A V2RAY -d 172.16.0.0/12 -j RETURN
-iptables -t nat -A V2RAY -d 192.168.0.0/16 -j RETURN
-iptables -t nat -A V2RAY -d 224.0.0.0/4 -j RETURN
-iptables -t nat -A V2RAY -d 240.0.0.0/4 -j RETURN
 iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
 4. 系统开启ip转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效
-  ```
+```
 sysctl -p /etc/sysctl.conf
 ```
 5. 路由器设定网关地址为 192.168.1.22，或者电脑手机等设备单独设置网关地址。然后测试电脑是不是可以不开代理直接翻墙 
@@ -82,7 +74,7 @@ sysctl -p /etc/sysctl.conf
 * 最好绑定网关的地址为固定 IP，否则网关重启后换了 IP 上不了网会很尴尬
 * 在没有交换机的情况下使用独立网关将会加大路由器的 IO 压力，如果路由器的性能比较差，可能会影响上网体验
 * 上述的 iptables 配置只能使局域网内的其它设备翻墙，网关本身是无法翻墙的，如果要网关也能翻墙，要使用 iptables 的 owener 模块直连 V2Ray 发出的流量，然后执行 `iptables -t nat -A OUTPUT -p tcp -j V2RAY`。
-
+* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 192.168.0.0/16 这类局域网地址，但我个人观点是放到 V2Ray 的路由里好一些
 
 -------
 
