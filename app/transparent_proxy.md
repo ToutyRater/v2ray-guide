@@ -55,24 +55,23 @@ iptables -t nat -A V2RAY -d 110.231.43.65 -j RETURN
 iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
-4. 系统开启ip转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效
+4. 网关开启 IP 转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效：
 ```
-sysctl -p /etc/sysctl.conf
+sysctl -p
 ```
-5. 路由器设定网关地址为 192.168.1.22，或者电脑手机等设备单独设置网关地址，然后测试电脑是不是可以不开代理直接翻墙 ；
-6. 如果 5 可以，就保存 iptables 设置，否则重启网关之后 iptables 规则会失效。如果不可以仔细检查上面的步骤出问题了然后重新操作。重新设置 iptables 的话请先清空原有的规则；
-7. iptables 规则在系统重启之后会清空，所以最好写个脚本开机后自动加载规则，具体操作请自行 Google。
+5. 路由器 DHCP 设定网关地址为 192.168.1.22，或者电脑手机等设备单独设置网关地址，然后测试电脑是不是可以不开代理直接翻墙 ；
+6. 如果 5 可以，写个开机加载 iptables 规则的脚本，否则重启网关之后 iptables 规则会失效。如果不可以仔细检查上面的哪个步骤出问题了然后重新操作。重新设置 iptables 的话请先清空原有的规则。
 
 
 ## 注意事项
 
 * 在上面的设置中，假设访问了国外网站，如 Google 等，网关依然会使用的系统 DNS 进行查询，只不过返回的结果是污染过的，而 V2Ray 提供的 domain override 能够从流量中提取域名信息交由 VPS 解析。也就是说，每次打算访问被墙的网站，DNS 提供商都知道，鉴于国内企业尿性，也许 GFW 也都知道，会不会将这些数据收集喂AI 也未可知。解决办法是建一个DNS，不向上级查询，直接返回一个错误的 IP，反正 V2Ray  能够解决污染问题。如果有朋友知道有什么这样的软件，请告之。
 * domain override 目前只能从 TLS 和 HTTP 流量中提取域名，如果上网流量有非这两种类型的慎用 domain override 解决 DNS 污染。
-* 由于对 iptables不熟，我省略掉了对 UDP 流量的透明代理的设置，请精通此道的朋友补充一下
-* V2Ray 只能代理 TCP/UDP 的流量，ICMP 不支持，即就算透明代理成功了之后 ping Google 这类网站也是不行的。
+* 由于对 iptables不熟，我省略掉了对 UDP 流量的透明代理的设置，请精通此道的朋友补充一下。
+* V2Ray 只能代理 TCP/UDP 的流量，ICMP 不支持，即就算透明代理成功了之后 ping Google 这类网站也是不通的。
 * 最好设定网关的地址为静态 IP，否则网关重启后换了 IP 上不了网会很尴尬
 * 上述的 iptables 配置只能使局域网内的其它设备翻墙，网关本身是无法翻墙的，如果要网关也能翻墙，要使用 iptables 的 owener 模块直连 V2Ray 发出的流量，然后执行 `iptables -t nat -A OUTPUT -p tcp -j V2RAY`。
-* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 192.168.0.0/16 这类局域网地址，但我个人观点是放到 V2Ray 的路由里好一些
+* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 192.168.0.0/16 这类局域网地址，但我个人观点是放到 V2Ray 的路由里好一些。
 
 -------
 
@@ -80,4 +79,5 @@ sysctl -p /etc/sysctl.conf
 
 * 2017-12-5 初版
 * 2017-12-24 修复无法访问国内网站问题
+* 2017-12-27 排版
 
