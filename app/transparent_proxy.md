@@ -25,7 +25,7 @@
 
 ## 设置步骤
 
-1. 在服务器和网关安装 V2Ray，并配置好配置文件。一定要确定搭建的 V2Ray 能够正常使用；
+1. 在服务器和网关安装 V2Ray，并配置好配置文件（由于 GFW 会恶化 GitHub Releases 的流量，直接运行脚本几乎无法安装，建议从 https://v2ray.com/download 下载然后使用 --local 参数进行安装）。一定要确定搭建的 V2Ray 能够正常使用；
 
 2. 在网关的配置，添加 dokodemo ，并开启 domain override。配置如下：
 ```javascript
