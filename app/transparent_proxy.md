@@ -51,7 +51,6 @@
 3. 设定 iptables 规则，确定网关能够透明代理（需要 root 权限）；
 ```
 iptables -t nat -N V2RAY
-iptables -t nat -A V2RAY -d 110.231.43.65 -j RETURN
 iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
@@ -59,7 +58,7 @@ iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
 sysctl -p
 ```
-5. 路由器 DHCP 设定网关地址为 192.168.1.22，或者电脑手机等设备单独设置网关地址，然后测试电脑是不是可以不开代理直接翻墙 ；
+5. 路由器 DHCP 设定网关地址为网关设备的IP,本例为 192.168.1.22，或者电脑手机等设备单独设置网关地址，但网关设备必须设定网关地址为路由器的地址，然后测试电脑是不是可以不开代理直接翻墙；
 6. 如果 5 可以，写个开机加载 iptables 规则的脚本，否则重启网关之后 iptables 规则会失效。如果不可以仔细检查上面的哪个步骤出问题了然后重新操作。重新设置 iptables 的话请先清空原有的规则。
 
 
@@ -71,7 +70,7 @@ sysctl -p
 * V2Ray 只能代理 TCP/UDP 的流量，ICMP 不支持，即就算透明代理成功了之后 ping Google 这类网站也是不通的。
 * 最好设定网关的地址为静态 IP，否则网关重启后换了 IP 上不了网会很尴尬
 * 上述的 iptables 配置只能使局域网内的其它设备翻墙，网关本身是无法翻墙的，如果要网关也能翻墙，要使用 iptables 的 owener 模块直连 V2Ray 发出的流量，然后执行 `iptables -t nat -A OUTPUT -p tcp -j V2RAY`。
-* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 192.168.0.0/16 这类局域网地址，但我个人观点是放到 V2Ray 的路由里好一些。
+* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 192.168.0.0/16 这类私有地址，但我个人观点是放到 V2Ray 的路由里好一些。
 
 -------
 
@@ -80,4 +79,4 @@ sysctl -p
 * 2017-12-5 初版
 * 2017-12-24 修复无法访问国内网站问题
 * 2017-12-27 排版
-
+* 2017-12-29 删除不必要的 iptables 规则
