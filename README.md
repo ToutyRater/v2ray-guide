@@ -32,8 +32,8 @@ V2Ray Telegram 使用群链接：[https://t.me/projectv2ray](https://t.me/projec
 童鞋，某事物的优点和缺点总是相生相随的，优点是缺点，缺点也是优点。相对来说，V2Ray 有以下优势：
 
 * **更完善的协议:** V2Ray 使用了新的自行研发的 VMess 协议，改正了 Shadowsocks 一些已有的缺点，更难被墙检测到
-* **更强大的性能:** 相对于 Shadowsocks，V2Ray 的网络性能更好，具体数据可以看[V2Ray 官方博客](https://www.v2ray.com/blog/2017/speed.html)
-* **更丰富的功能:** V2Ray 比起 Shadowsocks 多了许多功能，以下是部分 V2Ray 的功能
+* **更强大的性能:** 网络性能更好，具体数据可以看 [V2Ray 官方博客](https://steemit.com/cn/@v2ray/3cjiux)
+* **更丰富的功能:** 以下是部分 V2Ray 的功能
     * mKCP: KCP 协议在 V2Ray 上的实现，不必另行安装 kcptun
     * 动态端口：动态改变通信的端口，对抗对长时间大流量端口的限速封锁
     * 路由功能：可以随意设定指定数据包的流向，去广告、反跟踪都可以
