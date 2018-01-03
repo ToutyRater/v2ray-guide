@@ -51,7 +51,7 @@ V2Ray 是以轮询的方式均衡负载，也就是说当有流量需要通过�
 
 ## 注意事项
 
-如端口、id 这些在 vnext 数组内的配置项可以各不相同，但是它们的传输层配置（streamSettings）必须一致。
+如端口、id 这些在 vnext 数组内的配置项可以各不相同，但是它们的传输层配置（streamSettings）必须一致。如果有配置 TLS 的需求，只需申请一个 TLS 证书，然后把证书和密钥复制到所有的 VPS 并配置好 TLS，接着客户端配置里 address 填各个服务器的 IP，在 tlsSettings 的 serverName 填证书的域名。
 
 ## 更新历史
 
