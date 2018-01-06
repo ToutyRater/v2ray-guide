@@ -28,7 +28,8 @@
 - 只说明 V2Ray-core 的 DNS 机制，第三方客户端可能有所变化。
 
 ### 一、 FireFox 设定代理 DNS，不开启 domain overrride
-由上文可知，在这种设定了代理 DNS 的情况下由代理解决 DNS 问题，有几种情况分别一一说明。
+
+由上文可知，在这种设定了代理 DNS 的情况下由代理解决 DNS 问题，有几种情况分别一一说明。(以下结果均经过抓包验证)
 
 #### 1
 PC2 不运行，PC1 的 inbound 为 socks，默认 outbound 为 freedom，freedom 的 domainStrategy 为AsIs，不配置任何路由规则(默认为 AsIs)。
