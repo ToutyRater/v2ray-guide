@@ -22,8 +22,12 @@
     * [TLS](advanced/tls.md)
     * [WebSocket](advanced/websocket.md)
     * [WebSocket+TLS+Web](advanced/wss_and_web.md)
+    * [不建议的配置](advanced/not_recommend.md)
 * [应用篇](app/README.md)
     * [路由规则之移动端](app/routing-for-android.md)
+    * [Android 直连问题及解决](app/dns_for_android.md)
+    * [透明代理/路由器翻墙](app/transparent_proxy.md)
     * [内置 DNS](app/dns.md)
+    * [负载均衡](app/balance.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
 
