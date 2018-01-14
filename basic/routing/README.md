@@ -96,7 +96,7 @@
 
 等等。。。。。。。。。。。你这里有 VMess、freedom 和 blackhole 3个呢，可是 outbound 只有一个，这可怎么办呢？
 
-好吧，真 tm 机智，幸亏留有一手。请看下面，这不是就有 3 个了吗。加一个 outboundDetour 数组，要多少个 outbound都可以。
+好吧，真 tm 机智，幸亏留有一手。请看下面，这不是就有 3 个了吗。加一个 outboundDetour 数组，要多少个 outbound 都可以。
 
 ```javascript
 {
