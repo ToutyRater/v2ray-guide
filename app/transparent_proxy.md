@@ -24,10 +24,25 @@
 * 一台带 iptables、有 root 权限并且系统为 Linux 的设备，假设地址为 `192.168.1.22`，已经配置好 V2Ray 作为客户端。这个设备可以是路由器、开发板、个人电脑、虚拟机和 Android 设备等，更具普适性地称之为网关。我个人非常不建议使用 MT7620 系路由器开透明代理，性能太差了，很多固件也没有开启 FPU 。要是真不愿意出这点钱，用电脑开个虚拟机吧(我就是这么干的)，VirtualBox、Hyper 之类的都可以，但是别忘了网络模式用网桥。
 
 ## 设置步骤
+设置步骤如下，假设使用 root。
 
-1. 在服务器和网关安装 V2Ray，并配置好配置文件（由于 GFW 会恶化 GitHub Releases 的流量，直接运行脚本几乎无法安装，建议从 https://v2ray.com/download 下载然后使用 --local 参数进行安装）。一定要确定搭建的 V2Ray 能够正常使用；
+1. 网关开启 IP 转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效：
+```
+sysctl -p
+```
+2. 路由器 DHCP 设定网关地址为网关设备的 IP,本例为 192.168.1.22，或者电脑手机等设备单独设置网关地址，但网关设备必须指定网关地址为路由器的IP，然后电脑/手机测试是不是可以正常上网(这时还不能翻墙)，如果不能上网先去学习一个把这个搞定，否则接下来再怎么也同样上不了网。
 
-2. 在网关的配置，添加 dokodemo ，并开启 domain override。配置如下：
+3. 在服务器和网关安装 V2Ray（如果不会就参照前面的教程，由于 GFW 会恶化 GitHub Releases 的流量，网关直接运行脚本几乎无法安装，建议从 https://v2ray.com/download 下载然后使用 --local 参数进行安装），并配置好配置文件。一定要确定搭建的 V2Ray 能够正常使用。在网关执行 `curl -x socks5://127.0.0.1:1080 google.com` 测试配置的 V2Ray 是否可以翻墙(命令中 `socks5` 指 inbound 为 socks，`1080` 指该 inbound 端口是 1080)。如果出现类似下面的输出则可以翻墙，如果没有出现就说明翻不了，你得仔细检查以下哪步操作不对或漏了。
+```
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>
+```
+
+4. 在网关的配置，添加 dokodemo ，并开启 domain override（注意不要写错配置）。配置形如：
 ```javascript
 {
 	"inbound":{...},
@@ -48,18 +63,17 @@
 	"routing":{...}
 }
 ```
-3. 设定 iptables 规则，确定网关能够透明代理（需要 root 权限）；
+
+5. 设定 iptables 规则，命令如下
 ```
 iptables -t nat -N V2RAY
 iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
-4. 网关开启 IP 转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效：
-```
-sysctl -p
-```
-5. 路由器 DHCP 设定网关地址为网关设备的IP,本例为 192.168.1.22，或者电脑手机等设备单独设置网关地址，但网关设备必须设定网关地址为路由器的地址，然后测试电脑是不是可以不开代理直接翻墙；
-6. 如果 5 可以，写个开机加载 iptables 规则的脚本，否则重启网关之后 iptables 规则会失效。如果不可以仔细检查上面的哪个步骤出问题了然后重新操作。重新设置 iptables 的话请先清空原有的规则。
+
+6. 使用电脑/手机直接访问被墙网站，这时应当可以访问的（如果不能，你可能得请教大神手把手指导了）。
+
+7. 写脚本开机加载上述的 iptables，或者使用第三方软件(如 iptables-persistent)，否则网关重启后 iptables 会失效(即透明代理会失效)。
 
 
 ## 注意事项
@@ -80,3 +94,4 @@ sysctl -p
 * 2017-12-24 修复无法访问国内网站问题
 * 2017-12-27 排版
 * 2017-12-29 删除不必要的 iptables 规则
+* 2018-01-16 优化操作步骤
