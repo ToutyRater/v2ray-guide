@@ -71,6 +71,23 @@ iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
 
+UDP 流量透明代理的 iptables 规则，命令如下
+```
+ip rule add fwmark 1 table 100
+ip route add local 0.0.0.0/0 dev lo table 100
+iptables -t mangle -N V2RAY_MASK
+iptables -t mangle -A V2RAY_MASK  -d 0.0.0.0/8 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 10.0.0.0/8 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 127.0.0.0/8 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 169.254.0.0/16 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 172.16.0.0/12 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 192.168.0.0/16 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 224.0.0.0/4 -j RETURN
+iptables -t mangle -A V2RAY_MASK  -d 240.0.0.0/4 -j RETURN
+iptables -t mangle -A V2RAY_MASK -p udp -j TPROXY --on-port 12345 --tproxy-mark 1
+iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
+```
+
 6. 使用电脑/手机直接访问被墙网站，这时应当可以访问的（如果不能，你可能得请教大神手把手指导了）。
 
 7. 写脚本开机加载上述的 iptables，或者使用第三方软件(如 iptables-persistent)，否则网关重启后 iptables 会失效(即透明代理会失效)。
