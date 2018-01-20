@@ -30,4 +30,5 @@
     * [内置 DNS](app/dns.md)
     * [负载均衡](app/balance.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
+    * [不权威性能测试](app/benchmark.md)
 
