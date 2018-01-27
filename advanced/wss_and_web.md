@@ -26,8 +26,8 @@
         }
       ]
     },
-    "streamSettings":{
-      "network":"ws",
+    "streamSettings": {
+      "network": "ws",
       "wsSettings": {
       "path": "/ray"
       }
@@ -111,10 +111,10 @@ mydomain.me
       "network": "ws",
       "security": "tls",
       "tlsSettings": {
-          "serverName": "mydomain.me"
+        "serverName": "mydomain.me"
       },
-      "wsSettings":{
-          "path":"/ray"
+      "wsSettings": {
+        "path": "/ray"
       }
     }
   }

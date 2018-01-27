@@ -6,7 +6,7 @@
 
 ```javascript
 {
-  "log":{
+  "log": {
     "loglevel": "warning",
     "access": "D:\\v2ray\\access.log",
     "error": "D:\\v2ray\\error.log"
@@ -90,7 +90,7 @@
 
 ```javascript
 {
-  "log":{
+  "log": {
     "loglevel": "warning",
     "access": "/var/log/v2ray/access.log",
     "error": "/var/log/v2ray/error.log"
