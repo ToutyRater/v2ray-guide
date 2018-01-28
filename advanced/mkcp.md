@@ -22,8 +22,8 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
         }
       ]
     },
-    "streamSettings":{
-      "network":"kcp",
+    "streamSettings": {
+      "network": "kcp",
       "kcpSettings": {
         "mtu": 1350,
         "tti": 20,
@@ -72,8 +72,8 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
         }
       ]
     },
-    "streamSettings":{
-      "network":"kcp",
+    "streamSettings": {
+      "network": "kcp",
       "kcpSettings": {
         "mtu": 1350,
         "tti": 20,

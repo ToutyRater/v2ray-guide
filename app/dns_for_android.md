@@ -19,7 +19,7 @@
 ```javascript
 {
   "inbound": {
-  "domaiOverride":["tls","http"],
+  "domaiOverride": ["tls","http"],
   ...
   },
   "outbound": {
@@ -44,10 +44,10 @@
       "domainStrategy": "IPIfNonMatch",
       "rules": [
         {
-          "type":"field",
-          "port":53,
-          "network":"udp", 
-          "outboundTag":"direct"
+          "type": "field",
+          "port": 53,
+          "network": "udp", 
+          "outboundTag": "direct"
         },
         {
           "type": "chinasites",

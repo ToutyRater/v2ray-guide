@@ -17,13 +17,13 @@
 
 还是有人纠结 DNS 的问题，那我就多说几句吧。
 
-首先举个例子，假如我用 FireFox，设置了 scoks 代理，那么当访问 Google.com 时，FireFox 会将一系列与 Google.com 通信的数据包打包成 socks 协议，发给socks代理软件处理。这儿就有个问题，FireFox 怎么让代理软件知道要访问的是 Google.com，或者说代理怎么知道浏览器发过来的包最终要发给谁？要解答这个问题我们首先得了解 socks 协议，Socks 协议有一个请求头，包含许多字段，其中 DST.ADDR 字段是告诉代理软件目标地址是什么。我们知道目标地址包括域名和 IP，但从 DST.ADDR 字段是不能知道到底是 IP 还是域名的，这个时候就有一个字段 ATYP 出来了，如果ATYP是 3，说明请求头的目标地址为域名，如果是1或4则为IP。
+首先举个例子，假如我用 FireFox，设置了 Socks 代理，那么当访问 Google.com 时，FireFox 会将一系列与 Google.com 通信的数据包打包成 Socks 协议，发给 Socks 代理软件处理。这儿就有个问题，FireFox 怎么让代理软件知道要访问的是 Google.com，或者说代理怎么知道浏览器发过来的包最终要发给谁？要解答这个问题我们首先得了解 Socks 协议，Socks 协议有一个请求头，包含许多字段，其中 DST.ADDR 字段是告诉代理软件目标地址是什么。我们知道目标地址包括域名和 IP，但从 DST.ADDR 字段是不能知道到底是 IP 还是域名的，这个时候就有一个字段 ATYP 出来了，如果 ATYP 是 3，说明请求头的目标地址为域名，如果是 1 或 4 则为 IP。
 
-继续原来的例子，如果 FireFox 没有勾选了代理 DNS，则 FireFox 直接在本机中进行 DNS 查询 Google.com 的 IP，假设为 32.172.73.25，请求头中 ATYP 填 1，DST.ADDR 填查询得到的 IP,然后代理软件越过万水千山在 VPS 与 32.172.73.25 通信，到了这一步能不能正常通信就取决于查到的 IP 是不是真的 Google 的 IP；而另外一种情况，FireFox 勾选了代理 DNS，那么 FireFox 就不进行 DNS 查询了，直接在请求头中 ATYP 填 3，DST.ADDR 填 googe.com，怎么获得这个 google.com 的 IP 你这代理就自个看着办吧，我不管了（FireFox 如是说）。
+继续原来的例子，如果 FireFox 没有勾选了代理 DNS，则 FireFox 直接在本机中进行 DNS 查询 Google.com 的 IP，假设为 32.172.73.25，请求头中 ATYP 填 1，DST.ADDR 填查询得到的 IP，然后代理软件越过万水千山在 VPS 与 32.172.73.25 通信，到了这一步能不能正常通信就取决于查到的 IP 是不是真的 Google 的 IP；而另外一种情况，FireFox 勾选了代理 DNS，那么 FireFox 就不进行 DNS 查询了，直接在请求头中 ATYP 填 3，DST.ADDR 填 googe.com，怎么获得这个 google.com 的 IP 你这代理就自个看着办吧，我不管了（FireFox 如是说）。
 
 在这个例子的基础之上，我将详细解释 V2Ray 中的 DNS 机制。为了更具一般性，忽略某些特殊情况造成的影响，我将举各种不同的例子来进行说明，并限定：
 
-- 两台可以运行 V2Ray的设备，可以是PC、服务器、手机等，可以全在墙内或墙外，也可以分别位于强内外。为了便于说明，本文分别称为 PC1 和 PC2
+- 两台可以运行 V2Ray 的设备，可以是 PC、服务器、手机等，可以全在墙内或墙外，也可以分别位于墙内外。为了便于说明，本文分别称为 PC1 和 PC2
 - 为了能够明显区分 DNS 查询的来源，本文约定 PC1 的系统默认 DNS 为 223.5.5.5， PC1 的 V2Ray DNS 配置为 114.114.114.114，PC2 的系统默认 DNS 为 223.6.6.6， PC2 的 V2Ray DNS 配置为 114.114.115.115，互不相同并且设定的 DNS 都是可用的
 - 只说明 V2Ray-core 的 DNS 机制，第三方客户端可能有所变化。
 
@@ -32,21 +32,21 @@
 由上文可知，在这种设定了代理 DNS 的情况下由代理解决 DNS 问题，有几种情况分别一一说明。(以下结果均经过抓包验证)
 
 #### 1
-PC2 不运行，PC1 的 inbound 为 socks，默认 outbound 为 freedom，freedom 的 domainStrategy 为AsIs，不配置任何路由规则(默认为 AsIs)。
+PC2 不运行，PC1 的 inbound 为 socks，默认 outbound 为 freedom，freedom 的 domainStrategy 为 AsIs，不配置任何路由规则(默认为 AsIs)。
 
 假如访问了 z.cn，那么 z.cn 的 DNS 查询为由 PC1 系统向 223.5.5.5 查询。
 
 #### 2
 
-PC1 的freedom 的 domainStrategy 设为 UseIP，其他设置不变。这种情况如果访问了 z.cn，则由 PC1 的 V2Ray 向 114.114.114.114 查询 z.cn 的 IP。
+PC1 的 freedom 的 domainStrategy 设为 UseIP，其他设置不变。这种情况如果访问了 z.cn，则由 PC1 的 V2Ray 向 114.114.114.114 查询 z.cn 的 IP。
 
 #### 3
 
-PC2 设置默认outbound 为 freedom，domainStrategy 为 AsIs，inbound 为 vmess；PC1 的默认 outbound 为能与 PC2 正常连接的 vmess，inbound 为 Socks;PC1 和 PC2 的 V2Ray 均不配置任何路由规则。假如访问了 z.cn，PC1 没有任何的 DNS 查询，PC2 由系统向 223.6.6.6 查询 z.cn 的 IP。
+PC2 设置默认 outbound 为 freedom，domainStrategy 为 AsIs，inbound 为 vmess；PC1 的默认 outbound 为能与 PC2 正常连接的 vmess，inbound 为 Socks；PC1 和 PC2 的 V2Ray 均不配置任何路由规则。假如访问了 z.cn，PC1 没有任何的 DNS 查询，PC2 由系统向 223.6.6.6 查询 z.cn 的 IP。
 
 #### 4
 
-PC2 的freedom domainStrategy 为 UseIP，其他与 3 设置一致。假如访问了 z.cn，PC1 没有任何的 DNS 查询，由 PC2 的 V2Ray 向 114.114.115.115 查询 z.cn 的 IP。
+PC2 的 freedom domainStrategy 为 UseIP，其他与 3 设置一致。假如访问了 z.cn，PC1 没有任何的 DNS 查询，由 PC2 的 V2Ray 向 114.114.115.115 查询 z.cn 的 IP。
 
 #### 5
 
@@ -57,7 +57,7 @@ PC2 的freedom domainStrategy 为 UseIP，其他与 3 设置一致。假如访�
 在 5 的基础上，添加一条 IP 规则。假如访问了 z.cn，PC1 的 V2Ray 向 114.114.114.114 查询 z.cn 的IP，由于默认规则为oubound 发到 PC2，PC2 默认 oubound 为 freedom，所以向 114.114.114.114 查询的请求由 PC2 中转。由于 PC1 默认outbound，z.cn 数据包发往PC2，并且由 PC2 最终会再一次进行查询，由谁查询取决于 PC2 中的 freedom 设为 AsIs 还是 UseIP。两次查询目的不一样，PC1 上的查询用于路由规则的匹配，PC2 上的查询用于最终连接。
 
 #### 7
-在 6 的基础上，PC1 添加 freedom，路由规则添加 114.114.114.114 为直连（即转到 freedom）,其它不变。假如访问了 z.cn，PC1 的 V2Ray 在本机向 114.114.114.114 查询 z.cn 的IP，而不是通过 PC2 中转。PC2 的查询情况与 6 一致。
+在 6 的基础上，PC1 添加 freedom，路由规则添加 114.114.114.114 为直连（即转到 freedom）,其它不变。假如访问了 z.cn，PC1 的 V2Ray 在本机向 114.114.114.114 查询 z.cn 的 IP，而不是通过 PC2 中转。PC2 的查询情况与 6 一致。
 
 #### ……
 
@@ -73,7 +73,7 @@ FireFox 本身会进行 DNS 查询，其它的 DNS 查询情况与 `一` 一样�
 
 ## 我已经不想继续写了
 
-其实我真的不太想写这么多的，虽然 V2Ray 的用法很简单，但是 V2Ray 的结构类似于节点，可以无限多个，再加上多节点和routing的搭配，然后就交织成了一张网，这样的组合想想有多少？要我每一个细节都说清楚是不可能的，稍稍有一点点变动就不一样了。其实 V2Ray 的文档说得已经足够好，不过得把 DNS 配置、路由配置和 freedom 这三部分内容结合起来看。而我所说的一切关于 V2Ray 的 DNS 都不过是基于文档进一步解释而已，而且我也认为本文中简介已经说清楚了。
+其实我真的不太想写这么多的，虽然 V2Ray 的用法很简单，但是 V2Ray 的结构类似于节点，可以无限多个，再加上多节点和 routing 的搭配，然后就交织成了一张网，这样的组合想想有多少？要我每一个细节都说清楚是不可能的，稍稍有一点点变动就不一样了。其实 V2Ray 的文档说得已经足够好，不过得把 DNS 配置、路由配置和 freedom 这三部分内容结合起来看。而我所说的一切关于 V2Ray 的 DNS 都不过是基于文档进一步解释而已，而且我也认为本文中简介已经说清楚了。
 
 -----
 ## 更新历史

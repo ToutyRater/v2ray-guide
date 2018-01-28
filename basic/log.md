@@ -12,7 +12,7 @@
 
 ```javascript
 {
-  "log":{
+  "log": {
     "loglevel": "warning", // 日志级别
     "access": "D:\\v2ray\\access.log",  // 这是 Windows 系统的路径
     "error": "D:\\v2ray\\error.log"
@@ -48,7 +48,7 @@
 
 ```javascript
 {
-  "log":{
+  "log": {
     "loglevel": "warning",
     "access": "/var/log/v2ray/access.log", // 这是 Linux 的路径
     "error": "/var/log/v2ray/error.log"
@@ -74,13 +74,13 @@
 
 依次看 log 的选项：
 * loglevel：日志级别，分别有5个
-  - debug:最详细的日志信息，专用于软件调试
-  - info:比较详细的日志信息，可以看到 V2Ray 详细的连接信息。
+  - debug：最详细的日志信息，专用于软件调试
+  - info：比较详细的日志信息，可以看到 V2Ray 详细的连接信息。
   - warning：警告信息。轻微的问题信息，经我观察 warning 级别的信息大多是网络错误。推荐使用 warning
   - error：错误信息。比较严重的错误信息。当出现 error 时该问题足以影响 V2Ray 的正常运行。
   - none：空。不记录任何信息
-* access:将访问的记录保存到文件中，这个选项的值是要保存到的文件的路径
-* error:将错误的记录保存到文件中，这个选项的值是要保存到的文件的路径
+* access：将访问的记录保存到文件中，这个选项的值是要保存到的文件的路径
+* error：将错误的记录保存到文件中，这个选项的值是要保存到的文件的路径
 * error、access 字段留空，并且在手动执行 V2Ray 时，V2Ray 会将日志输出在 stdout 即命令行中（terminal、cmd 等），便于排错
 
 **需要注意的一点是，在 json 中，反斜杠 \\ 有特殊意义，因此 Windows 操作系统目录的 \\ 符号在配置中要使用 \\\\ 来表示。**

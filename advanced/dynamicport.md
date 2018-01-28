@@ -51,16 +51,16 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
 
 ```javascript
 {
-  "outbound":{
+  "outbound": {
     "protocol": "vmess",
-    "settings":{
-      "vnext":[
+    "settings": {
+      "vnext": [
         {
-          "address":"1.2.3.4",
-          "port":37192,
-          "users":[
+          "address": "1.2.3.4",
+          "port": 37192,
+          "users": [
             {
-              "id":"d17a1af7-efa5-42ca-b7e9-6a35282d737f",
+              "id": "d17a1af7-efa5-42ca-b7e9-6a35282d737f",
               "alterId": 64
             }
           ]
@@ -79,7 +79,7 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
 
 ```javascript
 {
-  "inbound":{
+  "inbound": {
     "port": 37192,
     "protocol": "vmess",
     "settings": {
@@ -98,7 +98,7 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
       "network": "kcp"
     }
   },
-  "inboundDetour":[
+  "inboundDetour": [
     {
       "protocol": "vmess",
       "port": "10000-20000", // 端口范围
@@ -126,16 +126,16 @@ V2Ray 提供了一个叫动态端口的功能。顾名思义，就是可以动�
 
 ```javascript
 {
-  "outbound":{
+  "outbound": {
     "protocol": "vmess",
-    "settings":{
-      "vnext":[
+    "settings": {
+      "vnext": [
         {
-          "address":"1.2.3.4",
-          "port":37192,
-          "users":[
+          "address": "1.2.3.4",
+          "port": 37192,
+          "users": [
             {
-              "id":"d17a1af7-efa5-42ca-b7e9-6a35282d737f",
+              "id": "d17a1af7-efa5-42ca-b7e9-6a35282d737f",
               "alterId": 64
             }
           ]

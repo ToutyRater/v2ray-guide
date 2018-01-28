@@ -122,4 +122,4 @@ V2Ray 的配置文件格式就像这样：
 
 V2Ray 的传入协议有 HTTP、SOCKS、VMess、Shadowsocks、Dokodemo-door；传出协议有 VMess、Shadowsocks、Blackhole、Freedom、SOCKS。
 
-在 inbound / inboundDetour和 outbound / outboundDetour当中，无论使用了什么协议，inbound / inboundDetour 或者 outbound / outboundDetour 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。
+在 inbound / inboundDetour 和 outbound / outboundDetour 当中，无论使用了什么协议，inbound / inboundDetour 或者 outbound / outboundDetour 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。

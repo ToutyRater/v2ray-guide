@@ -165,8 +165,8 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
       "tlsSettings": {
         "certificates": [
           {
-            "certificateFile": "/etc/v2ray/v2ray.crt", //证书文件
-            "keyFile": "/etc/v2ray/v2ray.key" //密钥文件
+            "certificateFile": "/etc/v2ray/v2ray.crt", // 证书文件
+            "keyFile": "/etc/v2ray/v2ray.key" // 密钥文件
           }
         ]
       }
@@ -229,7 +229,7 @@ Hostname 中输入你的域名，点提交，过一会结果就出来了。
 这是对于你的 TLS/SSL 的一个总体评分，我这里评分为 A，看来还不错。有这样的界面算是成功了。
 
 ![](/resource/images/tls_test3.png)
-这是关于证书的信息。从图中可以看出，我的这个证书有效期是从 2016 年 12 月 27 号到 2017 年的 3 月 27 号，密钥是 256 位的 ECC，证书签发机构是 Let's Encrypt，重要的是最后一行，`Trusted` 为 `Yes`,表明我这个证书可信。
+这是关于证书的信息。从图中可以看出，我的这个证书有效期是从 2016 年 12 月 27 号到 2017 年的 3 月 27 号，密钥是 256 位的 ECC，证书签发机构是 Let's Encrypt，重要的是最后一行，`Trusted` 为 `Yes`，表明我这个证书可信。
 
 ## 温馨提醒
 

@@ -21,7 +21,7 @@
       "auth": "noauth"  // 不认证
     }
   },
-  "outbound":{
+  "outbound": {
     "protocol": "shadowsocks",
     "settings": {
       "servers": [

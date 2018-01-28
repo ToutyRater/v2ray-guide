@@ -30,7 +30,7 @@
 ```
 sysctl -p
 ```
-2. 路由器 DHCP 设定网关地址为网关设备的 IP,本例为 192.168.1.22，或者电脑手机等设备单独设置网关地址，但网关设备必须指定网关地址为路由器的IP，然后电脑/手机测试是不是可以正常上网(这时还不能翻墙)，如果不能上网先去学习一个把这个搞定，否则接下来再怎么也同样上不了网。
+2. 路由器 DHCP 设定网关地址为网关设备的 IP，本例为 192.168.1.22，或者电脑手机等设备单独设置网关地址，但网关设备必须指定网关地址为路由器的IP，然后电脑/手机测试是不是可以正常上网(这时还不能翻墙)，如果不能上网先去学习一个把这个搞定，否则接下来再怎么也同样上不了网。
 
 3. 在服务器和网关安装 V2Ray（如果不会就参照前面的教程，由于 GFW 会恶化 GitHub Releases 的流量，网关直接运行脚本几乎无法安装，建议从 https://v2ray.com/download 下载然后使用 --local 参数进行安装），并配置好配置文件。一定要确定搭建的 V2Ray 能够正常使用。在网关执行 `curl -x socks5://127.0.0.1:1080 google.com` 测试配置的 V2Ray 是否可以翻墙(命令中 `socks5` 指 inbound 为 socks，`1080` 指该 inbound 端口是 1080)。如果出现类似下面的输出则可以翻墙，如果没有出现就说明翻不了，你得仔细检查以下哪步操作不对或漏了。
 ```
@@ -45,22 +45,22 @@ The document has moved
 4. 在网关的配置，添加 dokodemo ，并开启 domain override（注意不要写错配置）。配置形如：
 ```javascript
 {
-	"inbound":{...},
-	"outbound":{...},
-	"inboundDetour":[
+	"inbound": {...},
+	"outbound": {...},
+	"inboundDetour": [
 		{
-			"domainOverride":["tls","http"],
-			"port":12345,
-			"protocol":"dokodemo-door",
-			"settings":{
+			"domainOverride": ["tls","http"],
+			"port": 12345,
+			"protocol": "dokodemo-door",
+			"settings": {
 				"network": "tcp,udp",
 				"followRedirect": true
 			}
 	    },
 		...
 	],
-	"outboundDetour":[...],
-	"routing":{...}
+	"outboundDetour": [...],
+	"routing": {...}
 }
 ```
 
