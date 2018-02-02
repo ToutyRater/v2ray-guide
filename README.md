@@ -137,3 +137,16 @@ V2Ray 的用户手册非常详细地解释了 V2Ray，本指南主要以实际�
 - 关于 0124 毫无根据且不负责任的猜想
 
 24号那天，由于 GFW 大规模封锁 IP，各群组都简直是爆炸了。后来我花了点时间，结论为极有可能是针对 SSR 的 TLS 混淆。SS 那边则早就修复了这个问题，不过总有人不喜欢更新。
+
+### 2018-02-02
+
+- 满嘴跑火车的谣言（年轻人要有点脑子，不信谣，不传谣）
+  * Play Store 入华
+  * Google Maps 将不必使用代理，偏移得到修复
+  * 将解决滥权
+  * Virtual machine will be abandoned
+  * Q = tan(pi/2)
+  * b*ook == ss, so far
+  * There will be autobuilding
+
+ 
