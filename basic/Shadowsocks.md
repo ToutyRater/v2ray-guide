@@ -2,11 +2,11 @@
 
 本节讲述 Shadowsocks 的配置。
 
-什么！！！这不是 V2Ray 吗？怎么说配置 Shadowsocks 的配置呢？你喝多了吧！
+什么！！！这不是 V2Ray 吗？怎么说配置 Shadowsocks 的配置呢？
 
-骚年别紧张。V2Ray 集成有 Shadowsocks 模块的，用 V2Ray 配置成 Shadowsocks 服务器或者 Shadowsocks 客户端都是可以的。
+骚年别紧张。V2Ray 集成有 Shadowsocks 模块的，用 V2Ray 配置成 Shadowsocks 服务器或者 Shadowsocks 客户端都是可以的，兼容 Shadowsocks-libev。
 
-原理与 VMess 大同小异，客户端服务器端都要有 inbound 和 outbound，只不过是 protocol 和 settings 不同，不作过多说明，直接给配置。
+原理与 VMess 大同小异，客户端服务器端都要有 inbound 和 outbound，只不过是 protocol 和 settings 不同，不作过多说明，直接给配置，如果你配置过 Shadowsocks 很容易看明白。
 
 ## 配置
 
@@ -27,8 +27,8 @@
       "servers": [
         {
           "address": "serveraddr.com", // Shadowsocks 的服务器地址
-          "method": "aes-256-cfb", // Shadowsocks 的加密方式
-          "ota": true, // 是否开启 OTA
+          "method": "aes-128-gcm", // Shadowsocks 的加密方式
+          "ota": true, // 是否开启 OTA，true 为开启
           "password": "sspasswd", // Shadowsocks 的密码
           "port": 1024  
         }
@@ -46,8 +46,8 @@
     "port": 1024, // 监听端口
     "protocol": "shadowsocks",
     "settings": {
-      "method": "aes-256-cfb",
-      "ota": true, // 是否开启 OTA，建议开启
+      "method": "aes-128-gcm",
+      "ota": true, // 是否开启 OTA
       "password": "sspasswd"
     }
   },
@@ -57,3 +57,12 @@
   }
 }
 ```
+
+### 注意事项
+
+- 因为协议漏洞，Shadowsocks 已放弃 OTA 转而使用 AEAD,但 V2Ray 依然兼容 OTA 和 AEAD，建议使用 AEAD (method 为 aes-256-gcm、aes-128-gcm、chacha20-poly1305 即可开启 AEAD), 使用 AEAD 时 OTA 会失效。
+- 可以搭配 simple-obfs 使用，具体我没试过，有这个需要的就自己研究吧。
+- 可以使用 V2Ray 的传输层配置（详见[高级篇](/advanced/README.md)），但如果这么设置了将与原版 Shadowsocks 不兼容。
+
+### 更新历史
+- 2018-02-09 AEAD 更新
