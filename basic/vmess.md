@@ -123,7 +123,7 @@ $ jq . config.json
 
 - 为了让浅显地介绍 V2Ray 的工作方式，本节中关于原理简析的描述有一些地方是错误的。但我知识水平又不够，还不知道该怎么改，暂且将错就错。正确的工作原理在用户手册的 [VMess 协议](https://www.v2ray.com/eng/protocols/vmess.html) 有详细的说明。
 - id 为 UUID 格式，请使用软件生成，不要尝试自己造一个，否则很大程度上造出一个错误的格式来。
-- VMess 协议可以设定加密方式，但 VMess 的加密方式对于过墙并不重要，本节没有给出相关配置（不指定的情况下 VMess 会自己选择一种比较合适的加密方式），具体配置可见 [V2Ray 手册](https://v2ray.com/chapter_02/protocols/vmess.html)，不同加密方式的性能可参考[性能测试]（app/benchmark.md）。
+- VMess 协议可以设定加密方式，但 VMess 的加密方式对于过墙并不重要，本节没有给出相关配置（不指定的情况下 VMess 会自己选择一种比较合适的加密方式），具体配置可见 [V2Ray 手册](https://v2ray.com/chapter_02/protocols/vmess.html)，不同加密方式的性能可参考[性能测试](app/benchmark.md)。
 - 目前 alterId 服务器和客户端不一致的情况下也有可能正常连接，这不是 BUG，但还是建议保持一致。
 
 -------
