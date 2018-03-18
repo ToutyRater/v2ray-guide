@@ -58,23 +58,23 @@ Sun 22 Jan 16:16:23 GMT 2017
 首先下载脚本：
 
 ```
-$ wget https://toutyrater.github.io/install-release.sh
---2017-08-04 23:23:10--  https://toutyrater.github.io/install-release.sh
-Resolving toutyrater.github.io (toutyrater.github.io)... 151.101.129.147, 151.101.1.147, 151.101.193.147, ...
-Connecting to toutyrater.github.io (toutyrater.github.io)|151.101.129.147|:443... connected.
+$ wget https://install.direct/go.sh
+--2018-03-17 22:49:09--  https://install.direct/go.sh
+Resolving install.direct (install.direct)... 104.27.174.71, 104.27.175.71, 2400:cb00:2048:1::681b:af47, ...
+Connecting to install.direct (install.direct)|104.27.174.71|:443... connected.
 HTTP request sent, awaiting response... 200 OK
-Length: 9960 (9.7K) [application/x-sh]
-Saving to: ‘install-release.sh’
+Length: unspecified [text/plain]
+Saving to: ‘go.sh’
 
-install-release.sh                  100%[====================================================================>]   9.73K  --.-KB/s   in 0s     
+go.sh.1                             [ <=>                                                 ]  11.24K  --.-KB/s    in 0.001s  
 
-2017-08-04 23:23:10 (53.5 MB/s) - ‘install-release.sh’ saved [9960/9960]
+2018-03-17 22:49:09 (17.2 MB/s) - ‘go.sh’ saved [11510]
 ```
 
 然后执行脚本安装 V2Ray:
 
 ```
-$ sudo bash install-release.sh 
+$ sudo bash go.sh
 Installing curl
 Updating software repo
 Installing curl
@@ -146,11 +146,10 @@ $ sudo systemctl restart v2ray
 
 - 2017-08-06 加点提醒
 
-- 2017-08-05 使用最新的脚本，脚本依然来自于 [V2Ray](https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/install-release.sh) 
+- 2017-08-05 使用最新的脚本，脚本依然来自于 [V2Ray](https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/install-release.sh)
 
 - 2017-10-07 V2ray 官方服务器已经恢复
 
 - 2017-12-22 移除官方服务器
 
-- 2017-12-29 加入 IPFS 
-
+- 2017-12-29 加入 IPFS

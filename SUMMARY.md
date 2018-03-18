@@ -23,6 +23,8 @@
     * [TLS](advanced/tls.md)
     * [WebSocket](advanced/websocket.md)
     * [WebSocket+TLS+Web](advanced/wss_and_web.md)
+    * [HTTP/2](advanced/h2.md)
+    * [CDN](advanced/cdn.md)
     * [不建议的配置](advanced/not_recommend.md)
 * [应用篇](app/README.md)
     * [路由规则之移动端](app/routing-for-android.md)

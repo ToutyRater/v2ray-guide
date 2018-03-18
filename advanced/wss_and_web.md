@@ -80,7 +80,7 @@ mydomain.me
 
 ### 客户端配置
 
-```javascipt
+```javascript
 {
   "inbound": {
     "port": 1080,
@@ -133,8 +133,9 @@ mydomain.me
 
 1. 开启了 TLS 之后 path 参数是被加密的，GFW 看不到；
 2. 主动探测一个 path 产生 Bad request 不能证明是 V2Ray；
-3. 不安全的因素在于人，自己的问题就不要甩锅，哪怕示例中的 path 改成一个 UUID，依然有不少人原封不动地 COPY；
-4. 使用 Header 分流并不比 path 安全， 不要迷信；
+3. 不安全的因素在于人，自己的问题就不要甩锅，哪怕我把示例中的 path 改成一个 UUID，依然有不少人原封不动地 COPY；
+4. 使用 Header 分流并不比 path 安全， 不要迷信。
+
 ------
 
 ## 更新历史
