@@ -69,7 +69,7 @@ no crontab for user
 ```
 $ sudo apt-get -y install netcat
 ```
- 
+
 
 ### 使用 acme.sh 生成证书
 
@@ -124,6 +124,8 @@ $ sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force --ecc
 ```
 $ sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force
 ```
+
+**由于本例中将证书生成到 `/etc/v2ray/` 文件夹，更新证书之后还得把新证书生成到 /etc/v2ray。**
 
 ### 安装证书和密钥
 

@@ -1,6 +1,7 @@
 # Summary
 
 * [前言](README.md)
+* [状态](status.md)
 * [开篇](prep/README.md)
   * [开始之前](prep/start.md)
   * [安装 V2Ray](prep/install.md)
@@ -31,4 +32,3 @@
     * [负载均衡](app/balance.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
     * [不权威性能测试](app/benchmark.md)
-
