@@ -10,7 +10,7 @@ Docker 技术是一种新的虚拟化技术，和传统的虚拟化技术不同�
 $ sudo apt-get install -y docker
 ```
 
-安装完 Docker 后我们从 [DockerHub](https：//hub.docker.com/) 通过搜索找到 V2ray 官方提供的镜像， 链接[在此](https：//hub.docker.com/r/v2ray/official/). 找到拉取镜像的的命令并复制下来，在网页右侧我们可以看到命令为 `docker pull v2ray/official` ，我们将其复制下来回到命令行中粘贴并执行：
+安装完 Docker 后我们从 [DockerHub](https：//hub.docker.com/) 通过搜索找到 V2Ray 官方提供的镜像， 链接[在此](https：//hub.docker.com/r/v2ray/official/). 找到拉取镜像的的命令并复制下来，在网页右侧我们可以看到命令为 `docker pull v2ray/official` ，我们将其复制下来回到命令行中粘贴并执行：
 
 ```
 $ sudo docker pull v2ray/official

@@ -146,7 +146,7 @@ $ sudo systemctl restart v2ray
 
 - 2017-08-06 加点提醒
 - 2017-08-05 使用最新的脚本，脚本依然来自于 [V2Ray](https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/install-release.sh)
-- 2017-10-07 V2ray 官方服务器已经恢复
+- 2017-10-07 V2Ray 官方服务器已经恢复
 - 2017-12-22 移除官方服务器
 - 2017-12-29 加入 IPFS
 - 2018-04-05 Update
