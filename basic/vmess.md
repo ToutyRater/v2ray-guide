@@ -53,7 +53,7 @@ Configuration OK.
 
 以下给出了 VMess 的配置文件，包含客户端和服务器端，将你的配置替换成下面给出的配置即可正常使用（注意服务器地址须按你的实际情况修改）。修改完配置之后要重启 V2Ray 才能使用新配置生效。
 
-**另外再强调一遍，V2Ray 的认证基于时间，请确保服务器和客户端的时间准确，误差一分钟内即可**
+**VMess 协议的认证基于时间，请确保服务器和客户端的时间准确，误差一分钟内即可**
 
 ### 客户端配置
 
@@ -62,6 +62,7 @@ Configuration OK.
   "inbound": {
     "port": 1080, // 监听端口
     "protocol": "socks", // 入口协议为 SOCKS 5
+    "domainOverride": ["tls","http"],
     "settings": {
       "auth": "noauth"  //socks的认证设置，noauth 代表不认证，由于 socks 通常在客户端使用，所以这里不认证
     }
@@ -86,9 +87,9 @@ Configuration OK.
 }
 ```
 
-在配置当中，有一个 id（在这里的例子是 b831381d-6324-4d53-ad4f-8cda48b30811），作用类似于 Shadowsocks 的密码（password）, VMess 的 id 使用的是 UUID。关于 id 或者 UUID 没必要了解很多，在这里只要清楚以下几点就足够了：
+在配置当中，有一个 id（在这里的例子是 b831381d-6324-4d53-ad4f-8cda48b30811），作用类似于 Shadowsocks 的密码（password）, VMess 的 id 使用的是 UUID 格式。关于 id 或者 UUID 没必要了解很多，在这里只要清楚以下几点就足够了：
 * 相对应的 VMess 传入传出的 id 必须相同（如果你不理解这句话，那么可以简单理解成服务器与客户端的 id 必须相同）
-* 由于 id 使用的是 UUID，我们可以使用任何 UUID 生成工具生成 UUID 作为这里的 id。比如 [UUID Generator](https://www.uuidgenerator.net/) 这个网站，只要一打开或者刷新这个网页就可以得到一个 UUID，如下图
+* 由于 id 使用的是 UUID，我们可以使用任何 UUID 生成工具生成 UUID 作为这里的 id。比如 [UUID Generator](https://www.uuidgenerator.net/) 这个网站，只要一打开或者刷新这个网页就可以得到一个 UUID，如下图。或者可以在 Linux 使用命令 `cat /proc/sys/kernel/random/uuid` 生成。
 
 ![](/resource/images/generate_uuid.png)
 
@@ -125,13 +126,18 @@ Configuration OK.
 
 再看 outbound，protocol 是 vmess，说明 V2Ray 接收到数据包之后要将数据包打包成 [VMess](https://www.v2ray.com/chapter_03/01_effective.html#vmess-%E5%8D%8F%E8%AE%AE) 协议并且使用预设的 id 加密（这个例子 id 是 b831381d-6324-4d53-ad4f-8cda48b30811），然后发往服务器地址为 serveraddr.com 的 16823 端口。服务器地址 address 可以是域名也可以是 IP，只要正确就可以了。
 
+
+在客户端配置的 inbound 中，有一句 `"domainOverride": ["tls","http"]`，V2Ray 手册解释为“识别相应协议的流量，并根据流量内容重置所请求的目标”，不少人不太理解，简单说这东西就是从网络流量中识别出域名。这个 domainOverride 有两个用处：1. 解决 DNS 污染；2. 对于 IP 流量可以应用后文提到的域名路由规则。如果这段话不懂，没关系，照着写吧，没坏处。
+
 ### 服务器
 
 接着看服务器，服务器配置的 id 是 b831381d-6324-4d53-ad4f-8cda48b30811，所以 V2Ray 服务器接收到客户端发来的数据包时就会尝试用 b831381d-6324-4d53-ad4f-8cda48b30811 解密，如果解密成功再看一下时间对不对，对的话就把数据包发到 outbound 去，outbound.protocol 是 freedom（freedom 的中文意思是自由，在这里姑且将它理解成直连吧），数据包就直接发到 google.com 了。
 
-配置中的 alterId 也是作为认证的，具体请看 [V2Ray 用户手册](https://www.v2ray.com/chapter_03/01_effective.html#alterid)。只要确保服务器和客户端配置文件的 alterId 相同就行了，但要注意 alterId 的值越大会使用 V2Ray 占用更多的内存。根据我的经验，对于一般用户来说，alterId 的值设为 50 到 100 之间应该是比较合适的。
+配置中的 alterId 也是作为认证的，具体请看 [V2Ray 用户手册](https://www.v2ray.com/chapter_03/01_effective.html#alterid)。只要确保服务器和客户端配置文件的 alterId 相同就行了，但要注意 alterId 的值越大会使用 V2Ray 占用更多的内存。根据我的经验，对于一般用户来说，alterId 的值设为 30 到 100 之间应该是比较合适的。
 
-简单来说就是：浏览器打包 ---> V2Ray 客户端接收 -> V2Ray 客户端发出 --->  V2Ray 服务器接收 -> V2Ray 服务器发出 ---> 目标网站
+简单来说就是：浏览器打包 --(socks)--> V2Ray 客户端接收 -> V2Ray 客户端发出 --(VMess)-->  V2Ray 服务器接收 -> V2Ray 服务器发出 --(Freedom)--> 目标网站
+
+有人疑惑请求发出去后数据怎么回来，毕竟大多数的场景是下载。这个其实不算是问题，既然请求通过 V2Ray 发出去了，响应数据也会通过 V2Ray 原路返回（也许会有朋友看到这话会马上反驳说不是原路返回的，有这种想法的估计是比较清楚 TCP/IP 协议的，何必较这个劲，我又不是在做学术研究/讨论）。
 
 --------
 

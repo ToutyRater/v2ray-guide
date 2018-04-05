@@ -102,6 +102,7 @@ V2Ray 自 v2.5 版本开始提供 HTTP 伪装功能，后经作者不断完善�
   "inbound": {
     "port": 1080,
     "protocol": "socks",
+    "domainOverride": ["tls","http"],
     "settings": {
       "auth": "noauth"
     }

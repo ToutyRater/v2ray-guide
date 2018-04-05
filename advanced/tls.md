@@ -179,6 +179,7 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
   "inbound": {
     "port": 1080,
     "protocol": "socks",
+    "domainOverride": ["tls","http"],
     "settings": {
       "auth": "noauth"
     }
@@ -188,7 +189,7 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
     "settings": {
       "vnext": [
         {
-          "address": "mydomain.me",
+          "address": "mydomain.me", // tls 需要域名，所以这里应该填自己的域名
           "port": 443,
           "users": [
             {
@@ -226,7 +227,7 @@ Hostname 中输入你的域名，点提交，过一会结果就出来了。
 
 ## 温馨提醒
 
-**不要想当然地把在 SS 和 SSR 的观念带过来，更不要被别人轻飘飘的一句话误导，V2Ray 的 TLS 不是伪装，也不是混淆，这是完整、真正的 TLS。因此才需要域名和证书。后文提到的 WS(WebSocket) 也不是伪装。**
+**V2Ray 的 TLS 不是伪装或混淆，这是完整、真正的 TLS。因此才需要域名和证书。后文提到的 WS(WebSocket) 也不是伪装。**
 
 
 -----
@@ -234,3 +235,4 @@ Hostname 中输入你的域名，点提交，过一会结果就出来了。
 
 - 2017-08-06 加点提醒
 - 2017-12-31 修正文字错误
+- 2018-04-05 修正文字错误

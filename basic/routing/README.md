@@ -16,6 +16,7 @@
   "inbound": {
     "port": 1080,
     "protocol": "socks",
+    "domainOverride": ["tls","http"],
     "settings": {
       "auth": "noauth",  
     }

@@ -86,6 +86,7 @@ mydomain.me
     "port": 1080,
     "listen": "127.0.0.1",
     "protocol": "socks",
+    "domainOverride": ["tls","http"],
     "settings": {
       "auth": "noauth",
       "udp": false
@@ -110,9 +111,6 @@ mydomain.me
     "streamSettings": {
       "network": "ws",
       "security": "tls",
-      "tlsSettings": {
-        "serverName": "mydomain.me"
-      },
       "wsSettings": {
         "path": "/ray"
       }

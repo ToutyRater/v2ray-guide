@@ -22,7 +22,7 @@ V2Ray 的配置文件格式就像这样：
 
 总的来说，V2Ray 的配置有 11 个项，每个项都可以展开成具体的配置。这些配置项当中，本章都有涉及到前面 6 项，关于 dns 和 transport 将在后文说明。而 api、policy 和 stats 的内容我不考虑出，对这些感兴趣的仔细研究手册吧。
 
-要深刻理解，V2Ray 只是一个转发数据的软件，无论是客户端还是服务器，只要它从 inbound / inboundDetour 当中接收到数据包，不管 V2Ray 对这些数据包做了什么（加密、解密、协议转换等），到最后肯定是要把这些数据包从 outbound / outboundDetour 发出去。
+要深刻理解，V2Ray 只是一个转发数据的软件，无论是客户端还是服务器，只要它从 inbound(Detour) 当中接收到数据包，不管 V2Ray 对这些数据包做了什么（加密、解密、协议转换等），到最后肯定是要把这些数据包从 outbound(Detour) 发出去。
 
 ## inbound / outbound 和 inboundDetour / outboundDetour 的区别
 

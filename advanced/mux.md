@@ -45,6 +45,7 @@ Mux 只需在客户端开启，服务器会自动识别，所以只给客户端�
   "inbound": {
     "port": 1080, // 监听端口
     "protocol": "socks", // 入口协议为 SOCKS 5
+    "domainOverride": ["tls","http"],
     "settings": {
       "auth": "noauth"  // 不认证
     }
