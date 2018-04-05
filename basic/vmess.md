@@ -33,6 +33,22 @@ $ jq . config.json
 
 （从 v2.11 起新增了一个注释功能，配置文件允许 `//` 和 `/**/` 注释。但是 JSON 的标准格式的没有注释的，也就是说如果你给配置文件加了注释，再使用上文我说的格式化功能会报错说你的 JSON 语法（格式）不对。）
 
+不过，最好还是使用 V2Ray 提供的配置检查功能（test 选项），因为可以检查 JOSN 语法错误外的问题，比如说突然间手抖把 vmess 写成了 vmss，一下子就检查出来了。
+```
+$ /usr/bin/v2ray/v2ray -test -config /etc/v2ray/config.json
+failed to parse json config: Ext|Tools|Conf|Serial: failed to parse json config > Ext|Tools|Conf: failed to load inbound detour config. > Ext|Tools|Conf: unknown config id: vmss
+Main: failed to read config file: /etc/v2ray/config.json > Main|Json: failed to execute v2ctl to convert config file. > exit status 255
+```
+
+如果是配置文件没问题，则是这样的：
+
+```
+$ /usr/bin/v2ray/v2ray -test -config /etc/v2ray/config.json
+V2Ray v3.15 (die Commanderin) 20180329
+An unified platform for anti-censorship.
+Configuration OK.
+```
+
 ## 配置
 
 以下给出了 VMess 的配置文件，包含客户端和服务器端，将你的配置替换成下面给出的配置即可正常使用（注意服务器地址须按你的实际情况修改）。修改完配置之后要重启 V2Ray 才能使用新配置生效。
@@ -138,7 +154,7 @@ $ jq . config.json
 
 修正方法：请仔细检查配置文件并修改正确。
 
-### 客户端提示 Socks: unknown Socks version: 
+### 客户端提示 Socks: unknown Socks version:
 
 可能原因：客户端配置的 inboud 设置成了 socks 而浏览器的代理协议设置为 http。
 
@@ -178,9 +194,9 @@ $ jq . config.json
 对于 1) 到 3)，可以通过检查配置确定是否有问题。对于 4) 和 5)，你需要与 VPS 提供商和单位网管联系沟通。
 
 ### 如果你仔细检查了以上几点并将问题排除了，结果还是无法通过 V2Ray 上网，那么你可以考虑：
- 
+
  1). 仔细看前方的教程，一不要错漏步一步按照教程来，重新部署 V2Ray。部署过程中时刻注意[部署之前](/prep/start.md)提到的注意点。
- 
+
  2). 直接放弃。
 
 
@@ -192,3 +208,5 @@ $ jq . config.json
 - 2017-08-06 添加排错指引
 
 - 2018-02-09 补充说明
+
+- 2018-04-05 内容补充

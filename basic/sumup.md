@@ -8,16 +8,19 @@ V2Ray 的配置文件格式就像这样：
 
 ```javascript
   "log": {},
-  "dns": {},
-  "routing": {},
   "inbound": {},
   "outbound": {},
   "inboundDetour": [],
   "outboundDetour": [],
-  "transport": {}
+  "routing": {},
+  "transport": {},
+  "dns": {},
+  "policy": {},
+  "stats": {},
+  "api": {},
 ```
 
-总的来说，V2Ray 的配置有 8 个项，每个项都可以展开成具体的配置。这 8 个配置项当中，除了 dns 和 transport 之外，其它的在本章都有涉及，关于 dns 和 transport 将在后文说明。
+总的来说，V2Ray 的配置有 11 个项，每个项都可以展开成具体的配置。这些配置项当中，本章都有涉及到前面 6 项，关于 dns 和 transport 将在后文说明。而 api、policy 和 stats 的内容我不考虑出，对这些感兴趣的仔细研究手册吧。
 
 要深刻理解，V2Ray 只是一个转发数据的软件，无论是客户端还是服务器，只要它从 inbound / inboundDetour 当中接收到数据包，不管 V2Ray 对这些数据包做了什么（加密、解密、协议转换等），到最后肯定是要把这些数据包从 outbound / outboundDetour 发出去。
 
@@ -111,7 +114,7 @@ V2Ray 的配置文件格式就像这样：
 ```
 
 单纯从配置格式来看，outbound 和 outboundDetour 没有任何区别。但是实际上 outbound 和 outboundDetour 也有两点不同：
-* **配置中 outbound 只能并且必须设置一个传出的配置，而 outboundDetour 可以设置任意多个传出配置**
+* **配置中 outbound 只能并且必须设置一个传出的配置，~~而 outboundDetour 可以设置任意多个传出配置~~（实际上不可能任意多）**
 * **当没有配置路由规则或者路由没有匹配的情况下，默认由 outbound 将数据包发出去**。
 
 在上面给出的传入和传出配置格式当中，有一些参数不曾提到过，主要是因为：
@@ -122,4 +125,9 @@ V2Ray 的配置文件格式就像这样：
 
 V2Ray 的传入协议有 HTTP、SOCKS、VMess、Shadowsocks、Dokodemo-door；传出协议有 VMess、Shadowsocks、Blackhole、Freedom、SOCKS。
 
-在 inbound / inboundDetour 和 outbound / outboundDetour 当中，无论使用了什么协议，inbound / inboundDetour 或者 outbound / outboundDetour 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。
+在 inbound(Detour) 和 outbound(Detour) 当中，无论使用了什么协议，inbound(Detour) 或者 outbound(Detour) 的配置格式都是一样的，区别只在于不同的协议对应的 settings 内容不一样。
+
+-----
+## 更新历史
+
+- 2018-04-05 补充

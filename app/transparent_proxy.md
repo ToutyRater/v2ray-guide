@@ -67,6 +67,7 @@ The document has moved
 5. 设定 iptables 规则，命令如下
 ```
 iptables -t nat -N V2RAY
+iptables -t nat -A V2RAY -d 192.168.0.0/16 -j RETURN
 iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
@@ -76,14 +77,7 @@ UDP 流量透明代理的 iptables 规则，命令如下
 ip rule add fwmark 1 table 100
 ip route add local 0.0.0.0/0 dev lo table 100
 iptables -t mangle -N V2RAY_MASK
-iptables -t mangle -A V2RAY_MASK  -d 0.0.0.0/8 -j RETURN
-iptables -t mangle -A V2RAY_MASK  -d 10.0.0.0/8 -j RETURN
-iptables -t mangle -A V2RAY_MASK  -d 127.0.0.0/8 -j RETURN
-iptables -t mangle -A V2RAY_MASK  -d 169.254.0.0/16 -j RETURN
-iptables -t mangle -A V2RAY_MASK  -d 172.16.0.0/12 -j RETURN
 iptables -t mangle -A V2RAY_MASK  -d 192.168.0.0/16 -j RETURN
-iptables -t mangle -A V2RAY_MASK  -d 224.0.0.0/4 -j RETURN
-iptables -t mangle -A V2RAY_MASK  -d 240.0.0.0/4 -j RETURN
 iptables -t mangle -A V2RAY_MASK -p udp -j TPROXY --on-port 12345 --tproxy-mark 1
 iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 ```
@@ -95,13 +89,13 @@ iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 
 ## 注意事项
 
-* 在上面的设置中，假设访问了国外网站，如 Google 等，网关依然会使用的系统 DNS 进行查询，只不过返回的结果是污染过的，而 V2Ray 提供的 domain override 能够从流量中提取域名信息交由 VPS 解析。也就是说，每次打算访问被墙的网站，DNS 提供商都知道，鉴于国内企业尿性，也许 GFW 也都知道，会不会将这些数据收集喂 AI 也未可知。解决办法是建一个 DNS，不向上级查询，直接返回一个错误的 IP，反正 V2Ray 能够解决污染问题。如果有朋友知道有什么这样的软件，请告之。
+* 在上面的设置中，假设访问了国外网站，如 Google 等，网关依然会使用的系统 DNS 进行查询，只不过返回的结果是污染过的，而 V2Ray 提供的 domain override 能够从流量中提取域名信息交由 VPS 解析。也就是说，每次打算访问被墙的网站，DNS 提供商都知道，鉴于国内企业尿性，也许 GFW 也都知道，会不会将这些数据收集喂 AI 也未可知。解决办法是建一个 DNS，不向上级查询，直接返回一个错误的 IP，反正 V2Ray 能够解决污染问题。~~如果有朋友知道有什么这样的软件，请告之~~(可以使用 dnsmasq 实现)。
 * domain override 目前只能从 TLS 和 HTTP 流量中提取域名，如果上网流量有非这两种类型的慎用 domain override 解决 DNS 污染。
-* 由于对 iptables 不熟，我省略掉了对 UDP 流量的透明代理的设置，请精通此道的朋友补充一下。
+* ~~由于对 iptables 不熟，我省略掉了对 UDP 流量的透明代理的设置，请精通此道的朋友补充一下~~(目前 V2Ray 对 UDP 透明代理的实现有些问题，网络流量有大量 UDP 的网友请慎用)。
 * V2Ray 只能代理 TCP/UDP 的流量，ICMP 不支持，即就算透明代理成功了之后 ping Google 这类网站也是不通的。
 * 最好设定网关的地址为静态 IP，否则网关重启后换了 IP 上不了网会很尴尬
 * 上述的 iptables 配置只能使局域网内的其它设备翻墙，网关本身是无法翻墙的，如果要网关也能翻墙，要使用 iptables 的 owener 模块直连 V2Ray 发出的流量，然后执行 `iptables -t nat -A OUTPUT -p tcp -j V2RAY`。
-* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 192.168.0.0/16 这类私有地址，但我个人观点是放到 V2Ray 的路由里好一些。
+* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 127.0.0.0/8 这类私有地址，但我个人观点是放到 V2Ray 的路由里好一些。
 
 -------
 
@@ -113,3 +107,4 @@ iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 * 2017-12-29 删除不必要的 iptables 规则
 * 2018-01-16 优化操作步骤
 * 2018-01-21 添加 UDP
+* 2018-04-05 Update

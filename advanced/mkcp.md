@@ -93,7 +93,7 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
 ### 说明
 
 在上面的配置当中，与之前相比主要的变化在于多了一个 streamSettings，包含有不少参数：
-* `network`: 网络的选择，要像上面的配置写成 kcp 才会启用 mKCP
+* `network`: 网络的选择，要像上面的配置写成 kcp 或 mkcp 才会启用 mKCP
 * `kcpSettings`: 包含一些关于 mKCP 设置的参数，有
   * `uplinkCapacity`: 上行链路容量，将决定 V2Ray 向外发送数据包的速率。单位为 MB
   * `downlinkCapacity`：下行链路容量，将决定 V2Ray 接收数据包的速率。单位同样是 MB

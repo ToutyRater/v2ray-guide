@@ -19,7 +19,7 @@
 ```javascript
 {
   "inbound": {
-  "domaiOverride": ["tls","http"],
+  "domainOverride": ["tls","http"],
   ...
   },
   "outbound": {
@@ -46,7 +46,7 @@
         {
           "type": "field",
           "port": 53,
-          "network": "udp", 
+          "network": "udp",
           "outboundTag": "direct"
         },
         {
@@ -62,7 +62,7 @@
     }
   }
 }
-``` 
+```
 
 ## 注意事项
 
@@ -74,3 +74,4 @@
 
 * 2017-12-14 初版
 * 2018-01-15 Fix typo
+* 2018-04-05 Fix typo
