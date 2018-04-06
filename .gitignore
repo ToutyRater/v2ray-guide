@@ -16,7 +16,4 @@ _book
 *.pdf
 
 #
-base_config/explain.md
-advance_config/dns.md
-advance_config/transparent_proxy.md
 build.sh

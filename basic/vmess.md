@@ -2,9 +2,9 @@
 
 VMess 协议是由 V2Ray 原创并使用于 V2Ray 的加密传输协议，如同 Shadowsocks 一样为了对抗墙的[深度包检测](https://zh.wikipedia.org/wiki/%E6%B7%B1%E5%BA%A6%E5%8C%85%E6%A3%80%E6%B5%8B)而研发的。在 V2Ray 上客户端与服务器的通信主要是通过 VMess 协议通信。
 
-本小节给出了 VMess 的配置文件，其实也就是服务器和客户端的基本配置文件，这是最简单的配置了。
+本小节给出了 VMess 的配置文件，其实也就是服务器和客户端的基本配置文件，这是 V2Ray 能够运行的最简单的配置。
 
-V2Ray 使用 inbound 和 outbound 的概念，这个概念非常清晰地体现了数据包的流动方向，同时也使得 V2Ray 功能强大复杂的同时而不混乱，结构清晰明了。简单来说，V2Ray 就是一个盒子，这个盒子有出口和入口，我们将数据包通过某个入口放进这个盒子里，然后这个盒子以某各机制（这个机制其实就是路由，后面会讲到）决定这个数据包走哪个出口并将数据包发出去。建议选看一下 V2Ray 的[工作原理](https://www.v2ray.com/chapter_01/internal.html)。
+V2Ray 使用 inbound 和 outbound 的概念，这个概念非常清晰地体现了数据包的流动方向，同时也使得 V2Ray 功能强大复杂的同时而不混乱，结构清晰明了。简单来说，V2Ray 就是一个盒子，这个盒子有出口和入口，我们将数据包通过某个入口放进这个盒子里，然后这个盒子以某种机制（这个机制其实就是路由，后面会讲到）决定这个数据包走哪个出口并将数据包发出去。建议选看一下 V2Ray 的[工作原理](https://www.v2ray.com/chapter_01/internal.html)。
 
 -------
 
@@ -122,7 +122,7 @@ Configuration OK.
 
 ### 客户端
 
-请看 inbound，port 为 1080，V2Ray 监听了一个端口 1080，协议是 socks。之前我们已经把浏览器的代理设置好了（SOCKS Host: 127.0.0.1，Port: 1080），假如访问了 google.com，浏览器就会发出一个数据包打包成 socks 协议发送到本机（127.0.0.1指的本机，localhost）的 1080 端口，这个时候数据包就会被 V2Ray 接收到。
+请看配置中的 inbound，port 为 1080，V2Ray 监听了一个端口 1080，协议是 socks。之前我们已经把浏览器的代理设置好了（SOCKS Host: 127.0.0.1，Port: 1080），假如访问了 google.com，浏览器就会发出一个数据包打包成 socks 协议发送到本机（127.0.0.1指的本机，localhost）的 1080 端口，这个时候数据包就会被 V2Ray 接收到。
 
 再看 outbound，protocol 是 vmess，说明 V2Ray 接收到数据包之后要将数据包打包成 [VMess](https://www.v2ray.com/chapter_03/01_effective.html#vmess-%E5%8D%8F%E8%AE%AE) 协议并且使用预设的 id 加密（这个例子 id 是 b831381d-6324-4d53-ad4f-8cda48b30811），然后发往服务器地址为 serveraddr.com 的 16823 端口。服务器地址 address 可以是域名也可以是 IP，只要正确就可以了。
 
@@ -145,9 +145,8 @@ Configuration OK.
 
 - 为了让浅显地介绍 V2Ray 的工作方式，本节中关于原理简析的描述有一些地方是错误的。但我知识水平又不够，还不知道该怎么改，暂且将错就错。正确的工作原理在用户手册的 [VMess 协议](https://www.v2ray.com/eng/protocols/vmess.html) 有详细的说明。
 - id 为 UUID 格式，请使用软件生成，不要尝试自己造一个，否则很大程度上造出一个错误的格式来。
-- VMess 协议可以设定加密方式，但 VMess 的加密方式对于过墙并不重要，本节没有给出相关配置（不指定的情况下 VMess 会自己选择一种比较合适的加密方式），具体配置可见 [V2Ray 手册](https://v2ray.com/chapter_02/protocols/vmess.html)，不同加密方式的性能可参考[性能测试](/app/benchmark.md)。
+- VMess 协议可以设定加密方式，但 VMess 不同的加密方式对于过墙没有明显差别，本节没有给出相关配置方式（因为这不重要，默认情况下 VMess 会自己选择一种比较合适的加密方式），具体配置可见 [V2Ray 手册](https://v2ray.com/chapter_02/protocols/vmess.html)，不同加密方式的性能可参考[性能测试](/app/benchmark.md)。
 - 目前 alterId 服务器和客户端不一致的情况下也有可能正常连接，这不是 BUG，但还是建议保持一致。
-- VMess 可以选择不同的加密方式，但本文通篇没有提及，因为这不重要，默认就行。
 
 -------
 
