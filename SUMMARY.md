@@ -18,7 +18,7 @@
     * [Mux](advanced/mux.md)
     * [mKCP](advanced/mkcp.md)
     * [动态端口](advanced/dynamicport.md)
-    * [传出代理](advanced/outboundproxy.md)
+    * [代理转发](advanced/outboundproxy.md)
     * [HTTP 伪装](advanced/httpfake.md)
     * [TLS](advanced/tls.md)
     * [WebSocket](advanced/websocket.md)
