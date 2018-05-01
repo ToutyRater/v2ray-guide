@@ -34,3 +34,4 @@
     * [负载均衡](app/balance.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
     * [不权威性能测试](app/benchmark.md)
+    * [内存优化](app/optimization.md)
