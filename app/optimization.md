@@ -10,6 +10,8 @@ $ sudo systemctl daemon-reload && sudo systemctl restart v2ray.service
 ```
 上面的 v2ray.ray.buffer.size 就是缓存的变量，设为 1 也没多大影响（主观感觉，没实际测试对比过），内存不太够用的朋友可以试一下。
 
+特别说明，由于 V2Ray 的缓存机制，大部分情况下的上传速度测试结果比实际上传带宽要高。
+
 ## 更新历史
 
 - 2018-05-01 初版
