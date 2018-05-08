@@ -30,7 +30,7 @@ Sun 22 Jan 16:16:23 GMT 2017
 -----
 
 ## 客户端安装
-点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip。在国内下载 GitHub 的文件慢如龟爬，尤其是电信用户，几乎不能下载，所以也可以到 https://v2ray.com/download 进行下载，点进去的 Core-vx.y 代表 vx.y 版本的 V2Ray，其它的是 V2Ray 的第三方客户端，详见 https://v2ray.com/ui_client/。 下载解压之后会有 v2ray.exe 和 config.json 这两个文件，v2ray.exe 是运行 v2ray 的文件，config.json 是配置文件。~~默认的配置文件包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网~~（V2Ray 官方服务器已下线）。除以上两个文件外压缩包还有其它文件，文件 readme.md 是这些文件的说明，你可以通过记事本或其它的文本编辑器打开查看。本指南不再详述。
+点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip。在国内下载 GitHub 的文件慢如龟爬，尤其是电信用户，几乎不能下载，所以也可以到 https://v2ray.com/download 进行下载，点进去的 Core-vx.y 代表 vx.y 版本的 V2Ray，其它的是 V2Ray 的第三方客户端，详见 https://v2ray.com/ui_client/ 。下载解压之后会有 v2ray.exe 和 config.json 这两个文件，v2ray.exe 是运行 v2ray 的文件，config.json 是配置文件。~~默认的配置文件包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网~~（V2Ray 官方服务器已下线）。除以上两个文件外压缩包还有其它文件，文件 readme.md 是这些文件的说明，你可以通过记事本或其它的文本编辑器打开查看。本指南不再详述。
 
 ![](/resource/images/v2rayrunnig.png)
 
