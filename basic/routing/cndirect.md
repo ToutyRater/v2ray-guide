@@ -92,7 +92,7 @@
 
 ## 说明
 
-看客户端配置，注意 routing 那里有一个 "strategy": "rules"，这是固定格式，什么也别管照着写就好了。settings.domainStrategy 也跟着写，也可以设成其它的，这里我不说，想知道就看用户手册。重点在 settings.rules，这是一个数组，也就是说可以设置多个路由规则，当访问一个网站，数据包进入 V2Ray 之后路由就会先看看有没有能够匹配的规则，然后执行规则。本例中，type 有 chinasites 和 chinaip，这两个分别包含了中国的网站域名和 ip 。两个规则的 outboundTag 都是 direct （看 outboundDetour tag 为 direct 的是 freedom）那么如果访问了国内的网站路由就会将这个数据包发往 freedom，就是直连了。比如说我访问了 qq.com，qq.com 是国内网站包含在 chinasites 里，就会匹配路由规则发往 freedom。
+看客户端配置，注意 routing 那里有一个 "strategy": "rules"，这是固定格式，什么也别管照着写就好了。settings.domainStrategy 也跟着写，也可以设成其它的，这里我不说，想知道就看用户手册。重点在 settings.rules，这是一个数组，也就是说可以设置多个路由规则，当访问一个网站，数据包进入 V2Ray 之后路由就会先看看有没有能够匹配的规则，然后执行规则。本例中，type 有 chinasites 和 chinaip，这两个分别包含了中国大陆主流网站大部分域名和几乎所有的 ip 。两个规则的 outboundTag 都是 direct （看 outboundDetour tag 为 direct 的是 freedom）那么如果访问了国内的网站路由就会将这个数据包发往 freedom，就是直连了。比如说我访问了 qq.com，qq.com 是国内网站包含在 chinasites 里，就会匹配路由规则发往 freedom。
 
 另外需要说明的一点是，在这个例子当中尽管路由只有 direct(freedom)，但仍然是可以上 google.com、twitter.com 等众多网站的。因为 outbound 是作为默认的传出，当一个数据包没有匹配的规则时，路由就会把数据包发往 outbound，在本例中 outbound 设置成了 VMess，即不是 chinasites 和 chinaip 的数据包将通过 VPS 代理。
 
