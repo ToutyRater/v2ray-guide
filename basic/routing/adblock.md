@@ -40,12 +40,12 @@
     {
       "protocol": "freedom",
       "settings": {},
-      "tag": "direct"
+      "tag": "direct"//如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了
     },
     {
       "protocol": "blackhole",
       "settings": {},
-      "tag": "adblock"
+      "tag": "adblock"//同样的，这个 tag 也是要有的，在路由中说 adblock 就知道是这里的 blackhole（黑洞） 了
     }
   ],
   "routing": {
@@ -117,7 +117,7 @@
 
 ## 说明
 
-在本小节的配置变化只在于客户端配置的 outboundDetour 和 routing 添加了新的内容，请大家自行比较。
+相对于上小节，在本小节的配置变化只在于客户端配置的 outboundDetour 和 routing 添加了新的内容，请大家自行比较。
 
 在 routing.settings.rules 中，type 的值除了 chinasites 和 chinaip 之外只能是 field。
 
@@ -127,6 +127,7 @@
 {
   "domain": [
     "tanx.com",
+    "googeadsserving.cn",
     "baidu.com"
   ],
   "type": "field",
@@ -136,6 +137,7 @@
   "domain": [
     "amazon.com",
     "microsoft.com",
+    "jd.com",
     "youku.com",
     "baidu.com"
   ],
