@@ -34,7 +34,7 @@
         "type": "field",
         "outboundTag": "proxy",
         "domain": [
-            "ext:h2y.dat:gfw",
+            "ext:h2y.dat:gfw"
         ]
         
     }
