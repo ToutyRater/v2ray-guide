@@ -35,9 +35,6 @@ V2Ray 提供了代理转发功能，利用它可以实现中转（在没有中�
         }
       ]
     },
-    "streamSettings": {
-      "network": "tcp"  // 此处不能是 "kcp"，设成 "kcp" 将无法联网
-    },
     "proxySettings": {
         "tag": "transit"  // 这里的 tag 必须跟作为代理 VPS 的 tag 一致，这里设定的是 "transit"
       }
@@ -83,9 +80,6 @@ V2Ray 提供了代理转发功能，利用它可以实现中转（在没有中�
           ]
         }
       ]
-    },
-    "streamSettings": {
-      "network": "tcp"  
     },
     "tag": "DOUS",
     "proxySettings": {
@@ -143,9 +137,6 @@ V2Ray 提供了代理转发功能，利用它可以实现中转（在没有中�
         ]
       },
       "tag": "DOSG",
-      "streamSettings": {
-        "network": "tcp"  
-      },
       "proxySettings": {
           "tag": "AliSG"  
       }
@@ -162,8 +153,9 @@ PC -> AliHK -> AliSG -> DOSG -> DOUS -> 目标网站
 **注意：如果你打算配置(动态)链式代理转发，应当明确几点：**
 * `性能`。链式代理使用了多个节点，可能会造成延时、带宽等网络性能问题，并且客户端对每一个加解密的次数取决于代理链的长度，理论上也会有一定的影响。
 * `安全`。前文提到，代理转发会一定程度上提高安全性，但安全取决于最弱一环，并不意味着代理链越长就会越安全。如果你需要匿名，请考虑成熟的匿名方案。
-另外，使用了代理转发 streamSettings 会失效。
+另外，使用了代理转发 streamSettings 会失效，即只能是非 TLS、无 HTTP 伪装的 TCP 传输协议。
 
 ## 更新历史
 
 - 2018-03-17 Update
+- 2018-07-08 Update
