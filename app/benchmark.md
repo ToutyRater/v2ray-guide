@@ -1,6 +1,6 @@
 # 性能测试
 
-单位 MB/s，仅供参考。
+单位 MB/s，仅供参考。测试方法及测试工具参见[传说中的性能测试](https://steemit.com/cn/@v2ray/3cjiux) 。
 
 ## PC 虚拟机(amd64)
 
