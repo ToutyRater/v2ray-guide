@@ -56,7 +56,7 @@ $ sudo docker container restart v2ray
 
 查看日志：
 ```
-$ sudo docker container log  v2ray
+$ sudo docker container logs v2ray
 ```
 
 更新配置后，需要重新部署容器，命令如下：
