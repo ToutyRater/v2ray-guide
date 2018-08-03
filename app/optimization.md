@@ -4,14 +4,18 @@
 
 ## 修改缓存
 
+### 利用环境变量修改
 VPS 中打开 /etc/systemd/system/v2ray.service 文件，将 `ExecStart=/usr/bin/v2ray/v2ray -config /etc/v2ray/config.json` 修改成 `ExecStart=/usr/bin/env v2ray.ray.buffer.size=1 /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json`，保存；然后执行下面的命令生效。
 ```
 $ sudo systemctl daemon-reload && sudo systemctl restart v2ray.service
 ```
 上面的 v2ray.ray.buffer.size 就是缓存的变量，设为 1 也没多大影响（主观感觉，没实际测试对比过），内存不太够用的朋友可以试一下。
 
-特别说明，由于 V2Ray 的缓存机制，大部分情况下的上传速度测试结果比实际上传带宽要高。
+### 在配置文件中修改
+
+在上面的通过环境变量修改缓存大小中，有一个问题是 v2ray.ray.buffer.size 的单位是 Mbytes，最小只能改成 1 Mbytes，如果改成 0 的话就意味着缓存无限制。不过在配置文件中也可以修改缓存大小，单位是 Kbytes，在配置中设成 0 的话表示禁用缓存，需要将缓存设得更小的朋友可以参考 V2Ray 官方文档的本地策略一节，配置比较简单，这里就不详述了。
 
 ## 更新历史
 
 - 2018-05-01 初版
+- 2018-08-02 添加配置文件修改缓存
