@@ -37,3 +37,4 @@
     * [内存优化](app/optimization.md)
 * [路由篇](routing/README.md)
     * [域名文件](routing/sitedata.md)
+    * [禁止 BT](routing/bittorrent.md)
