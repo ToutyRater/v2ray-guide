@@ -12,7 +12,7 @@
  
 ## 服务器配置
 
-```
+```javascript
 {
   "log": {
     "loglevel": "warning",
