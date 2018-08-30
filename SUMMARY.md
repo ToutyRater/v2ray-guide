@@ -1,7 +1,6 @@
 # Summary
 
 * [前言](README.md)
-* [状态](status.md)
 * [开篇](prep/README.md)
   * [开始之前](prep/start.md)
   * [安装 V2Ray](prep/install.md)
