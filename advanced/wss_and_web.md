@@ -78,6 +78,26 @@ mydomain.me
 }
 ```
 
+### Apache 设置
+
+```
+<VirtualHost *:443>
+  ServerName mydomain.me
+  SSLCertificateFile /path/to/certificate.crt
+  SSLCertificateKeyFile /path/to/private_key.key
+  
+  SSLProtocol -All +TLSv1 +TLSv1.1 +TLSv1.2
+  SSLCipherSuite HIGH:!aNULL
+  
+  <Location "/ray/">
+    ProxyPass ws://127.0.0.1:10000/ray/ upgrade=WebSocket
+    ProxyAddHeaders Off
+    ProxyPreserveHose On
+    RequestHeader append X-Forwarded-For %{REMOTE_ADDR}s
+  </Location>
+</VirtualHost>
+```
+
 ### 客户端配置
 
 ```javascript
