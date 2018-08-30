@@ -78,7 +78,7 @@ mydomain.me
 }
 ```
 
-### Apache 设置
+### Apache 配置
 
 ```
 <VirtualHost *:443>
