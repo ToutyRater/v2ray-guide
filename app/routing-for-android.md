@@ -1,6 +1,10 @@
 # 路由规则之移动端
 
-**由于 Actinium 和 V2RayNG 都自动开启了 domain override，本文基本没有了参考价值。**
+**由于使用 V2Ray Core 的移动客户端都能直接开启 domain override，本文基本没有了参考价值。**
+
+**由于使用 V2Ray Core 的移动客户端都能直接开启 domain override，本文基本没有了参考价值。**
+
+**由于使用 V2Ray Core 的移动客户端都能直接开启 domain override，本文基本没有了参考价值。**
 
 在前面的内容当中，我从来没讲过移动端的配置，是因为 Android 的客户端是直接使用 V2Ray-core，配置文件是通用的。而 iOS 的只有那么几个框可以填的，没什么可说。但是在 Android 上用过 V2Ray 的朋友可能都遇过这个问题：
 
@@ -66,17 +70,10 @@ V2RayNG 是另一个基于 V2Ray 内核的 Android 应用，从某个版本可�
 --------
 ## 更新历史
 
-- 2017-08-05
+- 2017-08-05 增加可以在服务器上使用 domain override 的内容
 
-增加可以在服务器上使用 domain override 的内容
+- 2017-11-16 增加Actinium和全局复制搭配使用 domain override 的内容，并修正部分拼写错误
 
-- 2017-11-16
+- 2017-11-28 增加 V2RayNG
 
-增加Actinium和全局复制搭配使用 domain override 的内容，并修正部分拼写错误
-
-- 2017-11-28
-
-增加 V2RayNG
-
-- 2017-12-11
-本文相当失效
+- 2017-12-11 本文相当失效
