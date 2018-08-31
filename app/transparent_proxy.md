@@ -27,11 +27,11 @@
 ## 设置步骤
 设置步骤如下，假设使用 root。
 
-1. 网关开启 IP 转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效：
+1. 网关设备开启 IP 转发。在 /etc/sysctl.conf 文件添加一行 `net.ipv4.ip_forward=1` ，执行下列命令生效：
 ```
 sysctl -p
 ```
-2. 路由器 DHCP 设定网关地址为网关设备的 IP，本例为 192.168.1.22，或者电脑手机等设备单独设置网关地址，但网关设备必须指定网关地址为路由器的IP，然后电脑/手机测试是不是可以正常上网(这时还不能翻墙)，如果不能上网先去学习一个把这个搞定，否则接下来再怎么也同样上不了网。
+2. 网关设备设置静态 IP，与路由器 LAN 口同一个网段，默认网关为路由器的IP；进入路由器的管理后台，到 DHCP 设定将默认网关地址为网关设备的 IP，本例为 192.168.1.22，或者电脑手机等设备单独设置默认网关，然后电脑/手机重新连接到路由器测试是不是可以正常上网(这时还不能翻墙)，如果不能上网先去学习一个把这个搞定，否则接下来再怎么也同样上不了网。网关设备设定静态 IP 是为了避免重启后 IP 会发生变化导致其他设备无法联网；路由器其设定 DHCP 默认网关地址是为了让接入到这个路由器的设备将上网的数据包发到网关设备进行转发。
 
 3. 在服务器和网关安装 V2Ray（如果不会就参照前面的教程，由于 GFW 会恶化 GitHub Releases 的流量，网关直接运行脚本几乎无法安装，建议从 https://v2ray.com/download 下载然后使用 --local 参数进行安装），并配置好配置文件。一定要确定搭建的 V2Ray 能够正常使用。在网关执行 `curl -x socks5://127.0.0.1:1080 google.com` 测试配置的 V2Ray 是否可以翻墙(命令中 `socks5` 指 inbound 为 socks，`1080` 指该 inbound 端口是 1080)。如果出现类似下面的输出则可以翻墙，如果没有出现就说明翻不了，你得仔细检查以下哪步操作不对或漏了。
 ```
@@ -65,7 +65,7 @@ The document has moved
 }
 ```
 
-5. 设定 iptables 规则，命令如下
+5. 设定 TCP 透明代理的 iptables 规则，命令如下
 ```
 iptables -t nat -N V2RAY
 iptables -t nat -A V2RAY -d 192.168.0.0/16 -j RETURN
@@ -73,7 +73,7 @@ iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 ```
 
-UDP 流量透明代理的 iptables 规则，命令如下
+   然后设定 UDP 流量透明代理的 iptables 规则，命令如下
 ```
 ip rule add fwmark 1 table 100
 ip route add local 0.0.0.0/0 dev lo table 100
@@ -83,20 +83,19 @@ iptables -t mangle -A V2RAY_MASK -p udp -j TPROXY --on-port 12345 --tproxy-mark 
 iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 ```
 
-6. 使用电脑/手机直接访问被墙网站，这时应当可以访问的（如果不能，你可能得请教大神手把手指导了）。
+6. 使用电脑/手机尝试直接访问被墙网站，这时应该是可以访问的（如果不能，你可能得请教大神手把手指导了）。
 
-7. 写脚本开机加载上述的 iptables，或者使用第三方软件(如 iptables-persistent)，否则网关重启后 iptables 会失效(即透明代理会失效)。
+7. 写开机自动加载上述的 iptables 的脚本，或者使用第三方软件(如 iptables-persistent)，否则网关重启后 iptables 会失效(即透明代理会失效)。
 
 
 ## 注意事项
 
-* 在上面的设置中，假设访问了国外网站，如 Google 等，网关依然会使用的系统 DNS 进行查询，只不过返回的结果是污染过的，而 V2Ray 提供的 domain override 能够从流量中提取域名信息交由 VPS 解析。也就是说，每次打算访问被墙的网站，DNS 提供商都知道，鉴于国内企业尿性，也许 GFW 也都知道，会不会将这些数据收集喂 AI 也未可知。解决办法是建一个 DNS，不向上级查询，直接返回一个错误的 IP，反正 V2Ray 能够解决污染问题。~~如果有朋友知道有什么这样的软件，请告之~~(可以使用 dnsmasq 实现)。
+* 在上面的设置中，假设访问了国外网站，如 Google 等，网关依然会使用的系统 DNS 进行查询，只不过返回的结果是污染过的，而 V2Ray 提供的 domain override 能够从流量中提取域名信息交由 VPS 解析。也就是说，每次打算访问被墙的网站，DNS 提供商都知道，鉴于国内企业尿性，也许 GFW 也都知道，会不会将这些数据收集喂 AI 也未可知。
 * domain override 目前只能从 TLS 和 HTTP 流量中提取域名，如果上网流量有非这两种类型的慎用 domain override 解决 DNS 污染。
-* ~~由于对 iptables 不熟，我省略掉了对 UDP 流量的透明代理的设置，请精通此道的朋友补充一下~~(目前 V2Ray 对 UDP 透明代理的实现有些问题，网络流量有大量 UDP 的网友请慎用)。
+* 由于对 iptables 不熟，我总感觉上面对 UDP 流量的透明代理的设置使用上有点问题，知道为什么的朋友请反馈一下。如果你只是简单的上上网看看视频等，可以只代理 TCP 流量。
 * V2Ray 只能代理 TCP/UDP 的流量，ICMP 不支持，即就算透明代理成功了之后 ping Google 这类网站也是不通的。
-* 最好设定网关的地址为静态 IP，否则网关重启后换了 IP 上不了网会很尴尬
 * 上述的 iptables 配置只能使局域网内的其它设备翻墙，网关本身是无法翻墙的，如果要网关也能翻墙，要使用 iptables 的 owener 模块直连 V2Ray 发出的流量，然后执行 `iptables -t nat -A OUTPUT -p tcp -j V2RAY`。
-* 按照网上的透明代理教程，设置 iptables 肯定要 RETURN 127.0.0.0/8 这类私有地址，但我个人观点是放到 V2Ray 的路由里好一些。
+* 按照网上其他的透明代理教程，设置 iptables 肯定要 RETURN 127.0.0.0/8 这类私有地址，但我个人观点是放到 V2Ray 的路由里好一些。
 
 -------
 
@@ -109,3 +108,5 @@ iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 * 2018-01-16 优化操作步骤
 * 2018-01-21 添加 UDP
 * 2018-04-05 Update
+* 2018-01-21 添加 UDP
+* 2018-04-05 设置步骤修正
