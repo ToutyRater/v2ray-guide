@@ -108,5 +108,4 @@ iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 * 2018-01-16 优化操作步骤
 * 2018-01-21 添加 UDP
 * 2018-04-05 Update
-* 2018-01-21 添加 UDP
-* 2018-04-05 设置步骤修正
+* 2018-08-30 设置步骤修正
