@@ -95,7 +95,7 @@ mydomain.me
   <Location "/ray/">
     ProxyPass ws://127.0.0.1:10000/ray/ upgrade=WebSocket
     ProxyAddHeaders Off
-    ProxyPreserveHose On
+    ProxyPreserveHost On
     RequestHeader append X-Forwarded-For %{REMOTE_ADDR}s
   </Location>
 </VirtualHost>
