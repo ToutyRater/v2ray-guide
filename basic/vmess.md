@@ -57,6 +57,7 @@ Configuration OK.
 
 ### 客户端配置
 
+以下是客户端配置，将客户端的 config.json 文件修改成下面的内容，修改完成后要重启 V2Ray 才会使修改的配置生效。
 ```javascript
 {
   "inbound": {
@@ -95,6 +96,7 @@ Configuration OK.
 
 ### 服务器配置
 
+以下是服务器配置，将服务器 /etc/v2ray 目录下的 config.json 文件修改成下面的内容，修改完成后要重启 V2Ray 才会使修改的配置生效。
 ```javascript
 {
   "inbound": {
