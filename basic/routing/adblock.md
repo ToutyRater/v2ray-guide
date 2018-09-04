@@ -51,7 +51,7 @@
   "routing": {
     "strategy": "rules",
     "settings": {
-      "domainStrategy": "IPIfNonMatch",
+      "domainStrategy": "IPOnDemand",
       "rules": [
         {
           "domain": [
