@@ -41,7 +41,7 @@
 }
 ```
 
-像上面这个配置就是前面 VMess 的客户端配置文件，假如我改一下，改成下面这个
+像上面这个配置就是前面 VMess 的客户端配置文件，假如改一下 outbound 的内容，变成这样：
 
 ```javascript
 {
@@ -58,14 +58,22 @@
     }
   },
   "outbound": {
-    "protocol": "freedom",
+    "protocol": "freedom", //原来是 VMess，现在改成 freedom
     "settings": {
     }
   }
 }
 ```
 
-如果按这个配置，你会发现这个时候浏览器设不设置代理其实是一样的，像 Google 原本不能上的设置代理还是不能上，taobao 这种一直能上的还是能上。因为 freedom 就是直连，从 inbound 接收到数据之后没有经过 VPS 中转直接发出去了，所以效果跟直接访问一个网站是一样的。
+如果修改成这个配置重启客户端之后，你会发现这个时候浏览器设不设置代理其实是一样的，像 Google 这类被墙的网站没法访问了，taobao 这种国内网站还是跟平常一样能上。如果是前面的介绍 VMess，数据包的流向是:
+```
+{浏览器} <--(socks)--> {V2Ray 客户端 inbound <-> V2Ray 客户端 outbound} <--(VMess)-->  {V2Ray 服务器 inbound <-> V2Ray 服务器 outbound} <--(Freedom)--> {目标网站}
+```
+但因为现在 V2Ray 客户端的 outbound 设成了 freedom，freedom 就是直连，所以呢修改后数据包流向变成了这样：
+```
+{浏览器} <--(socks)--> {V2Ray 客户端 inbound <-> V2Ray 客户端 outbound} <--(Freedom)--> {目标网站}
+```
+V2Ray 客户端从 inbound 接收到数据之后没有经过 VPS 中转，而是直接由 freedom 发出去了，所以效果跟直接访问一个网站是一样的。
 
 再来看下面这个:
 
@@ -91,13 +99,13 @@
 }
 ```
 
-这样的配置生效之后，你会发现无论什么网站都无法访问。这是为什么呢？blackhole 是黑洞的意思，在 V2Ray 这里也差不多相当于是一个黑洞（废话，不然叫什么黑洞），就是说 V2Ray 从 inbound 接收到数据之后发到 outbound，因为 outbound 是 blackhole，来什么吞掉什么，就相当于要访问什么就阻止访问什么。
+这样的配置生效之后，你会发现无论什么网站都无法访问。这是为什么呢？blackhole 是黑洞的意思，在 V2Ray 这里也差不多相当于是一个黑洞，就是说 V2Ray 从 inbound 接收到数据之后发到 outbound，因为 outbound 是 blackhole，来什么吞掉什么，就是不转发到服务器或者目标网站，相当于要访问什么就阻止访问什么。
 
-来来来，开一下脑洞，咱都可以利用这些 outbound 做些什么呢？沉思 300s ~~~ 比如说 VMess 上 Google、Twitter（废话），freedom 可以不通过 VPS 直连（废话），blackhole 可以过滤广告 （废。。。好吧，不是废话）
+到这儿为止，总共介绍了 4 种 outbound 协议：用于代理的 VMess 和 Shadowsocks 协议，用于直连的 freedom 协议，以及用于拦截的 blackhole 协议。我们可以利用这几种协议再配合路由功能可以灵活地根据自己的需求针对不同网站进行代理、直连或者拦截。举个简单的例子，比较大众的需求是被墙网站走代理，国内网站直连，其他一些不喜欢的则拦截(比如说百度的高精度定位)。
 
-等等。。。。。。。。。。。你这里有 VMess、freedom 和 blackhole 3 个呢，可是 outbound 只有一个，这可怎么办呢？
+等等！你这里有 VMess、freedom 和 blackhole 3 个呢，可是 outbound 只有一个，这可怎么办呢？
 
-好吧，真 tm 机智，幸亏留有一手。请看下面，这不是就有 3 个了吗。加一个 outboundDetour 数组，要多少个 outbound 都可以。
+这个问题 V2Ray 也想到了，就像下面这样的配置，加一个 outboundDetour 数组，格式与 outbound 一致，甚至不止 3 个，30 个都可以。
 
 ```javascript
 {
@@ -130,7 +138,7 @@
       ]
     }
   },
-  "outboundDetour": [
+  "outboundDetour": [ //outboundDetour，是一个数组，可以放若干个如 outbound 格式的内容
     {
       "protocol": "freedom",
       "settings": {}
@@ -143,8 +151,5 @@
 }
 ```
 
-好吧~~~ 但也没用啊，我怎么让 Google 走 VMess，taobao 走 freedom，还有阻止讨厌的广告。
+当然这个配置只是包含了多个协议而已，要达到上面说的被墙网站走代理，国内网站直连，其他特殊网站拦截的效果，还得加入路由功能的配置。关于路由功能的配置见后面两小节。
 
-既然如此，那本道只好释放大招了：路由，V2Ray 本身提供了一个路由功能。路由就是决定数据的传送方向。就拿 V2Ray 来说，我们可以通过设定路由来决定一个数据包会被发往哪个 outbound，就如前面说的 Google 走 VMess，taobao 走 freedom，过滤广告。
-
-接下来将说明如何应用 freedom 和 blackhole 这两个协议。
