@@ -32,8 +32,6 @@
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
     * [不权威性能测试](app/benchmark.md)
     * [内存优化](app/optimization.md)
-    * [~~路由规则之移动端~~](app/routing-for-android.md)
-    * [~~Android 直连问题及解决~~](app/dns_for_android.md)
 * [路由篇](routing/README.md)
     * [域名文件](routing/sitedata.md)
     * [禁止 BT](routing/bittorrent.md)
