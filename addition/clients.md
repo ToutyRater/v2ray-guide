@@ -15,7 +15,7 @@ V2Ray 项目组似乎对 GUI 不是很感兴趣，然而事实上有太多的人
  
 他的出现是为了让 V2Ray 能够隐藏右下角的任务栏中，与 V2Ray-Taskbar 同时期，结果也一样。
 
-### V2Zero
+### V2RayZero
 
 后 V2Ray-Taskbar 的软件，他的出现标志着 V2Ray 可以通过图形化的方式配置 V2Ray 了。我只用过一次，不太记得了，配置界面好像一定程度上借鉴了 Shadowsocks-Windows。同样地，昙花一现。
 
