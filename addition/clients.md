@@ -55,4 +55,34 @@ V2Ray 项目组似乎对 GUI 不是很感兴趣，然而事实上有太多的人
 前身是 Bifrost，一个包含代理协议但没有人见过的项目，后来发现 V2Ray 的模块化实现得比较完整就转身做 V2Ray 的 GUI客户端了。细节处理得很好，界面层次分明，又能与 V2Ray 的配置一一对应，有 V2Ray 完整的路由功能，还加入了额外的 DNS，使用体验不错。有广告，广告不是问题，问题是有时突然弹出全屏广告会造成心理上的错愕，氪金可解。综合地说，在 Android 上 BifrostV 使用体验最好。
 
 -----
+## iOS 平台
+
+## ShadowRocket
+
+最早的 iOS 客户端，考虑到平台限制，不像 Android 客户端那样直接调用 V2Ray 内核，所以在 ShadowRocket 上使用 VMess 协议其实跟用 ss 是一样的体验，代理协议不同而已。也正因为不是调用内核，ShadowRocket 支持的 V2Ray 特性非常少，关于 V2Ray 的新功能也几乎没有跟进速度可言。
+
+## Pepi
+
+与 ShadowRocket 师出同门，只支持 V2Ray，但对 V2Ray 支持的功能与 ShadowRocket 一样，所以众多网友更倾向使用 ShadowRocket，Pepi 已经快被大家遗忘在角落里了。
+
+## Kitsunebi
+
+直接使用 V2Ray 内核，对 V2Ray 的支持要好一些。由于 iOS 的原因，有时会有断流的现象。对不起！说错了，不关系统的事。
+
+## Kitsunebi Lite
+
+精简版的 Kitsunebi，主要是少了导入自定义 JSON 配置，其他的与 Kitsunebi 差不多。
+
+## Quantumult
+
+与 ShadowRocket 一样重写了代理协议，支持的特性有限。
+
+-----
+## MAC 平台
+
+### V2RayX
+
+V2RayW 的作者开发的，目前 MAC 上唯一的 GUI 客户端。没用过，不知怎样。
+
+-----
 （未完）
