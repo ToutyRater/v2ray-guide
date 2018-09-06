@@ -51,7 +51,7 @@
       "rules": [
         {
           "type": "field",
-          "outboundTag": "direct"，
+          "outboundTag": "direct",
           "domain": ["geosite:cn"]
         },
         {
