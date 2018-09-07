@@ -78,6 +78,12 @@ $ sudo docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:8888 v2ray/of
 -p 127.0.0.1:端口号:端口号
 ```
 
+如果 V2Ray 用的传输层协议是 mKCP，由于 mKCP 基于 UDP，那么需要指定映射的端口是 UDP：
+
+```
+-p  9999:9999/udp
+```
+
 **除非你打算使用Nginx来转发Websocket否则不需要映射到本地，直接填写`端口号:端口号`的形式即可**
 
 另外，如果开启了动态端口，-p 标记可以多次使用来绑定多个端口. 具体用法是在指令中再加上多个 -p 标记即可。
@@ -93,3 +99,4 @@ $ docker pull v2ray/official
 ## 更新历史
 
 * 2018-04-05 Update
+* 2018-09-06 UDP 说明
