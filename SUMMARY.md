@@ -35,5 +35,5 @@
 * [路由篇](routing/README.md)
     * [域名文件](routing/sitedata.md)
     * [禁止 BT](routing/bittorrent.md)
-* [外篇]()
+* [吐槽篇](addition/Readme.md)
     * [图形客户端简介](addition/clients.md)
