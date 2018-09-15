@@ -107,7 +107,7 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY # 对本机进行透明代理
 ip rule add fwmark 1 table 100
 ip route add local 0.0.0.0/0 dev lo table 100
 iptables -t mangle -N V2RAY_MASK
-iptables -t mangle -A V2RAY_MASK  -d 192.168.0.0/16 -j RETURN
+iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -j RETURN
 iptables -t mangle -A V2RAY_MASK -p udp -j TPROXY --on-port 12345 --tproxy-mark 1
 iptables -t mangle -A PREROUTING -p udp -j V2RAY_MASK
 ```
