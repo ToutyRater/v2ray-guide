@@ -5,7 +5,7 @@
 ## 修改缓存
 
 ### 利用环境变量修改
-VPS 中打开 /etc/systemd/system/v2ray.service 文件，将 `ExecStart=/usr/bin/v2ray/v2ray -config /etc/v2ray/config.json` 修改成 `ExecStart=/usr/bin/env v2ray.ray.buffer.size=1 /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json`，保存；然后执行下面的命令生效。
+VPS 中编辑 /etc/systemd/system/v2ray.service 文件，将 `ExecStart=/usr/bin/v2ray/v2ray -config /etc/v2ray/config.json` 修改成 `ExecStart=/usr/bin/env v2ray.ray.buffer.size=1 /usr/bin/v2ray/v2ray -config /etc/v2ray/config.json`，保存；然后执行下面的命令生效。
 ```
 $ sudo systemctl daemon-reload && sudo systemctl restart v2ray.service
 ```
