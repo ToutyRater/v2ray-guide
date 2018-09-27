@@ -79,7 +79,7 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
         "tti": 20,
         "uplinkCapacity": 5,
         "downlinkCapacity": 100,
-        "congestion": ture,
+        "congestion": true,
         "readBufferSize": 1,
         "writeBufferSize": 1,
         "header": {
