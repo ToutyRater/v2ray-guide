@@ -65,7 +65,6 @@
     {  
       "protocol":"freedom",
       "settings":{  
-        "redirect": "127.0.0.1:80"
       },
       "tag":"out"
     }
@@ -103,11 +102,11 @@
 
 ```javascript
 {  
-  "reverse":{  这是 A 的反向代理设置，必须有下面的 portals 对象
+  "reverse":{  //这是 B 的反向代理设置，必须有下面的 portals 对象
     "portals":[  
       {  
         "tag":"portal",
-        "domain":"private.nas.com"        // 必须和上面 A 设定的域名一样
+        "domain":"private.cloud.com"        // 必须和上面 A 设定的域名一样
       }
     ]
   },
