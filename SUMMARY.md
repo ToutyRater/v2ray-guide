@@ -28,7 +28,6 @@
     * [不建议的配置](advanced/not_recommend.md)
 * [应用篇](app/README.md)
     * [透明代理/路由器翻墙](app/transparent_proxy.md)
-    * [反向代理/内网穿透](app/reverse.md)
     * [内置 DNS](app/dns.md)
     * [负载均衡](app/balance.md)
     * [Docker 部署 V2Ray](app/docker-deploy-v2ray.md)
