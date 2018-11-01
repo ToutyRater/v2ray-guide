@@ -162,6 +162,9 @@
           "inboundTag":[  
             "interconn"
           ],
+          "domain":[  
+            "full:private.cloud.com"
+          ],
           "outboundTag":"portal"
         }
       ]
