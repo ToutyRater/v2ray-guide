@@ -2,7 +2,7 @@
 
 反向代理是一个呼声比较高的功能请求，从 v2.x 版本时就有不少人询问开发者能否加入这个功能，直至 v4.0 终于推出了。反向代理的主要是用来作内网穿透，其实就是利用 VPS 访问不具有公网 IP 的内网服务器。具体的例子是，家里有一台 NAS，因为没有公网 IP，正常情况下在外面（离开了家里的网络）没法直接访问这台 NAS，但是通过反向代理就可以。如果看到这样的举例还不明白有什么用，说明你没有相关的需求，不必再折腾了。
 
-提到反向代理，就不得不提一下如今广为推崇的 FRP，我不欲比较两者在反向代理上孰优孰劣，我只是想提一句，V2 的配置相较来说会难以理解一些，希望做好准备。
+提到反向代理，就不得不提一下如今广为推崇的 FRP，我不欲比较两者在反向代理上孰优孰劣，我只是想提一句，V2Ray 的配置相较来说会难以理解一些，希望做好准备。
 
 ## 原理
 
@@ -45,7 +45,7 @@
   },
   "outbound":{  
     //A连接B的outbound  
-    "tag":"interconn", // A 连接 B的 outbound 的标签，在路由中会用到
+    "tag":"tunnel", // A 连接 B 的 outbound 的标签，在路由中会用到
     "protocol":"vmess",
     "settings":{  
       "vnext":[  
@@ -84,7 +84,7 @@
           "domain":[  
             "full:private.cloud.com"
           ],
-          "outboundTag":"interconn"
+          "outboundTag":"tunnel"
         },
         {  
         // 反向连接访问私有网盘的规则
@@ -134,7 +134,7 @@
   "inboundDetour":[  
     // 另一个 inbound，接受 A 主动发起的请求  
     {  
-      "tag": "interconn",// 标签，路由中用到
+      "tag": "tunnel",// 标签，路由中用到
       "port":16823,
       "protocol":"vmess",
       "settings":{  
@@ -161,7 +161,7 @@
         {  
           "type":"field",
           "inboundTag":[  
-            "interconn"
+            "tunnel"
           ],
           "domain":[  
             "full:private.cloud.com"
