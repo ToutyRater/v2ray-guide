@@ -44,7 +44,7 @@ A 的配置与上一节无变化。
   },
   "outbound":{  
     //A连接B的outbound  
-    "tag":"interconn", // A 连接 B的 outbound 的标签，在路由中会用到
+    "tag":"tunnel", // A 连接 B的 outbound 的标签，在路由中会用到
     "protocol":"vmess",
     "settings":{  
       "vnext":[  
@@ -83,7 +83,7 @@ A 的配置与上一节无变化。
           "domain":[  
             "full:private.cloud.com"
           ],
-          "outboundTag":"interconn"
+          "outboundTag":"tunnel"
         },
         {  
         // 反向连接访问私有网盘的规则
@@ -115,7 +115,7 @@ B 的配置只有 inbound 部分发生了变化。
   },
   "inbound":{  
     // 接受 C 的inbound
-    "tag":"external", // 标签，路由中用到
+    "tag":"tunnel", // 标签，路由中用到
     "port":11872,
     "protocol":"vmess",
       "settings":{  
@@ -164,7 +164,7 @@ B 的配置只有 inbound 部分发生了变化。
         {  
           "type":"field",
           "inboundTag":[  
-            "interconn"
+            "tunnel"
           ],
           "domain":[  
             "full:private.cloud.com"
@@ -176,6 +176,8 @@ B 的配置只有 inbound 部分发生了变化。
   }
 }
 ```
+
+`Tips`： 在 B 的配置中，可以使用同一个 VMess inbound 来接受 A 和 C 的请求来简化配置。
 
 ### C 的配置
 
