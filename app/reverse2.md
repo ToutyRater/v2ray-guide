@@ -14,6 +14,8 @@
 
 ![](/resource/images/block_of_reverse-vmess.bmp)
 
+（**勘误：图中 C 的 inbound 应为 Socks**）
+
 ## 配置
 
 以下给出具体配置，请结合原理部分的描述进行理解。
