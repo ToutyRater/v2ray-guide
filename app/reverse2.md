@@ -12,7 +12,7 @@
 
 原理与上一节的反向代理大同小异，差别在于 B 的 dokodemo-door 改成 VMess，然后 C 需要安装 V2Ray 连接 B 的 VMess。最终的效果就是 C 通过 V2Ray 连接 B，B 反向代理给 A，就相当于 C 使用 V2Ray 通过 A 代理上网。
 
-![](/resource/images/block_of_ reverse-vmess.bmp)
+![](/resource/images/block_of_reverse-vmess.bmp)
 
 ## 配置
 
