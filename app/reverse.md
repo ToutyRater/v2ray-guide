@@ -34,15 +34,6 @@
       }
     ]
   },
-  "inbound":{  
-    // V2 一定要一个inbound，所以设了个 socks，在这里的反向代理中没什么用
-    "port":1080,
-    "protocol":"socks",
-    "settings":{  
-      "auth":"noauth",
-      "udp":true
-    }
-  },
   "outbound":{  
     //A连接B的outbound  
     "tag":"tunnel", // A 连接 B 的 outbound 的标签，在路由中会用到
@@ -124,13 +115,6 @@
         "network":"tcp"
       }
   },
-  "outbound":{  
-      // V2Ray 一定要一个 outbound，所以设了个 freedom，在这里的反向代理中没什么用
-    "protocol":"freedom",
-    "settings":{  
-    },
-    "tag":"out"
-  },
   "inboundDetour":[  
     // 另一个 inbound，接受 A 主动发起的请求  
     {  
@@ -158,7 +142,7 @@
           ],
           "outboundTag":"portal"
         },
-        {  
+        {  //路由规则，让 B 能够识别这是 A 主动发起的反向代理连接
           "type":"field",
           "inboundTag":[  
             "tunnel"
