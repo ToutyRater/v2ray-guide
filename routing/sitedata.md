@@ -2,7 +2,7 @@
 
 ## 内置的域名文件
 在下载 V2Ray 的时候，下载的压缩包有一个 geosite.dat。这个文件是在路由功能里用到的，文件内置了许多[常见的国内网站域名](https://github.com/v2ray/ext/blob/master/tools/geosites/cn.go)。配置方式如下，geosite 指 geosite.dat 文件，后面的 cn 是一个标签，代表着使用 geosite.dat 文件里的cn 规则。
-```
+```javascript
 {
     "type": "field",
     "outboundTag": "direct",
@@ -20,7 +20,7 @@
 1. 到 https://github.com/ToutyRater/V2Ray-SiteDAT/tree/master/geofiles 下载 h2y.dat 文件放到 V2Ray 运行文件的目录下。
 1. 按需要些路由规则，格式为 "ext:h2y.dat:tag"。ext 表示使用外部文件；h2y.dat 是具体的文件名；tag 泛指标签，有哪些标签由文件提供。上个步骤下载的 h2y.dat 文件目前只有 `ad` 和 `gfw` 两个标签，ad 包含着常见的广告域名，gfw 包含着常见的被 gfw 屏蔽的域名。它们各自所包含的域名在[这里](https://github.com/ToutyRater/v2ray-SiteDAT/tree/master/h2y)可以看到。这个域名文件每星期自动更新，如果你使用了我提供的域名文件也请定期更新(打开 https://github.com/ToutyRater/V2Ray-SiteDAT/tree/master/geofiles 看到的都是当时的最新版本)。路由配置示例如下。
 1. 运行 V2Ray。
-```
+```javascript
 "rules":[
     {
         "type": "field",
