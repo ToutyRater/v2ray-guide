@@ -17,31 +17,35 @@
     "access": "D:\\v2ray\\access.log",  // 这是 Windows 系统的路径
     "error": "D:\\v2ray\\error.log"
   },
-  "inbound": {
-    "port": 1080,
-    "protocol": "socks",
-    "domainOverride": ["tls","http"]
-    "settings": {
-      "auth": "noauth"
+  "inbounds": [
+    {
+      "port": 1080,
+      "protocol": "socks",
+      "domainOverride": ["tls","http"]
+      "settings": {
+        "auth": "noauth"
+      }
     }
-  },
-  "outbound": {
-    "protocol": "vmess",
-    "settings": {
-      "vnext": [
-        {
-          "address": "serveraddr.com",
-          "port": 16823,  
-          "users": [
-            {
-              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
-              "alterId": 64
-            }
-          ]
-        }
-      ]
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "serveraddr.com",
+            "port": 16823,  
+            "users": [
+              {
+                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
+                "alterId": 64
+              }
+            ]
+          }
+        ]
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -54,22 +58,26 @@
     "access": "/var/log/v2ray/access.log", // 这是 Linux 的路径
     "error": "/var/log/v2ray/error.log"
   },
-  "inbound": {
-    "port": 16823,
-    "protocol": "vmess",   
-    "settings": {
-      "clients": [
-        {
-          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
-          "alterId": 64
-        }
-      ]
+  "inbounds": [
+    {
+      "port": 16823,
+      "protocol": "vmess",   
+      "settings": {
+        "clients": [
+          {
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  
+            "alterId": 64
+          }
+        ]
+      }
     }
-  },
-  "outbound": {
-    "protocol": "freedom",  
-    "settings": {}
-  }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",  
+      "settings": {}
+    }
+  ]
 }
 ```
 
@@ -90,3 +98,4 @@
 ## 更新历史
 
 - 2018-09-03 Update
+- 2018-11-09 跟进 v4.0+ 的配置格式
