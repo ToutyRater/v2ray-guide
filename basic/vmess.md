@@ -60,37 +60,41 @@ Configuration OK.
 以下是客户端配置，将客户端的 config.json 文件修改成下面的内容，修改完成后要重启 V2Ray 才会使修改的配置生效。
 ```javascript
 {
-  "inbound": {
-    "port": 1080, // 监听端口
-    "protocol": "socks", // 入口协议为 SOCKS 5
-    "domainOverride": ["tls","http"],
-    "settings": {
-      "auth": "noauth"  //socks的认证设置，noauth 代表不认证，由于 socks 通常在客户端使用，所以这里不认证
+  "inbounds": [
+    {
+      "port": 1080, // 监听端口
+      "protocol": "socks", // 入口协议为 SOCKS 5
+      "domainOverride": ["tls","http"],
+      "settings": {
+        "auth": "noauth"  //socks的认证设置，noauth 代表不认证，由于 socks 通常在客户端使用，所以这里不认证
+      }
     }
-  },
-  "outbound": {
-    "protocol": "vmess", // 出口协议
-    "settings": {
-      "vnext": [
-        {
-          "address": "serveraddr.com", // 服务器地址，请修改为你自己的服务器 IP 或域名
-          "port": 16823,  // 服务器端口
-          "users": [
-            {
-              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，必须与服务器端配置相同
-              "alterId": 64 // 此处的值也应当与服务器相同
-            }
-          ]
-        }
-      ]
+  ],
+  "outbound": [
+    {
+      "protocol": "vmess", // 出口协议
+      "settings": {
+        "vnext": [
+          {
+            "address": "serveraddr.com", // 服务器地址，请修改为你自己的服务器 IP 或域名
+            "port": 16823,  // 服务器端口
+            "users": [
+              {
+                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，必须与服务器端配置相同
+                "alterId": 64 // 此处的值也应当与服务器相同
+              }
+            ]
+          }
+        ]
+      }
     }
-  }
+  ]
 }
 ```
 
-在配置当中，有一个 id (在这里的例子是 b831381d-6324-4d53-ad4f-8cda48b30811)，作用类似于 Shadowsocks 的密码(password), VMess 的 id 使用的是 UUID 格式。关于 id 或者 UUID 没必要了解很多，在这里只要清楚以下几点就足够了：
+在配置当中，有一个 id (在这里的例子是 b831381d-6324-4d53-ad4f-8cda48b30811)，作用类似于 Shadowsocks 的密码(password), VMess 的 id 的格式必须与 UUID 格式相同。关于 id 或者 UUID 没必要了解很多，在这里只要清楚以下几点就足够了：
 * 相对应的 VMess 传入传出的 id 必须相同（如果你不是很明白这句话，那么可以简单理解成服务器与客户端的 id 必须相同）
-* 由于 id 使用的是 UUID，我们可以使用任何 UUID 生成工具生成 UUID 作为这里的 id。比如 [UUID Generator](https://www.uuidgenerator.net/) 这个网站，只要一打开或者刷新这个网页就可以得到一个 UUID，如下图。或者可以在 Linux 使用命令 `cat /proc/sys/kernel/random/uuid` 生成。
+* 由于 id 使用的是 UUID 的格式，我们可以使用任何 UUID 生成工具生成 UUID 作为这里的 id。比如 [UUID Generator](https://www.uuidgenerator.net/) 这个网站，只要一打开或者刷新这个网页就可以得到一个 UUID，如下图。或者可以在 Linux 使用命令 `cat /proc/sys/kernel/random/uuid` 生成。
 
 ![](/resource/images/generate_uuid.png)
 
@@ -99,22 +103,26 @@ Configuration OK.
 以下是服务器配置，将服务器 /etc/v2ray 目录下的 config.json 文件修改成下面的内容，修改完成后要重启 V2Ray 才会使修改的配置生效。
 ```javascript
 {
-  "inbound": {
-    "port": 16823, // 服务器监听端口
-    "protocol": "vmess",    // 主传入协议
-    "settings": {
-      "clients": [
-        {
-          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，客户端与服务器必须相同
-          "alterId": 64
-        }
-      ]
+  "inbounds": [
+    {
+      "port": 16823, // 服务器监听端口
+      "protocol": "vmess",    // 主传入协议
+      "settings": {
+        "clients": [
+          {
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",  // 用户 ID，客户端与服务器必须相同
+            "alterId": 64
+          }
+        ]
+      }
     }
-  },
-  "outbound": {
-    "protocol": "freedom",  // 主传出协议
-    "settings": {}
-  }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",  // 主传出协议
+      "settings": {}
+    }
+  ]
 }
 ```
 
@@ -124,12 +132,12 @@ Configuration OK.
 
 ### 客户端
 
-请看配置中的 inbound，port 为 1080，V2Ray 监听了一个端口 1080，协议是 socks。之前我们已经把浏览器的代理设置好了（SOCKS Host: 127.0.0.1，Port: 1080），假如访问了 google.com，浏览器就会发出一个数据包打包成 socks 协议发送到本机（127.0.0.1指的本机，localhost）的 1080 端口，这个时候数据包就会被 V2Ray 接收到。
+请看配置中的 inbounds，port 为 1080，V2Ray 监听了一个端口 1080，协议是 socks。之前我们已经把浏览器的代理设置好了（SOCKS Host: 127.0.0.1，Port: 1080），假如访问了 google.com，浏览器就会发出一个数据包打包成 socks 协议发送到本机（127.0.0.1指的本机，localhost）的 1080 端口，这个时候数据包就会被 V2Ray 接收到。
 
-再看 outbound，protocol 是 vmess，说明 V2Ray 接收到数据包之后要将数据包打包成 [VMess](https://www.v2ray.com/chapter_03/01_effective.html#vmess-%E5%8D%8F%E8%AE%AE) 协议并且使用预设的 id 加密（这个例子 id 是 b831381d-6324-4d53-ad4f-8cda48b30811），然后发往服务器地址为 serveraddr.com 的 16823 端口。服务器地址 address 可以是域名也可以是 IP，只要正确就可以了。
+再看 outbounds，protocol 是 vmess，说明 V2Ray 接收到数据包之后要将数据包打包成 [VMess](https://www.v2ray.com/chapter_03/01_effective.html#vmess-%E5%8D%8F%E8%AE%AE) 协议并且使用预设的 id 加密（这个例子 id 是 b831381d-6324-4d53-ad4f-8cda48b30811），然后发往服务器地址为 serveraddr.com 的 16823 端口。服务器地址 address 可以是域名也可以是 IP，只要正确就可以了。
 
 
-在客户端配置的 inbound 中，有一句 `"domainOverride": ["tls","http"]`，V2Ray 手册解释为“识别相应协议的流量，并根据流量内容重置所请求的目标”，不少人不太理解，简单说这东西就是从网络流量中识别出域名。这个 domainOverride 有两个用处：1. 解决 DNS 污染；2. 对于 IP 流量可以应用后文提到的域名路由规则。如果这段话不懂，没关系，照着写吧，没坏处。
+在客户端配置的 inbounds 中，有一句 `"domainOverride": ["tls","http"]`，V2Ray 手册解释为“识别相应协议的流量，并根据流量内容重置所请求的目标”，不少人不太理解，简单说这东西就是从网络流量中识别出域名。这个 domainOverride 有两个用处：1. 解决 DNS 污染；2. 对于 IP 流量可以应用后文提到的域名路由规则。如果这段话不懂，没关系，照着写吧，没坏处。
 
 ### 服务器
 
@@ -220,3 +228,4 @@ Configuration OK.
 - 2018-02-09 补充说明
 - 2018-04-05 内容补充
 - 2018-09-03 更进一些 V2Ray 的变化，并修改一些描述
+- 2018-11-09 跟进新 v4.0+ 的配置格式
