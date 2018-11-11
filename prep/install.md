@@ -65,7 +65,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: unspecified [text/plain]
 Saving to: ‘go.sh’
 
-go.sh.1                             [ <=>                                                 ]  11.24K  --.-KB/s    in 0.001s  
+go.sh                             [ <=>                                                 ]  11.24K  --.-KB/s    in 0.001s  
 
 2018-03-17 22:49:09 (17.2 MB/s) - ‘go.sh’ saved [11510]
 ```
