@@ -70,7 +70,7 @@ Configuration OK.
       }
     }
   ],
-  "outbound": [
+  "outbounds": [
     {
       "protocol": "vmess", // 出口协议
       "settings": {
