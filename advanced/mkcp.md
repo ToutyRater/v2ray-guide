@@ -1,46 +1,49 @@
 # mKCP
 
-V2Ray 引入了 [KCP](https://github.com/skywind3000/kcp) 传输协议，并且做了一些不同的优化，称为 mKCP，相对于常规的 TCP 来说，mKCP 在某些网络环境下具有更大的优势，但是 mKCP 有一个很明显的缺点就是会比 TCP 耗费更多的流量，所以请酌情使用。要了解的一点是，mKCP 与 KCPTUN 同样是 KCP 协议，但两者并不兼容。
+V2Ray 引入了 [KCP](https://github.com/skywind3000/kcp) 传输协议，并且做了一些不同的优化，称为 mKCP。如果你发现你的网络环境丢包严重，可以考虑一下使用 mKCP。由于快速重传的机制，相对于常规的 TCP 来说，mKCP 在高丢包率的网络下具有更大的优势，也正是因为此， mKCP 明显会比 TCP 耗费更多的流量，所以请酌情使用。要了解的一点是，mKCP 与 KCPTUN 同样是 KCP 协议，但两者并不兼容。
+
+在此我想纠正一个概念。基本上只要提起 KCP 或者 UDP，大家总会说”容易被 Qos“。Qos 是一个名词性的短语，中文意为服务质量，试想一下，你跟人家说一句”我的网络又被服务质量了“是什么感觉。其次，哪怕名词可以动词化，这么使用也是不合适的，因为 Qos 区分网络流量优先级的，就像马路上划分人行道、非机动车道、快车道、慢车道一样，哪怕你牛逼到运营商送你一条甚至十条专线，是快车道中的快车道，这也是 Qos 的结果。
+
 
 ## 配置
 
-mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outbound 添加一个 streamSettings 并设置成 mkcp 即可。
+mKCP 的配置比较简单，只需在服务器的 inbounds 和 客户端的 outbounds 添加一个 streamSettings 并设置成 mkcp 即可。
 
 ### 服务器配置
 
 ```javascript
 {
-  "inbound": {
-    "port": 16823,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
-          "alterId": 64
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "mkcp", //此处的 mkcp 也可写成 kcp，两种写法是起同样的效果
-      "kcpSettings": {
-        "mtu": 1350,
-        "tti": 20,
-        "uplinkCapacity": 5,
-        "downlinkCapacity": 100,
-        "congestion": true,
-        "readBufferSize": 1,
-        "writeBufferSize": 1,
-        "header": {
-          "type": "none"
+  "inbounds": [
+    {
+      "port": 16823,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "mkcp", //此处的 mkcp 也可写成 kcp，两种写法是起同样的效果
+        "kcpSettings": {
+          "uplinkCapacity": 5,
+          "downlinkCapacity": 100,
+          "congestion": true,
+          "header": {
+            "type": "none"
+          }
         }
       }
     }
-  },
-  "outbound": {
-    "protocol": "freedom",
-    "settings": {}
-  }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
 }
 ```
 
@@ -48,46 +51,46 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
 
 ```javascript
 {
-  "inbound": {
-    "port": 1080,
-    "protocol": "socks",
-    "domainOverride": ["tls","http"],
-    "settings": {
-      "auth": "noauth"
+  "inbounds": [
+    {
+      "port": 1080,
+      "protocol": "socks",
+      "domainOverride": ["tls","http"],
+      "settings": {
+        "auth": "noauth"
+      }
     }
-  },
-  "outbound": {
-    "protocol": "vmess",
-    "settings": {
-      "vnext": [
-        {
-          "address": "serveraddr.com",
-          "port": 16823,
-          "users": [
-            {
-              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
-              "alterId": 64
-            }
-          ]
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "mkcp",
-      "kcpSettings": {
-        "mtu": 1350,
-        "tti": 20,
-        "uplinkCapacity": 5,
-        "downlinkCapacity": 100,
-        "congestion": true,
-        "readBufferSize": 1,
-        "writeBufferSize": 1,
-        "header": {
-          "type": "none"
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "serveraddr.com",
+            "port": 16823,
+            "users": [
+              {
+                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
+                "alterId": 64
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "mkcp",
+        "kcpSettings": {
+          "uplinkCapacity": 5,
+          "downlinkCapacity": 100,
+          "congestion": true,
+          "header": {
+            "type": "none"
+          }
         }
       }
     }
-  }
+  ]
 }
 ```
 
@@ -111,4 +114,5 @@ mKCP 的配置比较简单，只需在服务器的 inbound 和 客户端的 outb
 
 - 2018-03-17 Update
 - 2018-08-30 Update
+- 2018-11-17 V4.0+ 配置
 
