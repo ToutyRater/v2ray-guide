@@ -141,34 +141,38 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
 
 ```javascript
 {
-  "inbound": {
-    "port": 443, // 建议使用 443 端口
-    "protocol": "vmess",    
-    "settings": {
-      "clients": [
-        {
-          "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  
-          "alterId": 64
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "tcp",
-      "security": "tls", // security 要设置为 tls 才会启用 TLS
-      "tlsSettings": {
-        "certificates": [
+  "inbounds": [
+    {
+      "port": 443, // 建议使用 443 端口
+      "protocol": "vmess",    
+      "settings": {
+        "clients": [
           {
-            "certificateFile": "/etc/v2ray/v2ray.crt", // 证书文件
-            "keyFile": "/etc/v2ray/v2ray.key" // 密钥文件
+            "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",  
+            "alterId": 64
           }
         ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls", // security 要设置为 tls 才会启用 TLS
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/etc/v2ray/v2ray.crt", // 证书文件
+              "keyFile": "/etc/v2ray/v2ray.key" // 密钥文件
+            }
+          ]
+        }
       }
     }
-  },
-  "outbound": {
-    "protocol": "freedom",
-    "settings": {}
-  }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
 }
 ```
 
@@ -176,35 +180,39 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
 
 ```javascript
 {
-  "inbound": {
-    "port": 1080,
-    "protocol": "socks",
-    "domainOverride": ["tls","http"],
-    "settings": {
-      "auth": "noauth"
+  "inbounds": [
+    {
+      "port": 1080,
+      "protocol": "socks",
+      "domainOverride": ["tls","http"],
+      "settings": {
+        "auth": "noauth"
+      }
     }
-  },
-  "outbound": {
-    "protocol": "vmess",
-    "settings": {
-      "vnext": [
-        {
-          "address": "mydomain.me", // tls 需要域名，所以这里应该填自己的域名
-          "port": 443,
-          "users": [
-            {
-              "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",
-              "alterId": 64
-            }
-          ]
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "tcp",
-      "security": "tls" // 客户端的 security 也要设置为 tls
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "mydomain.me", // tls 需要域名，所以这里应该填自己的域名
+            "port": 443,
+            "users": [
+              {
+                "id": "23ad6b10-8d1a-40f7-8ad0-e3e35cd38297",
+                "alterId": 64
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls" // 客户端的 security 也要设置为 tls
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -236,3 +244,4 @@ Hostname 中输入你的域名，点提交，过一会结果就出来了。
 - 2017-08-06 加点提醒
 - 2017-12-31 修正文字错误
 - 2018-04-05 Update
+- 2018-11-17 V4.0+ 配置
