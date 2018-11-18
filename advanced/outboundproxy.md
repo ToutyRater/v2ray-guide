@@ -19,27 +19,27 @@ V2Ray 提供了代理转发功能，利用它可以实现中转（在没有中�
 
 ```javascript
 {
-  "outbound": {
-    "protocol": "vmess",
-    "settings": { // settings 的根据实际情况修改
-      "vnext": [
-        {
-          "address": "1.1.1.1",
-          "port": 8888,
-          "users": [
-            {
-              "alterId": 64,
-              "id": "b12614c5-5ca4-4eba-a215-c61d642116ce"
-            }
-          ]
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": { // settings 的根据实际情况修改
+        "vnext": [
+          {
+            "address": "1.1.1.1",
+            "port": 8888,
+            "users": [
+              {
+                "alterId": 64,
+                "id": "b12614c5-5ca4-4eba-a215-c61d642116ce"
+              }
+            ]
+          }
+        ]
+      },
+      "proxySettings": {
+          "tag": "transit"  // 这里的 tag 必须跟作为代理 VPS 的 tag 一致，这里设定的是 "transit"
         }
-      ]
     },
-    "proxySettings": {
-        "tag": "transit"  // 这里的 tag 必须跟作为代理 VPS 的 tag 一致，这里设定的是 "transit"
-      }
-  },
-  "outboundDetour": [
     {
       "protocol": "shadowsocks",
       "settings": {
@@ -65,28 +65,28 @@ V2Ray 提供了代理转发功能，利用它可以实现中转（在没有中�
 
 ```javascript
 {
-  "outbound": {
-    "protocol": "vmess",
-    "settings": { // settings 的根据实际情况修改
-      "vnext": [
-        {
-          "address": "1.1.1.1",
-          "port": 8888,
-          "users": [
-            {
-              "alterId": 64,
-              "id": "b12614c5-5ca4-4eba-a215-c61d642116ce"
-            }
-          ]
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": { // settings 的根据实际情况修改
+        "vnext": [
+          {
+            "address": "1.1.1.1",
+            "port": 8888,
+            "users": [
+              {
+                "alterId": 64,
+                "id": "b12614c5-5ca4-4eba-a215-c61d642116ce"
+              }
+            ]
+          }
+        ]
+      },
+      "tag": "DOUS",
+      "proxySettings": {
+          "tag": "DOSG"  
         }
-      ]
     },
-    "tag": "DOUS",
-    "proxySettings": {
-        "tag": "DOSG"  
-      }
-  },
-  "outboundDetour": [
     {
       "protocol": "shadowsocks",
       "settings": {
@@ -159,3 +159,4 @@ PC -> AliHK -> AliSG -> DOSG -> DOUS -> 目标网站
 
 - 2018-03-17 Update
 - 2018-07-08 Update
+- 2018-11-17 V4.0+ 配置
