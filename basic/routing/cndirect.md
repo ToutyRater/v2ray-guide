@@ -46,23 +46,18 @@
       "tag": "direct" //如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了
     }    
   ],
-  "routing": {
-    "domainStrategy": "IPOnDemand",
-    "rules": [
-      {
+   "routing": {
+    "strategy": "rules",
+    "settings": {
+      "domainStrategy": "IPOnDemand",
+      "rules": [{
         "type": "field",
-        "outboundTag": "direct",
-        "domain": ["geosite:cn"] // 中国大陆主流网站的域名
-      },
-      {
-        "type": "chinaip",
-        "outboundTag": "direct",
-        "ip": [
-          "geoip:cn"，// 中国大陆的 IP
-          "geoip:private" // 私有地址 IP，如路由器等
-        ]
-      }
-    ]
+        "ip": ["geoip:private",
+		"geoip:cn"],
+		"domain": ["geosite:cn"],
+        "outboundTag": "direct"
+      }]
+    }
   }
 }
 ```
