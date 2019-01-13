@@ -35,26 +35,26 @@ A 的配置与上一节无变化。
       }
     ]
   },
-  "outbound":{  
-    //A连接B的outbound  
-    "tag":"tunnel", // A 连接 B的 outbound 的标签，在路由中会用到
-    "protocol":"vmess",
-    "settings":{  
-      "vnext":[  
-        {  
-          "address":"serveraddr.com", // B 地址，IP 或 实际的域名
-          "port":16823,
-          "users":[  
-            {  
-              "id":"b831381d-6324-4d53-ad4f-8cda48b30811",
-              "alterId":64
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "outboundDetour":[  
+  "outbounds":[
+    {  
+      //A连接B的outbound  
+      "tag":"tunnel", // A 连接 B的 outbound 的标签，在路由中会用到
+      "protocol":"vmess",
+      "settings":{  
+        "vnext":[  
+          {  
+            "address":"serveraddr.com", // B 地址，IP 或 实际的域名
+            "port":16823,
+            "users":[  
+              {  
+                "id":"b831381d-6324-4d53-ad4f-8cda48b30811",
+                "alterId":64
+              }
+            ]
+          }
+        ]
+      }
+    },
     // 另一个 outbound，最终连接私有网盘    
     {  
       "protocol":"freedom",
@@ -64,30 +64,27 @@ A 的配置与上一节无变化。
     }
   ],
   "routing":{  
-    "strategy":"rules",
-    "settings":{  
-      "rules":[  
-        {  
-        // 配置 A 主动连接 B 的路由规则
-          "type":"field",
-          "inboundTag":[  
-            "bridge"
-          ],
-          "domain":[  
-            "full:private.cloud.com"
-          ],
-          "outboundTag":"tunnel"
-        },
-        {  
-        // 反向连接访问私有网盘的规则
-          "type":"field",
-          "inboundTag":[  
-            "bridge"
-          ],
-          "outboundTag":"out"
-        }
-      ]
-    }
+    "rules":[  
+      {  
+      // 配置 A 主动连接 B 的路由规则
+        "type":"field",
+        "inboundTag":[  
+          "bridge"
+        ],
+        "domain":[  
+          "full:private.cloud.com"
+        ],
+        "outboundTag":"tunnel"
+      },
+      {  
+      // 反向连接访问私有网盘的规则
+        "type":"field",
+        "inboundTag":[  
+          "bridge"
+        ],
+        "outboundTag":"out"
+      }
+    ]    
   }
 }
 ```
@@ -106,11 +103,12 @@ B 的配置只有 inbound 部分发生了变化。
       }
     ]
   },
-  "inbound":{  
-    // 接受 C 的inbound
-    "tag":"tunnel", // 标签，路由中用到
-    "port":11872,
-    "protocol":"vmess",
+  "inbounds":[
+    {  
+      // 接受 C 的inbound
+      "tag":"tunnel", // 标签，路由中用到
+      "port":11872,
+      "protocol":"vmess",
       "settings":{  
         "clients":[  
           {  
@@ -119,8 +117,7 @@ B 的配置只有 inbound 部分发生了变化。
           }
         ]
       }
-  },
-  "inboundDetour":[  
+    },
     // 另一个 inbound，接受 A 主动发起的请求  
     {  
       "tag": "interconn",// 标签，路由中用到
@@ -136,29 +133,26 @@ B 的配置只有 inbound 部分发生了变化。
       }
     }
   ],
-  "routing":{  
-    "strategy":"rules",
-    "settings":{  
-      "rules":[  
-        {  //路由规则，接收 C 的请求后发给 A
-          "type":"field",
-          "inboundTag":[  
-            "external"
-          ],
-          "outboundTag":"portal"
-        },
-        {  //路由规则，让 B 能够识别这是 A 主动发起的反向代理连接
-          "type":"field",
-          "inboundTag":[  
-            "tunnel"
-          ],
-          "domain":[  
-            "full:private.cloud.com"
-          ],
-          "outboundTag":"portal"
-        }
-      ]
-    }
+  "routing":{   
+    "rules":[  
+      {  //路由规则，接收 C 的请求后发给 A
+        "type":"field",
+        "inboundTag":[  
+          "external"
+        ],
+        "outboundTag":"portal"
+      },
+      {  //路由规则，让 B 能够识别这是 A 主动发起的反向代理连接
+        "type":"field",
+        "inboundTag":[  
+          "tunnel"
+        ],
+        "domain":[  
+          "full:private.cloud.com"
+        ],
+        "outboundTag":"portal"
+      }
+    ]
   }
 }
 ```
@@ -177,5 +171,6 @@ A、B、C 都运行 V2Ray，此时 C 访问的任何网络就相当于通过 A �
 ## 更新历史
 
 - 2018-11-01 初版
+- 2018-01-13 V4.0+ 配置格式
 
 
