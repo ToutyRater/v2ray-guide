@@ -62,31 +62,28 @@
       "tag":"out"
     }    
   ],
-  "routing":{  
-    "strategy":"rules",
-    "settings":{  
-      "rules":[  
-        {  
+  "routing":{   
+    "rules":[  
+      {  
         // 配置 A 主动连接 B 的路由规则
-          "type":"field",
-          "inboundTag":[  
-            "bridge"
-          ],
-          "domain":[  
-            "full:private.cloud.com"
-          ],
-          "outboundTag":"tunnel"
-        },
-        {  
+        "type":"field",
+        "inboundTag":[  
+          "bridge"
+        ],
+        "domain":[  
+          "full:private.cloud.com"
+        ],
+        "outboundTag":"tunnel"
+      },
+      {  
         // 反向连接访问私有网盘的规则
-          "type":"field",
-          "inboundTag":[  
-            "bridge"
-          ],
-          "outboundTag":"out"
-        }
-      ]
-    }
+        "type":"field",
+        "inboundTag":[  
+          "bridge"
+        ],
+        "outboundTag":"out"
+      }
+    ]
   }
 }
 ```
@@ -132,28 +129,25 @@
     }
   ],
   "routing":{  
-    "strategy":"rules",
-    "settings":{  
-      "rules":[  
-        {  //路由规则，接收 C 请求后发给 A
-          "type":"field",
-          "inboundTag":[  
-            "external"
-          ],
-          "outboundTag":"portal"
-        },
-        {  //路由规则，让 B 能够识别这是 A 主动发起的反向代理连接
-          "type":"field",
-          "inboundTag":[  
-            "tunnel"
-          ],
-          "domain":[  
-            "full:private.cloud.com"
-          ],
-          "outboundTag":"portal"
-        }
-      ]
-    }
+    "rules":[  
+      {  //路由规则，接收 C 请求后发给 A
+        "type":"field",
+        "inboundTag":[  
+          "external"
+        ],
+        "outboundTag":"portal"
+      },
+      {  //路由规则，让 B 能够识别这是 A 主动发起的反向代理连接
+        "type":"field",
+        "inboundTag":[  
+          "tunnel"
+        ],
+        "domain":[  
+          "full:private.cloud.com"
+        ],
+        "outboundTag":"portal"
+      }
+    ]
   }
 }
 ```
