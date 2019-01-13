@@ -34,33 +34,33 @@
       }
     ]
   },
-  "outbound":{  
-    //A连接B的outbound  
-    "tag":"tunnel", // A 连接 B 的 outbound 的标签，在路由中会用到
-    "protocol":"vmess",
-    "settings":{  
-      "vnext":[  
-        {  
-          "address":"serveraddr.com", // B 地址，IP 或 实际的域名
-          "port":16823,
-          "users":[  
-            {  
-              "id":"b831381d-6324-4d53-ad4f-8cda48b30811",
-              "alterId":64
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "outboundDetour":[  
+  "outbounds": [
+    {  
+      //A连接B的outbound  
+      "tag":"tunnel", // A 连接 B 的 outbound 的标签，在路由中会用到
+      "protocol":"vmess",
+      "settings":{  
+        "vnext":[  
+          {  
+            "address":"serveraddr.com", // B 地址，IP 或 实际的域名
+            "port":16823,
+            "users":[  
+              {  
+                "id":"b831381d-6324-4d53-ad4f-8cda48b30811",
+                "alterId":64
+              }
+            ]
+          }
+        ]
+      }
+    },
     // 另一个 outbound，最终连接私有网盘    
     {  
       "protocol":"freedom",
       "settings":{  
       },
       "tag":"out"
-    }
+    }    
   ],
   "routing":{  
     "strategy":"rules",
@@ -103,19 +103,19 @@
       }
     ]
   },
-  "inbound":{  
-    // 接受 C 的inbound
-    "tag":"external", // 标签，路由中用到
-    "port":80,
-    // 开放 80 端口，用于接收外部的 HTTP 访问 
-    "protocol":"dokodemo-door",
-      "settings":{  
-        "address":"127.0.0.1",
-        "port":80, //假设 NAS 监听的端口为 80
-        "network":"tcp"
-      }
-  },
-  "inboundDetour":[  
+  "inbounds": [
+    {  
+      // 接受 C 的inbound
+      "tag":"external", // 标签，路由中用到
+      "port":80,
+      // 开放 80 端口，用于接收外部的 HTTP 访问 
+      "protocol":"dokodemo-door",
+        "settings":{  
+          "address":"127.0.0.1",
+          "port":80, //假设 NAS 监听的端口为 80
+          "network":"tcp"
+        }
+    },
     // 另一个 inbound，接受 A 主动发起的请求  
     {  
       "tag": "tunnel",// 标签，路由中用到
@@ -166,5 +166,5 @@
 ## 更新历史
 
 - 2018-10-31 初版
-
+- 2019-01-13 V4.0+ 配置格式
 
