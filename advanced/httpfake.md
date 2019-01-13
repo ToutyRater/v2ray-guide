@@ -18,43 +18,45 @@ V2Ray 自 v2.5 版本开始提供 HTTP 伪装功能，后经作者不断完善�
     "error": "/var/log/v2ray/error.log",
     "loglevel": "warning"
   },
-  "inbound": {
-    "port": 80, //推荐80端口，更好地迷惑防火墙（好吧实际上并没有什么卵用
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
-          "level": 1,
-          "alterId": 64
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "tcp",
-      "tcpSettings": {
-        "header": { // header 这一项是关于数据包伪装的设置，可自定义合理的内容，但要确保服务器与客户端一致
-          "type": "http",
-          "response": {
-            "version": "1.1",
-            "status": "200",
-            "reason": "OK",
-            "headers": {
-              "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"],
-              "Transfer-Encoding": ["chunked"],
-              "Connection": ["keep-alive"],
-              "Pragma": "no-cache"
+  "inbounds": [
+    {
+      "port": 80, //推荐80端口，更好地迷惑防火墙（好吧实际上并没有什么卵用
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
+            "level": 1,
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "tcpSettings": {
+          "header": { // header 这一项是关于数据包伪装的设置，可自定义合理的内容，但要确保服务器与客户端一致
+            "type": "http",
+            "response": {
+              "version": "1.1",
+              "status": "200",
+              "reason": "OK",
+              "headers": {
+                "Content-Type": ["application/octet-stream", "application/x-msdownload", "text/html", "application/x-shockwave-flash"],
+                "Transfer-Encoding": ["chunked"],
+                "Connection": ["keep-alive"],
+                "Pragma": "no-cache"
+              }
             }
           }
         }
       }
     }
-  },
-  "outbound": {
-    "protocol": "freedom",
-    "settings": {}
-  },
-  "outboundDetour": [
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
     {
       "protocol": "blackhole",
       "settings": {},
@@ -99,55 +101,57 @@ V2Ray 自 v2.5 版本开始提供 HTTP 伪装功能，后经作者不断完善�
   "log": {
     "loglevel": "warning"
   },
-  "inbound": {
-    "port": 1080,
-    "protocol": "socks",
-    "domainOverride": ["tls","http"],
-    "settings": {
-      "auth": "noauth"
+  "inbounds": [
+    {
+      "port": 1080,
+      "protocol": "socks",
+      "domainOverride": ["tls","http"],
+      "settings": {
+        "auth": "noauth"
+      }
     }
-  },
-  "outbound": {
-    "protocol": "vmess",
-    "settings": {
-      "vnext": [
-        {
-          "address": "serveraddr.com",
-          "port": 80,
-          "users": [
-            {
-              "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
-              "alterId": 64
-            }
-          ]
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "tcp",
-      "tcpSettings": {
-        "header": {  //这里的 header 要与服务器保持一致
-          "type": "http",
-          "request": {
-            "version": "1.1",
-            "method": "GET",
-            "path": ["/"],
-            "headers": {
-              "Host": ["www.cloudflare.com", "www.amazon.com"],
-              "User-Agent": [
-                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
-                        "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-              ],
-              "Accept-Encoding": ["gzip, deflate"],
-              "Connection": ["keep-alive"],
-              "Pragma": "no-cache"
+  ],
+  "outbound": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "serveraddr.com",
+            "port": 80,
+            "users": [
+              {
+                "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
+                "alterId": 64
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "tcpSettings": {
+          "header": {  //这里的 header 要与服务器保持一致
+            "type": "http",
+            "request": {
+              "version": "1.1",
+              "method": "GET",
+              "path": ["/"],
+              "headers": {
+                "Host": ["www.cloudflare.com", "www.amazon.com"],
+                "User-Agent": [
+                  "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
+                          "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
+                ],
+                "Accept-Encoding": ["gzip, deflate"],
+                "Connection": ["keep-alive"],
+                "Pragma": "no-cache"
+              }
             }
           }
         }
       }
-    }
-  },
-  "outboundDetour": [
+    },
     {
       "protocol": "freedom",
       "settings": {},
@@ -201,3 +205,4 @@ V2Ray 自 v2.5 版本开始提供 HTTP 伪装功能，后经作者不断完善�
 
 - 2017-08-05 删掉部分不必要的配置
 - 2018-03-16 Update
+- 2019-01-13 V4.0+配置格式
