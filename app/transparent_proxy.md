@@ -47,47 +47,35 @@ The document has moved
 4. 在网关的配置，添加 dokodemo ，并开启 domain override；还要在所有 outbound 的 streamSettins 添加 SO_MARK。配置形如（配置中的`...`代表原来正常的配置）：
 ```javascript
 {
-	"inbound": {...},
-	"outbound": {
-	  ...
-	  "streamSettings": {
-	    ...
-            "sockopt": {
-              "mark": 255  //这里是 SO_MARK，用于 iptables 识别，每个 outbound 都要配置；255可以改成其他数值，但要与下面的 iptables 规则对应
-          }
-	},
-	"inboundDetour": [
-	  {
-	    "domainOverride": ["tls","http"],
-	    "port": 12345, //开放的端口号
-	    "protocol": "dokodemo-door",
-	    "settings": {
-	      "network": "tcp,udp",
-	      "followRedirect": true // 这里要为 true 才能接受来自 iptables 的流量
-	    }
-	  },
-	  ...
-	],
-	"outboundDetour": [
-	  {
-	    ...
-	    "streamSettings": {
-	      ...
-              "sockopt": {
-                "mark": 255
-            }
-  	  },
-	  {
-	    ...
-	    "streamSettings": {
-	      ...
-              "sockopt": {
-                "mark": 255
-            }
-  	  }
-	  ...
-	],
-	"routing": {...}
+  "routing": {...},
+  "inbounds": [
+    {
+      ...
+    },
+    {
+      "port": 12345, //开放的端口号
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp,udp",
+        "followRedirect": true // 这里要为 true 才能接受来自 iptables 的流量
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      ...
+      "streamSettings": {
+        ...
+        "sockopt": {
+          "mark": 255  //这里是 SO_MARK，用于 iptables 识别，每个 outbound 都要配置；255可以改成其他数值，但要与下面的 iptables 规则对应
+        }
+    }
+    ...
+  ]
 }
 ```
 
