@@ -6,7 +6,7 @@
 
 ## 时间校准
 
-对于 V2Ray，它的验证方式包含时间，就算是配置没有任何问题，如果时间不正确，也无法连接 V2Ray 服务器的，服务器会认为你这是不合法的请求。所以系统时间一定要正确，只要保证时间误差在**一分钟**之内就没问题。
+对于 V2Ray，它的验证方式包含时间，就算是配置没有任何问题，如果时间不正确，也无法连接 V2Ray 服务器的，服务器会认为你这是不合法的请求。所以系统时间一定要正确，只要保证时间误差在**90秒**之内就没问题。
 
 对于 VPS(Linux) 可以执行命令 `date -R` 查看时间：
 ```
@@ -30,11 +30,19 @@ Sun 22 Jan 16:16:23 GMT 2017
 -----
 
 ## 客户端安装
-点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip。在国内下载 GitHub 的文件慢如龟爬，尤其是电信用户，几乎不能下载，所以也可以到 https://v2ray.com/download 进行下载，点进去的 Core-vx.y 代表 vx.y 版本的 V2Ray，其它的是 V2Ray 的第三方客户端，详见 https://v2ray.com/ui_client/ 。下载解压之后会有 v2ray.exe 和 config.json 这两个文件，v2ray.exe 是运行 v2ray 的文件，config.json 是配置文件。~~默认的配置文件包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网~~（V2Ray 官方服务器已下线）。除以上两个文件外压缩包还有其它文件，文件 readme.md 是这些文件的说明，你可以通过记事本或其它的文本编辑器打开查看。本指南不再详述。
+点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip（下载速度慢或无法下载请考虑挂已有的翻墙软件来下载）。下载并且解压之后会有下面这些文件：
+* v2ray.exe 运行 V2Ray 的程序文件
+* wv2ray.exe 同 v2ray.exe，区别在于wv2ray.exe是后台运行的，不像 v2ray.exe 会有类似于 cmd 控制台的窗口。运行 V2Ray 时从 v2ray.exe 和 wv2ray.exe 中任选一个即可
+* config.json V2Ray 的配置文件，后面我们对 V2Ray 进行配置其实就是修改这个文件
+* v2ctl.exe V2Ray 的工具，有多种功能，除特殊用途外，一般由 v2ray.exe 来调用，用户不用太关心
+* geosite.dat 用于路由的域名文件
+* geoip.dat 用于路由的 IP 文件
+* 其它 除上面的提到文件外，其他的不是运行 V2Ray 的必要文件。更详细的说明可以看 doc 文件夹下的 readme.md 文件，可以通过记事本或其它的文本编辑器打开查看
 
+实际上双击 v2ray.exe （或wv2ray.exe） 就可以运行 V2Ray 了，V2Ray 会读取 config.json 中的配置与服务器连接。~~默认的配置文件包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网~~（V2Ray 官方服务器已下线）。
 ![](/resource/images/v2rayrunnig.png)
 
-但是现在实际上还不能科学上网，因为 V2Ray 将所有选择权交给用户，它不会自动帮你设置系统代理，因此还需要在浏览器里设置代理。以火狐（Firefox）为例，点菜单 -> 选项 -> 高级 -> 设置 -> 手动代理设置，在 SOCKS Host 填上 127.0.0.1，后面的 Port 填 1080，再勾上使用 SOCKS v5 时代理 DNS (这个勾选项在旧的版本里叫做远程 DNS)。操作图见下：
+V2Ray 将所有选择权交给用户，它不会自动设置系统代理，因此还需要在浏览器里设置代理。以火狐（Firefox）为例，点菜单 -> 选项 -> 高级 -> 设置 -> 手动代理设置，在 SOCKS Host 填上 127.0.0.1，后面的 Port 填 1080，再勾上使用 SOCKS v5 时代理 DNS (这个勾选项在旧的版本里叫做远程 DNS)。操作图见下：
 
 ![](/resource/images/firefox_proxy_setting1.png)
 
@@ -45,6 +53,7 @@ Sun 22 Jan 16:16:23 GMT 2017
 ![](/resource/images/firefox_proxy_setting4.png)
 
 如果使用的是其它的浏览器，请自行在网上搜一下怎么设置 SOCKS 代理。
+
 ## 服务器安装
 
 ### 脚本安装
@@ -53,6 +62,8 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 **除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8.x 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
 本指南默认使用 Debian 8.7 系统作为示范。
+
+本文中会有不少的命令以 sudo 开头，代表着以管理员权限运行，如果你是用 root 账户执行文中的命令，就不用打 sudo。
 
 首先下载脚本：
 
@@ -114,24 +125,12 @@ V2Ray v2.33 is installed.
 
 看到类似于这样的提示就算安装成功了。如果安装不成功脚本会有红色的提示语句，这个时候你应当按照提示除错，除错后再重新执行一遍脚本安装 V2Ray。对于错误提示如果看不懂，使用翻译软件翻译一下就好。
 
-在安装完 V2Ray 之后，修改配置文件重启 V2Ray 即可，配置文件路径为 /etc/v2ray/config.json。
+在上面的提示中，有一行 "PORT:40827" 代表着端口号为 40827，还有一行 "UUID:505f001d-4aa8-4519-9c54-6b65749ee3fb" 代表着 id 为 505f001d-4aa8-4519-9c54-6b65749ee3fb。这两个都是随机生成的，不用担心跟别人撞上了。
 
-使用以下命令启动 V2Ray:
+安装完之后，使用以下命令启动 V2Ray:
 
 ```
 $ sudo systemctl start v2ray
-```
-
-停止运行 V2Ray：
-
-```
-$ sudo systemctl stop v2ray
-```
-
-重启 V2Ray:
-
-```
-$ sudo systemctl restart v2ray
 ```
 
 在首次安装完成之后，V2Ray 不会自动启动，需要手动运行上述启动命令。而在已经运行 V2Ray 的 VPS 上再次执行安装脚本，安装脚本会自动停止 V2Ray 进程，升级 V2Ray 程序，然后自动运行 V2Ray。在升级过程中，配置文件不会被修改。
