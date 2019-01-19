@@ -29,31 +29,6 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 -----
 
-## 客户端安装
-点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip（下载速度慢或无法下载请考虑挂已有的翻墙软件来下载）。下载并且解压之后会有下面这些文件：
-* v2ray.exe 运行 V2Ray 的程序文件
-* wv2ray.exe 同 v2ray.exe，区别在于wv2ray.exe是后台运行的，不像 v2ray.exe 会有类似于 cmd 控制台的窗口。运行 V2Ray 时从 v2ray.exe 和 wv2ray.exe 中任选一个即可
-* config.json V2Ray 的配置文件，后面我们对 V2Ray 进行配置其实就是修改这个文件
-* v2ctl.exe V2Ray 的工具，有多种功能，除特殊用途外，一般由 v2ray.exe 来调用，用户不用太关心
-* geosite.dat 用于路由的域名文件
-* geoip.dat 用于路由的 IP 文件
-* 其它 除上面的提到文件外，其他的不是运行 V2Ray 的必要文件。更详细的说明可以看 doc 文件夹下的 readme.md 文件，可以通过记事本或其它的文本编辑器打开查看
-
-实际上双击 v2ray.exe （或wv2ray.exe） 就可以运行 V2Ray 了，V2Ray 会读取 config.json 中的配置与服务器连接。~~默认的配置文件包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网~~（V2Ray 官方服务器已下线）。
-![](/resource/images/v2rayrunnig.png)
-
-V2Ray 将所有选择权交给用户，它不会自动设置系统代理，因此还需要在浏览器里设置代理。以火狐（Firefox）为例，点菜单 -> 选项 -> 高级 -> 设置 -> 手动代理设置，在 SOCKS Host 填上 127.0.0.1，后面的 Port 填 1080，再勾上使用 SOCKS v5 时代理 DNS (这个勾选项在旧的版本里叫做远程 DNS)。操作图见下：
-
-![](/resource/images/firefox_proxy_setting1.png)
-
-![](/resource/images/firefox_proxy_setting2.png)
-
-![](/resource/images/firefox_proxy_setting3.png)
-
-![](/resource/images/firefox_proxy_setting4.png)
-
-如果使用的是其它的浏览器，请自行在网上搜一下怎么设置 SOCKS 代理。
-
 ## 服务器安装
 
 ### 脚本安装
@@ -148,6 +123,31 @@ $ sudo bash go.sh
 V2Ray 的更新策略是快速迭代，每周更新(无意外的情况下)。版本号的格式是 `vX.Y.Z`，如 `v2.44.0`。v是固定的字母v，version 的首字母；X、Y、Z都是数字，X是大版本号，每年更新一个大版本(现在是 v4.Y.Z，V2Ray 已经走到了第四个年头)，Y 是小版本，每周五更新一个小版本。Z是区分正式版和测试版，Z是0代表着是正式版，不是0说明是测试版。例如，v4.7.0 是正式版，v4.7.1是测试版，建议只使用正式版，不手动指定的情况下V2Ray 的安装脚本也只会安装最新的正式版。
 
 有些细心的朋友可能会注意到有时候周五 V2Ray 刚发布了一个新版本，次日或过两日又更新一个正式版。出现这种情况是因为周五发布的正式版出现了影响使用严重的 BUG，需要立马发布一个新版本。这种情况比较烦，但是为了保证兼容性、性能优化等又需要保证版本不要太老旧。所以我比较建议在周四更新，选这么一个日子是因为有重大的 BUG 肯定在前面几天就已经修复了，小问题(恐怕都不知道有)的话不会影响使用；而且版本号与最新版相比迟那么一两个也没什么关系。
+
+## 客户端安装
+点[这里](https://github.com/v2ray/v2ray-core/releases)下载 V2Ray 的 Windows 压缩包，如果是 32 位系统，下载 v2ray-windows-32.zip，如果是 64 位系统，下载 v2ray-windows-64.zip（下载速度慢或无法下载请考虑挂已有的翻墙软件来下载）。下载并且解压之后会有下面这些文件：
+* `v2ray.exe` 运行 V2Ray 的程序文件
+* `wv2ray.exe` 同 v2ray.exe，区别在于wv2ray.exe是后台运行的，不像 v2ray.exe 会有类似于 cmd 控制台的窗口。运行 V2Ray 时从 v2ray.exe 和 wv2ray.exe 中任选一个即可
+* `config.json` V2Ray 的配置文件，后面我们对 V2Ray 进行配置其实就是修改这个文件
+* `v2ctl.exe` V2Ray 的工具，有多种功能，除特殊用途外，一般由 v2ray.exe 来调用，用户不用太关心
+* `geosite.dat` 用于路由的域名文件
+* `geoip.dat` 用于路由的 IP 文件
+* 其它 除上面的提到文件外，其他的不是运行 V2Ray 的必要文件。更详细的说明可以看 doc 文件夹下的 readme.md 文件，可以通过记事本或其它的文本编辑器打开查看
+
+实际上双击 v2ray.exe （或wv2ray.exe） 就可以运行 V2Ray 了，V2Ray 会读取 config.json 中的配置与服务器连接。~~默认的配置文件包含 V2Ray 官方服务器的配置，也就是说你可以不自己搭建服务器而直接使用 V2Ray 提供的服务器科学上网。在不修改 config.json 的情况下，双击运行 v2ray.exe，可以直接科学上网~~（V2Ray 官方服务器已下线）。
+![](/resource/images/v2rayrunnig.png)
+
+V2Ray 将所有选择权交给用户，它不会自动设置系统代理，因此还需要在浏览器里设置代理。以火狐（Firefox）为例，点菜单 -> 选项 -> 高级 -> 设置 -> 手动代理设置，在 SOCKS Host 填上 127.0.0.1，后面的 Port 填 1080，再勾上使用 SOCKS v5 时代理 DNS (这个勾选项在旧的版本里叫做远程 DNS)。操作图见下：
+
+![](/resource/images/firefox_proxy_setting1.png)
+
+![](/resource/images/firefox_proxy_setting2.png)
+
+![](/resource/images/firefox_proxy_setting3.png)
+
+![](/resource/images/firefox_proxy_setting4.png)
+
+如果使用的是其它的浏览器，请自行在网上搜一下怎么设置 SOCKS 代理。
 
 
 ------------
