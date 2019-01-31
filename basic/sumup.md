@@ -7,6 +7,7 @@
 V2Ray 的配置文件格式就像这样：
 
 ```javascript
+{
   "log": {},
   "inbounds": [],
   "outbounds": [],
@@ -17,6 +18,7 @@ V2Ray 的配置文件格式就像这样：
   "policy": {},
   "stats": {},
   "api": {},
+}
 ```
 
 总的来说，V2Ray 的配置有 10 个字段，每个字段都可以进一步展开成具体的配置。这些配置字段当中，本章有涉及到前面 4 项，关于 `dns` 、`transport` 和 `reverse` 将在后文说明。而 `api`、`policy` 和 `stats` 的内容我不考虑出，对这些感兴趣的仔细研究手册吧。
