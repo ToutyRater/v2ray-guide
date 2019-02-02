@@ -18,7 +18,10 @@
     {
       "port": 1080, // 监听端口
       "protocol": "socks", // 入口协议为 SOCKS 5
-      "domainOverride": ["tls","http"],
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
       "settings": {
         "auth": "noauth"  // 不认证
       }
