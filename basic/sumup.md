@@ -17,7 +17,7 @@ V2Ray 的配置文件格式就像这样：
   "reverse": {},
   "policy": {},
   "stats": {},
-  "api": {},
+  "api": {}
 }
 ```
 
