@@ -42,7 +42,10 @@ WebSocket 的配置其实很简单，就跟 mKCP 一样把 network 一改就行�
     {
       "port": 1080,
       "protocol": "socks",
-      "domainOverride": ["tls","http"],
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
       "settings": {
         "auth": "noauth"
       }
