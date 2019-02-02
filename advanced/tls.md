@@ -184,7 +184,10 @@ $ sudo ~/.acme.sh/acme.sh --installcert -d mydomain.me --fullchainpath /etc/v2ra
     {
       "port": 1080,
       "protocol": "socks",
-      "domainOverride": ["tls","http"],
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
       "settings": {
         "auth": "noauth"
       }
