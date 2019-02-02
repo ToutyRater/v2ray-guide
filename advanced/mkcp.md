@@ -55,7 +55,10 @@ mKCP 的配置比较简单，只需在服务器的 inbounds 和 客户端的 out
     {
       "port": 1080,
       "protocol": "socks",
-      "domainOverride": ["tls","http"],
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+    },
       "settings": {
         "auth": "noauth"
       }
