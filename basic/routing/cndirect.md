@@ -55,7 +55,7 @@
         "domain": ["geosite:cn"] // 中国大陆主流网站的域名
       },
       {
-        "type": "chinaip",
+        "type": "field",
         "outboundTag": "direct",
         "ip": [
           "geoip:cn", // 中国大陆的 IP
