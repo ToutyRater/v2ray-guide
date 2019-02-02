@@ -73,6 +73,7 @@ The document has moved
         "sockopt": {
           "mark": 255  //这里是 SO_MARK，用于 iptables 识别，每个 outbound 都要配置；255可以改成其他数值，但要与下面的 iptables 规则对应
         }
+      }
     }
     ...
   ]
