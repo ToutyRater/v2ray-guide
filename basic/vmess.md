@@ -33,7 +33,7 @@ $ jq . config.json
 
 （从 v2.11 起新增了一个注释功能，配置文件允许 `//` 和 `/**/` 注释。但是 JSON 的标准格式的没有注释的，也就是说如果你给配置文件加了注释，再使用上文我说的格式化功能会报错说你的 JSON 语法（格式）不对。）
 
-不过，最好还是使用 V2Ray 提供的配置检查功能（test 选项），因为可以检查 JOSN 语法错误外的问题，比如说突然间手抖把 vmess 写成了 vmss，一下子就检查出来了。
+不过，最好还是使用 V2Ray 提供的配置检查功能（test 选项），因为可以检查 JSON 语法错误外的问题，比如说突然间手抖把 vmess 写成了 vmss，一下子就检查出来了。
 ```
 $ /usr/bin/v2ray/v2ray -test -config /etc/v2ray/config.json
 failed to parse json config: Ext|Tools|Conf|Serial: failed to parse json config > Ext|Tools|Conf: failed to load inbound detour config. > Ext|Tools|Conf: unknown config id: vmss
