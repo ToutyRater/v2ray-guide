@@ -22,7 +22,7 @@
         "destOverride": ["http", "tls"]
       },
       "settings": {
-        "auth": "noauth",  
+        "auth": "noauth"  
       }
     }
   ],
@@ -62,7 +62,7 @@
       "port": 1080,
       "protocol": "socks",
       "settings": {
-        "auth": "noauth",  
+        "auth": "noauth"  
       }
     }
   ],
@@ -100,7 +100,7 @@ V2Ray 客户端从 inbound 接收到数据之后没有经过 VPS 中转，而是
       "port": 1080,
       "protocol": "socks",
       "settings": {
-        "auth": "noauth",  
+        "auth": "noauth"  
       }
     }
   ],
@@ -134,7 +134,7 @@ V2Ray 客户端从 inbound 接收到数据之后没有经过 VPS 中转，而是
       "port": 1080,
       "protocol": "socks",
       "settings": {
-        "auth": "noauth",  
+        "auth": "noauth"  
       }
     }
   ],
