@@ -58,7 +58,7 @@
         "type": "chinaip",
         "outboundTag": "direct",
         "ip": [
-          "geoip:cn"，// 中国大陆的 IP
+          "geoip:cn", // 中国大陆的 IP
           "geoip:private" // 私有地址 IP，如路由器等
         ]
       }
