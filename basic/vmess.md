@@ -64,7 +64,10 @@ Configuration OK.
     {
       "port": 1080, // 监听端口
       "protocol": "socks", // 入口协议为 SOCKS 5
-      "domainOverride": ["tls","http"],
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
       "settings": {
         "auth": "noauth"  //socks的认证设置，noauth 代表不认证，由于 socks 通常在客户端使用，所以这里不认证
       }
@@ -139,7 +142,13 @@ Configuration OK.
 再看 outbounds，protocol 是 vmess，说明 V2Ray 接收到数据包之后要将数据包打包成 [VMess](https://www.v2ray.com/chapter_03/01_effective.html#vmess-%E5%8D%8F%E8%AE%AE) 协议并且使用预设的 id 加密（这个例子 id 是 b831381d-6324-4d53-ad4f-8cda48b30811），然后发往服务器地址为 serveraddr.com 的 16823 端口。服务器地址 address 可以是域名也可以是 IP，只要正确就可以了。
 
 
-在客户端配置的 inbounds 中，有一句 `"domainOverride": ["tls","http"]`，V2Ray 手册解释为“识别相应协议的流量，并根据流量内容重置所请求的目标”，不少人不太理解，简单说这东西就是从网络流量中识别出域名。这个 domainOverride 有两个用处：1. 解决 DNS 污染；2. 对于 IP 流量可以应用后文提到的域名路由规则。如果这段话不懂，没关系，照着写吧，没坏处。
+在客户端配置的 inbounds 中，有一个 `"sniffing"` 字段，V2Ray 手册解释为“流量探测，根据指定的流量类型，重置所请求的目标”，这话不太好理解，简单说这东西就是从网络流量中识别出域名。这个 sniffing 有两个用处：
+
+1. 解决 DNS 污染；
+2. 对于 IP 流量可以应用后文提到的域名路由规则；
+3. 识别 BT 协议，根据自己的需要拦截或者直连 BT 流量(后文有一节专门提及)。
+
+如果这段话不懂，没关系，照着写吧。但是，如果你使用 Tor 浏览器，就不要开启 sniffing (将 sniffing 下的 enabled 设成 false)，否则会导致 Tor 无法上网。
 
 ### 服务器
 
@@ -231,3 +240,4 @@ Configuration OK.
 - 2018-04-05 内容补充
 - 2018-09-03 更进一些 V2Ray 的变化，并修改一些描述
 - 2018-11-09 跟进新 v4.0+ 的配置格式
+- 2018-02-01 domainOverride 改为 sniffing
