@@ -17,7 +17,10 @@
     {
       "port": 1080,
       "protocol": "socks",
-      "domainOverride": ["tls","http"],
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
       "settings": {
         "auth": "noauth",  
       }
