@@ -20,7 +20,7 @@
         "destOverride": ["http", "tls"]
       },
       "settings": {
-        "auth": "noauth",
+        "auth": "noauth"
       }
     }
   ],
