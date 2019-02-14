@@ -214,7 +214,7 @@ Configuration OK.
 
 2). 客户端中的 outbound 设置的 address 与 vps 的ip是否一致；
 
-3). 客户端中的 outbound 设置的address 与服务器的 outbound 的 port 是否一致；
+3). 客户端中的 outbound 设置的address 与服务器的 inbound 的 port 是否一致；
 
 4). VPS 是否开启了防火墙将连接拦截了；
 
