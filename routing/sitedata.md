@@ -1,7 +1,7 @@
 # 域名文件
 
 ## 内置的域名文件
-在下载 V2Ray 的时候，下载的压缩包有一个 geosite.dat。这个文件是在路由功能里用到的，文件内置了许多[常见的国内网站域名](https://github.com/v2ray/ext/blob/master/tools/geosites/cn.go)。配置方式如下，geosite 指 geosite.dat 文件，后面的 cn 是一个标签，代表着使用 geosite.dat 文件里的 cn 规则。
+在下载 V2Ray 的时候，下载的压缩包有一个 geosite.dat。这个文件是在路由功能里用到的，文件内置了许多[常见的国内网站域名](https://github.com/v2ray/domain-list-community)。配置方式如下，geosite 指 geosite.dat 文件，后面的 cn 是一个标签，代表着使用 geosite.dat 文件里的 cn 规则。
 ```javascript
 {
     "type": "field",
