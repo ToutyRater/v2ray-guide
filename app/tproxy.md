@@ -69,6 +69,18 @@
       }
     },
     {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIP"
+      },
+      "streamSettings": {
+        "sockopt": {
+          "mark": 255
+        }
+      }      
+    },
+    {
       "tag": "dns-out",
       "protocol": "dns"
     },
