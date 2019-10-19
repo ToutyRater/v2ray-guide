@@ -13,7 +13,6 @@ V2Ray 是 Project V 下的一个工具。Project V 是一个包含一系列构�
 
 V2Ray 用户手册：[https://www.v2ray.com](https://www.v2ray.com)（已被墙）
               [https://v2ray.cool](https://v2ray.cool)（已被墙）
-              [https://mux.cool](https://mux.cool)（还没被墙）
 
 V2Ray 项目地址：[https://github.com/v2ray/v2ray-core](https://github.com/v2ray/v2ray-core)
 
