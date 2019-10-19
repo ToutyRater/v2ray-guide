@@ -60,7 +60,13 @@ The document has moved
       "sniffing": {
         "enabled": true,
         "destOverride": ["http", "tls"]
+      },
+      "streamSettings": {
+        "sockopt": {
+          "tproxy": "redirect" 
+        }
       }
+      
     }
   ],
   "outbounds": [
