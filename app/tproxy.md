@@ -23,7 +23,6 @@
 
 ### 为 V2Ray 配置透明代理的入站和 DNS 分流
 
-
 ```javascript
 {
   "inbounds": [
@@ -172,15 +171,24 @@
 }
 ```
 
+以上是 V2Ray 透明代理的参考配置，关于有一些要点:
+* dokodemo-door 是用来接收透明代理的入站协议，followRedirect 项须为 true 以及 sockopt.tproxy 项须为 tproxy，建议开启 snifing，否则路由无法匹配域名
+* 本节添加了 DNS 配置，用来对国内外 DNS 进行分流，要注意把 NTP 服务器和你自己 VPS 域名也加入到直连的 DNS ，否则会导致 V2Ray 无法与 VPS 正常连接
+* 哪个 DNS 走代理哪个 DNS 直连在 routing 里设置规则
+* routing 也要设置 123 端口的 UDP 流量直连，不然无在时间误差超出允许范围时使用 NTP 校准时间了
+* freedom 的入站设置 domainStrategy 为 UseIP，以避免直连时因为使用本机的 DNS 出现一些奇怪问题
+
+
 ### 配置透明代理规则
 
 执行下面的命令开启透明代理。由于使用了 TPROXY 方式的透明代理，所以 TCP 流量也是使用 mangle 表。
 
 ```
-# 以下为代理局域网设备的规则
+# 设置策略路由
 ip rule add fwmark 1 table 100 
 ip route add local 0.0.0.0/0 dev lo table 100
 
+# 代理局域网设备
 iptables -t mangle -N V2RAY
 iptables -t mangle -I V2RAY -d 192.168.0.0/16 -j RETURN
 iptables -t mangle -A V2RAY -p udp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 --tproxy-mark 1
@@ -189,8 +197,7 @@ iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 -
 iptables -t mangle -A PREROUTING -j V2RAY
 
 
-# 以下为代理网关本机的规则
-
+# 代理网关本机
 iptables -t mangle -N V2RAY_MASK
 
 iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -j RETURN 
@@ -215,52 +222,52 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
 
 1. 在 /etc/systemd/system/ 目录下创建一个文件 tproxyrule.service，然后添加以下内容并保存。
 
-```
-[Unit]
-Description=Tproxy rule
-After=network.target
-Wants=network.target
+  ```
+  [Unit]
+  Description=Tproxy rule
+  After=network.target
+  Wants=network.target
 
-[Service]
+  [Service]
 
-Type=oneshot
-ExecStart=/sbin/ip rule add fwmark 1 table 100 ; /sbin/ip route add local 0.0.0.0/0 dev lo table 100 ; /sbin/iptables-restore /etc/iptables/rules.v4
+  Type=oneshot
+  ExecStart=/sbin/ip rule add fwmark 1 table 100 ; /sbin/ip route add local 0.0.0.0/0 dev lo table 100 ; /sbin/iptables-restore /etc/iptables/rules.v4
 
-[Install]
-WantedBy=multi-user.target
-```
+  [Install]
+  WantedBy=multi-user.target
+  ```
 2. 执行 `systemctl enable tproxyrule` 使 tproxyrule.service 开机运行。
 
 ## 其他
 
-### 解决 too many file to open 问题
+### 解决 too many open files 问题
 
 1. 修改 /etc/systemd/system/v2ray.service 文件，在 [Service] 下加入 `LimitMEMLOCK=infinity` 和 `LimitNOFILE=1000000`，最终如下。
 
-```
-[Unit]
-Description=V2Ray Service
-After=network.target
-Wants=network.target
+  ```
+  [Unit]
+  Description=V2Ray Service
+  After=network.target
+  Wants=network.target
 
-[Service]
-# This service runs as root. You may consider to run it as another user for security concerns.
-# By uncommenting the following two lines, this service will run as user v2ray/v2ray.
-# More discussion at https://github.com/v2ray/v2ray-core/issues/1011
-# User=v2ray
-# Group=v2ray
-Type=simple
-PIDFile=/run/v2ray.pid
-ExecStart=/usr/bin/v2ray/v2ray -config /etc/v2ray/config.json
-Restart=on-failure
-# Don't restart in the case of configuration error
-RestartPreventExitStatus=23
-LimitMEMLOCK=infinity
-LimitNOFILE=1000000
+  [Service]
+  # This service runs as root. You may consider to run it as another user for security concerns.
+  # By uncommenting the following two lines, this service will run as user v2ray/v2ray.
+  # More discussion at https://github.com/v2ray/v2ray-core/issues/1011
+  # User=v2ray
+  # Group=v2ray
+  Type=simple
+  PIDFile=/run/v2ray.pid
+  ExecStart=/usr/bin/v2ray/v2ray -config /etc/v2ray/config.json
+  Restart=on-failure
+  # Don't restart in the case of configuration error
+  RestartPreventExitStatus=23
+  LimitMEMLOCK=infinity
+  LimitNOFILE=1000000
 
-[Install]
-WantedBy=multi-user.target
-```
+  [Install]
+  WantedBy=multi-user.target
+  ```
 2. 执行 `systemctl daemon-reload && systemctl restart v2ray` 生效。
 
 ### 设定网关为静态 IP
@@ -274,7 +281,7 @@ WantedBy=multi-user.target
 ## 备注
 
 1. TPROXY 与 REDIRECT 是针对 TCP 而言的两种透明代理模式，两者的差异主要在于 TPROXY 可以透明代理 IPV6，而 REDIRECT 不行，本文主要是将透明代理模式改为 TPROXY 并且使用了 V2Ray 的 DNS。但我没有 IPV6 环境，无法进行测试，所以本文只适用于 IPV4。
-2. 据我了解，到目前（2019.10）为止，在我所知的具备透明代理功能的翻墙工具中，TCP 透明代理方式可以使用的 TPROXY 的只有 V2Ray。所以你要找其他资料参考的话，基本上都是 REDIRECT 模式的。
+2. 据我了解，到目前（2019.10）为止，在我所知的具备透明代理功能的翻墙工具中，TCP 透明代理方式可以使用的 TPROXY 的只有 V2Ray。所以你要找其他资料参考的话，要注意透明代理方式，因为基本上都是 REDIRECT 模式的（包括 V2Ray 官网给的示例）。
 3. 如果你用了透明代理，就不要用 V2Ray 开放 53 端口做 DNS 服务器。如果这么做了，DNS 会出问题，这应该是个 BUG。等我整理好之后再反馈到 V2Ray 项目。
 4. ~~本文的透明代理有一个问题：无法代理 SSH 流量。这个问题我头疼了很久，目前还找不到原因。因为这个问题我还特意扒了一个路由器固件，测试是可以代理 SSH 的，但里边的东西太乱我现在还没整明白。~~ 更新 v4.21.0 之后无此问题。
 5. 我测试过 NAT 类型，结果是 NAT1，但也看到有反馈说玩游戏依然是 NAT3。这点需要玩游戏的朋友来确认了。不过目前测试发现代理 QUIC 的效果还不不错的。
@@ -284,3 +291,4 @@ WantedBy=multi-user.target
 ## 更新历史
 
 - 2019-10-19 初版 
+- 2019-10-25 关于配置的说明
