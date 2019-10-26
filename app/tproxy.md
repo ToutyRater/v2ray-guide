@@ -175,7 +175,7 @@
 * dokodemo-door 是用来接收透明代理的入站协议，followRedirect 项须为 true 以及 sockopt.tproxy 项须为 tproxy，建议开启 snifing，否则路由无法匹配域名
 * 本节添加了 DNS 配置，用来对国内外 DNS 进行分流，要注意把 NTP 服务器和你自己 VPS 域名也加入到直连的 DNS ，否则会导致 V2Ray 无法与 VPS 正常连接
 * 哪个 DNS 走代理哪个 DNS 直连在 routing 里设置规则
-* routing 也要设置 123 端口的 UDP 流量直连，不然无在时间误差超出允许范围时使用 NTP 校准时间了
+* routing 也要设置 123 端口的 UDP 流量直连，不然会在时间误差超出允许范围时使用 NTP 校准时间了
 * freedom 的入站设置 domainStrategy 为 UseIP，以避免直连时因为使用本机的 DNS 出现一些奇怪问题
 
 
@@ -185,27 +185,23 @@
 
 ```
 # 设置策略路由
-ip rule add fwmark 1 table 100 
+ip rule add fwmark 1 table 100  
 ip route add local 0.0.0.0/0 dev lo table 100
 
 # 代理局域网设备
-iptables -t mangle -N V2RAY
-iptables -t mangle -I V2RAY -d 192.168.0.0/16 -j RETURN
-iptables -t mangle -A V2RAY -p udp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 --tproxy-mark 1
-iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 --tproxy-mark 1
-
-iptables -t mangle -A PREROUTING -j V2RAY
-
+iptables -t mangle -N V2RAY 
+iptables -t mangle -I V2RAY -d 192.168.0.0/16 -j RETURN 
+iptables -t mangle -A V2RAY -p udp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 --tproxy-mark 1 # 给 UDP 打标记 1
+iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 --tproxy-mark 1 # 给 TCP 打标记 1
+iptables -t mangle -A PREROUTING -j 
 
 # 代理网关本机
-iptables -t mangle -N V2RAY_MASK
-
+iptables -t mangle -N V2RAY_MASK # 新建 V2RAY_MASK 链
 iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -j RETURN 
-iptables -t mangle -A V2RAY_MASK -d 223.5.5.5 -j RETURN    # important, dns for resolve vps domain
-iptables -t mangle -A V2RAY_MASK -j RETURN -m mark --mark 0xff    # return the V2Ray traffic, it be marked at 0xff
-iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1   # udp reroute check
-iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1   # tcp reroute check
-
+iptables -t mangle -A V2RAY_MASK -d 223.5.5.5 -j RETURN    # 直连 223.5.5.5（直连的地址跟 DNS 配置的地址一致），否则会导致回环
+iptables -t mangle -A V2RAY_MASK -j RETURN -m mark --mark 0xff    # 直连 SO_MARK 为 0xff 的流量(0xff 是 16 进制数，数值上等同与上面V2Ray 配置的 255)，此规则目的是避免代理本机(网关)流量出现回环问题
+iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
+iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
 iptables -t mangle -A OUTPUT -j V2RAY_MASK 
 ```
 
