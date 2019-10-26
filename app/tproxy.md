@@ -196,7 +196,7 @@ iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --on-ip 127.0.0.1 -
 iptables -t mangle -A PREROUTING -j 
 
 # 代理网关本机
-iptables -t mangle -N V2RAY_MASK # 新建 V2RAY_MASK 链
+iptables -t mangle -N V2RAY_MASK 
 iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -j RETURN 
 iptables -t mangle -A V2RAY_MASK -d 223.5.5.5 -j RETURN    # 直连 223.5.5.5（直连的地址跟 DNS 配置的地址一致），否则会导致回环
 iptables -t mangle -A V2RAY_MASK -j RETURN -m mark --mark 0xff    # 直连 SO_MARK 为 0xff 的流量(0xff 是 16 进制数，数值上等同与上面V2Ray 配置的 255)，此规则目的是避免代理本机(网关)流量出现回环问题
