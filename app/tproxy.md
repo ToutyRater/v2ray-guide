@@ -171,7 +171,7 @@
 }
 ```
 
-以上是 V2Ray 透明代理的参考配置，关于有一些要点:
+以上是 V2Ray 透明代理的参考配置，关于配置有一些要点:
 * dokodemo-door 是用来接收透明代理的入站协议，followRedirect 项须为 true 以及 sockopt.tproxy 项须为 tproxy，建议开启 snifing，否则路由无法匹配域名
 * 本节添加了 DNS 配置，用来对国内外 DNS 进行分流，要注意把 NTP 服务器和你自己 VPS 域名也加入到直连的 DNS ，否则会导致 V2Ray 无法与 VPS 正常连接
 * 哪个 DNS 走代理哪个 DNS 直连在 routing 里设置规则
