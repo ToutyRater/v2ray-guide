@@ -207,14 +207,17 @@ ip route add local 0.0.0.0/0 dev lo table 100
 
 # 代理局域网设备
 iptables -t mangle -N V2RAY 
-iptables -t mangle -I V2RAY -d 192.168.0.0/16 -j RETURN 
+iptables -t mangle -A V2RAY -d 127.0.0.1/32 -j RETURN
+iptables -t mangle -A V2RAY -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN
+iptables -t mangle -A V2RAY -d 192.168.0.0/16 -p tcp -j RETURN
 iptables -t mangle -A V2RAY -p udp -j TPROXY --on-port 12345 --tproxy-mark 1 # 给 UDP 打标记 1
 iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --tproxy-mark 1 # 给 TCP 打标记 1
 iptables -t mangle -A PREROUTING -j 
 
 # 代理网关本机
 iptables -t mangle -N V2RAY_MASK 
-iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -j RETURN 
+iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN
+iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p tcp -j RETURN
 iptables -t mangle -A V2RAY_MASK -j RETURN -m mark --mark 0xff    # 直连 SO_MARK 为 0xff 的流量(0xff 是 16 进制数，数值上等同与上面V2Ray 配置的 255)，此规则目的是避免代理本机(网关)流量出现回环问题
 iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
 iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
@@ -288,7 +291,7 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
 
 ### 设定 DHCP
 
-在路由器上设定 DHCP，将网关地址指向网关设备，在本文的举例中即为树莓派的IP 192.168.1.22；将 DNS 设为不是局域网（如 192.168.x.x）的地址，否则将会因为 iptables 规则导致 DNS 流量没有发给V2Ray。
+在路由器上设定 DHCP，将网关地址指向网关设备，在本文的举例中即为树莓派的IP 192.168.1.22； DNS 随意，因为已经配置了劫持 53 端口的 UDP。
 
 ## 备注
 
@@ -304,3 +307,4 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
 
 - 2019-10-19 初版 
 - 2019-10-25 关于配置的说明
+- 2019-10-26 改善 DNS 配置
