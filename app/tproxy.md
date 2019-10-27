@@ -109,7 +109,7 @@
         "port": 53,
         "domains": [
           "geosite:cn",
-          "pool.ntp.org",   // NTP 服务器
+          "ntp.org",   // NTP 服务器
           "$myserver.address" // 此处改为你 VPS 的域名
         ]
       }
@@ -198,44 +198,43 @@
 
 ### 配置透明代理规则
 
-执行下面的命令开启透明代理。由于使用了 TPROXY 方式的透明代理，所以 TCP 流量也是使用 mangle 表。
+执行下面的命令开启透明代理。由于使用了 TPROXY 方式的透明代理，所以 TCP 流量也是使用 mangle 表。以下命令中，以 `#` 开头的为注释。
 
 ```
 # 设置策略路由
-ip rule add fwmark 1 table 100  
+ip rule add fwmark 1 table 100 
 ip route add local 0.0.0.0/0 dev lo table 100
 
 # 代理局域网设备
 iptables -t mangle -N V2RAY 
 iptables -t mangle -A V2RAY -d 127.0.0.1/32 -j RETURN
-iptables -t mangle -A V2RAY -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN
-iptables -t mangle -A V2RAY -d 192.168.0.0/16 -p tcp -j RETURN
-iptables -t mangle -A V2RAY -p udp -j TPROXY --on-port 12345 --tproxy-mark 1 # 给 UDP 打标记 1
-iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --tproxy-mark 1 # 给 TCP 打标记 1
-iptables -t mangle -A PREROUTING -j 
+iptables -t mangle -A V2RAY -d 192.168.0.0/16 -p tcp -j RETURN # 直连局域网，避免 V2Ray 无法启动时无法连网关的 SSH，如果你配置的是其他网段（如 10.x.x.x 等），则修改成自己的
+iptables -t mangle -A V2RAY -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN # 直连局域网，53 端口除外（因为要使用 V2Ray 的 
+iptables -t mangle -A V2RAY -p udp -j TPROXY --on-port 12345 --tproxy-mark 1 # 给 UDP 打标记 1，转发至 12345 端口
+iptables -t mangle -A V2RAY -p tcp -j TPROXY --on-port 12345 --tproxy-mark 1 # 给 TCP 打标记 1，转发至 12345 端口
+iptables -t mangle -A PREROUTING -j # 应用规则
 
 # 代理网关本机
 iptables -t mangle -N V2RAY_MASK 
-iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN
-iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p tcp -j RETURN
+iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p tcp -j RETURN # 直连局域网
+iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN # 直连局域网，53 端口除外（因为要使用 V2Ray 的 DNS）
 iptables -t mangle -A V2RAY_MASK -j RETURN -m mark --mark 0xff    # 直连 SO_MARK 为 0xff 的流量(0xff 是 16 进制数，数值上等同与上面V2Ray 配置的 255)，此规则目的是避免代理本机(网关)流量出现回环问题
 iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
 iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
-iptables -t mangle -A OUTPUT -j V2RAY_MASK 
+iptables -t mangle -A OUTPUT -j V2RAY_MASK # 应用规则
 ```
 
 执行了以上 IP 和 iptables 命令后，就可以翻墙了。
 
-## 开机运行透明代理规则
+## 开机自动运行透明代理规则
+由于策略路由以及iptables 有重启会失效的特性，所以当测试配置没有问题之后，需要再弄个服务在开机时自动配置策略路由和 iptables，否则每次开机的时候就要手动来一遍了。
 
-### 将 iptables 规则保存到 /etc/iptables/rules.v4
-```
-mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
-```
+1. 由于 iptables 命令有点多，所以先将 iptables 规则保存到 /etc/iptables/rules.v4 中。
+  ```
+  mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
+  ```
 
-### 开机运行设定 IP 路由及加载 iptables 规则
-
-1. 在 /etc/systemd/system/ 目录下创建一个文件 tproxyrule.service，然后添加以下内容并保存。
+2. 在 /etc/systemd/system/ 目录下创建一个名为 tproxyrule.service 的文件，然后添加以下内容并保存。
 
   ```
   [Unit]
@@ -246,18 +245,23 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
   [Service]
 
   Type=oneshot
+  #注意分号前后要有空格
   ExecStart=/sbin/ip rule add fwmark 1 table 100 ; /sbin/ip route add local 0.0.0.0/0 dev lo table 100 ; /sbin/iptables-restore /etc/iptables/rules.v4
 
   [Install]
   WantedBy=multi-user.target
   ```
-2. 执行 `systemctl enable tproxyrule` 使 tproxyrule.service 开机运行。
+3. 执行下面的命令使 tproxyrule.service 可以开机自动运行。
+
+  ```
+  systemctl enable tproxyrule
+  ```
 
 ## 其他
 
 ### 解决 too many open files 问题
-
-1. 修改 /etc/systemd/system/v2ray.service 文件，在 [Service] 下加入 `LimitMEMLOCK=infinity` 和 `LimitNOFILE=1000000`，最终如下。
+代理 UDP 时比较容易”卡住“，细心的朋友会发现日志中出现了非常多 "too many open files" 的语句,这主要时受到最大文件描述符数值的限制，把这个数值往大调就好了。设置步骤如下。
+1. 修改 /etc/systemd/system/v2ray.service 文件，在 [Service] 下加入 `LimitNPROC=500` 和 `LimitNOFILE=1000000`，修改后的内容如下。
 
   ```
   [Unit]
@@ -277,7 +281,7 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
   Restart=on-failure
   # Don't restart in the case of configuration error
   RestartPreventExitStatus=23
-  LimitMEMLOCK=infinity
+  LimitNPROC=500
   LimitNOFILE=1000000
 
   [Install]
@@ -287,7 +291,8 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
 
 ### 设定网关为静态 IP
 
-请自行探究。
+最好给网关设成静态IP，以免需要重启的时 IP 发生变化。如何设置请自行探究。
+提示一下，如果你用 nmcli 命令设置静态 IP，最好将先另外添加一个 connection 进行配置，配置好之后在切换到新添加的这个 connection 来。如果在原有的 connection 上直接修改成静态 IP **可能**会导致**无法透明代理**。
 
 ### 设定 DHCP
 
@@ -298,9 +303,8 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
 1. TPROXY 与 REDIRECT 是针对 TCP 而言的两种透明代理模式，两者的差异主要在于 TPROXY 可以透明代理 IPV6，而 REDIRECT 不行，本文主要是将透明代理模式改为 TPROXY 并且使用了 V2Ray 的 DNS。但我没有 IPV6 环境，无法进行测试，所以本文只适用于 IPV4。
 2. 据我了解，到目前（2019.10）为止，在我所知的具备透明代理功能的翻墙工具中，TCP 透明代理方式可以使用的 TPROXY 的只有 V2Ray。所以你要找其他资料参考的话，要注意透明代理方式，因为基本上都是 REDIRECT 模式的（包括 V2Ray 官网给的示例）。
 3. 在透明代理中，不要用 V2Ray 开放 53 端口做 DNS 服务器。如果这么做了，DNS 会出问题，这应该是个 BUG。等我整理好之后再反馈到 V2Ray 项目。
-4. ~~本文的透明代理有一个问题：无法代理 SSH 流量。这个问题我头疼了很久，目前还找不到原因。因为这个问题我还特意扒了一个路由器固件，测试是可以代理 SSH 的，但里边的东西太乱我现在还没整明白。~~ 更新 v4.21.0 之后无此问题。
-5. 我测试过 NAT 类型，结果是 NAT1，但也看到有反馈说玩游戏依然是 NAT3。这点需要玩游戏的朋友来确认了。不过目前测试发现代理 QUIC 的效果还不不错的。
-6. 本文的说明内容还不够完善，后续还要针对配置进行详细说明，大约改 3~5 个版本，然后再提交到新教程上。
+4. 我用 [NatTypeTester](https://github.com/HMBSbige/NatTypeTester) 测试过 NAT 类型，结果是 FullCone，但也看到有反馈说玩游戏依然是 PortRestrictedCone。我也不清楚是怎么回事，这点需要玩游戏的朋友来确认了。不过目前测试发现代理 QUIC 的效果还不不错的。
+5. 本文的说明内容还不够完善，后续还要针对配置进行详细说明，大约改 3~5 个版本，然后再提交到新教程上。
 
 
 ## 更新历史
@@ -308,3 +312,4 @@ mkdir -p /etc/iptables && iptables-save > /etc/iptables/rules.v4
 - 2019-10-19 初版 
 - 2019-10-25 关于配置的说明
 - 2019-10-26 改善 DNS 配置
+- 2019-10-27 改进
