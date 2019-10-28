@@ -221,12 +221,26 @@ iptables -t mangle -N V2RAY_MASK
 iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p tcp -j RETURN # 直连局域网
 iptables -t mangle -A V2RAY_MASK -d 192.168.0.0/16 -p udp ! --dport 53 -j RETURN # 直连局域网，53 端口除外（因为要使用 V2Ray 的 DNS）
 iptables -t mangle -A V2RAY_MASK -j RETURN -m mark --mark 0xff    # 直连 SO_MARK 为 0xff 的流量(0xff 是 16 进制数，数值上等同与上面V2Ray 配置的 255)，此规则目的是避免代理本机(网关)流量出现回环问题
-iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
-iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1   # 给 UDP 打标记，数据包将会走 PREROUTTING
+iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1   # 给 UDP 打标记,重路由
+iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1   # 给 TCP 打标记，重路由
 iptables -t mangle -A OUTPUT -j V2RAY_MASK # 应用规则
 ```
 
-执行了以上 IP 和 iptables 命令后，就可以翻墙了。
+执行了以上 ip 和 iptables 命令后，就可以翻墙了。
+
+关于 iptables 规则，比较容易理解，如果不太理解的话也可以 Google 搜索其他资料对比学习。在类 ss-redir 透明代理中，有两个观点非常深入人心：
+```
+1. UDP 只能 TPROXY
+2. TPROXY 不能用于 OUTPUT 链
+```
+然后我们从这两个观点很容易得出一个推论：**无法在提供透明代理的本机(即本例中的网关)上对 UDP 透明代理**。
+这个结论好像并没有什么问题，对吧？但实际上，在本例的配置中无论是 TCP 还是 UDP，都可以实现在本机上的透明代理，而且都是用 TPROXY。那好像又跟前面的结论矛盾了？其实关键在于这三句命令：
+```
+iptables -t mangle -A V2RAY_MASK -p udp -j MARK --set-mark 1
+iptables -t mangle -A V2RAY_MASK -p tcp -j MARK --set-mark 1
+iptables -t mangle -A OUTPUT -j V2RAY_MASK
+```
+这几句是说给 OUTPUT 链的 TCP 和 UDP 打个标记 1(OUTPUT 应用 V2RAY_MASK 链)。由于 Netfilter 的特性，在 OUTPUT 链打标记会使相应的包重路由到 PREROUTING 链上，在已经配置好了 PREROUTING 相关的透明代理的情况下，OUTPUT 链也可以透明代理了，也就是网关本身透明代理自身的 UDP 流量的（当然 TCP 也不在话下）。因为这是 netfilter 本身的特性，Shadowsocks 应该也可以用同样的方法对本机的 UDP 透明代理，但我没有实际测试过效果。
 
 ## 开机自动运行透明代理规则
 由于策略路由以及iptables 有重启会失效的特性，所以当测试配置没有问题之后，需要再弄个服务在开机时自动配置策略路由和 iptables，否则每次开机的时候就要手动来一遍了。
@@ -308,6 +322,13 @@ iptables -t mangle -A OUTPUT -j V2RAY_MASK # 应用规则
 4. 我用 [NatTypeTester](https://github.com/HMBSbige/NatTypeTester) 测试过 NAT 类型，结果是 FullCone，但也看到有反馈说玩游戏依然是 PortRestrictedCone。我也不清楚是怎么回事，这点需要玩游戏的朋友来确认了。不过目前测试发现代理 QUIC 的效果还不不错的。
 5. 本文的说明内容还不够完善，后续还要针对配置进行详细说明，大约改 3~5 个版本，然后再提交到新教程上。
 
+## 参考资料
+
+* [DNS及其应用](https://steemit.com/cn/@v2ray/dns)
+* [漫谈各种黑科技式 DNS 技术在代理环境中的应用](https://medium.com/@TachyonDevel/%E6%BC%AB%E8%B0%88%E5%90%84%E7%A7%8D%E9%BB%91%E7%A7%91%E6%8A%80%E5%BC%8F-dns-%E6%8A%80%E6%9C%AF%E5%9C%A8%E4%BB%A3%E7%90%86%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8-62c50e58cbd0)
+* [Linux transparent proxy support](https://powerdns.org/tproxydoc/tproxy.md.html)
+* [V2Ray 透明代理样例](https://v2ray.com/chapter_02/protocols/dokodemo.html#example)
+
 
 ## 更新历史
 
@@ -315,3 +336,4 @@ iptables -t mangle -A OUTPUT -j V2RAY_MASK # 应用规则
 - 2019-10-25 关于配置的说明
 - 2019-10-26 改善 DNS 配置
 - 2019-10-27 改进
+- 2019-10-28 解释重路由
