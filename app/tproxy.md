@@ -276,7 +276,7 @@ iptables -t mangle -A OUTPUT -j V2RAY_MASK
 ## 其他
 
 ### 解决 too many open files 问题
-代理 UDP 时比较容易”卡住“，细心的朋友会发现日志中出现了非常多 "too many open files" 的语句,这主要时受到最大文件描述符数值的限制，把这个数值往大调就好了。设置步骤如下。
+对 UDP 透明代理比较容易出现”卡住“的情况，这个时候细心的朋友可能会发现日志中出现了非常多 "too many open files" 的语句,这主要是受到最大文件描述符数值的限制，把这个数值往大调就好了。设置步骤如下。
 1. 修改 /etc/systemd/system/v2ray.service 文件，在 [Service] 下加入 `LimitNPROC=500` 和 `LimitNOFILE=1000000`，修改后的内容如下。
 
   ```
