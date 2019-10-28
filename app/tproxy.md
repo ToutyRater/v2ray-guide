@@ -1,6 +1,6 @@
 # 透明代理(TPROXY)
 
-原来出过一篇透明代理的教程，但过了许久，V2Ray 也已经迭代了好多个版本。原来的教程依旧可以正常使用，但随着 V2Ray 的更新，V2Ray 推出了新的透明代理方式—— TPROXY，原来的叫 REDIRECT。最近测试了一下 TPROXY ，效果还不错，主观感觉比 REDIRECT 好。并且在本文的透明代理中，DNS 服务将由 V2Ray 提供。
+原来出过一篇透明代理的教程，但过了许久，V2Ray 也已经迭代了好多个版本。原来的教程依旧可以正常使用，但随着 V2Ray 的更新，V2Ray 推出了新的透明代理方式—— TPROXY，原来的叫 REDIRECT。最近测试了一下 TPROXY ，效果还不错，主观感觉比 REDIRECT 好。并且在本文的透明代理中，DNS 服务将由 V2Ray 提供。不过这种方式需要 iptables 的 TPROXY 模块支持，有一些阉割版的系统会精简掉 TPROXY 模块,这种系统是不适用于本文的。
 
 普通家庭大多数是光纤入户接光猫调制解调，一个路由器的 WAN 口接光猫的 LAN 口，要上网的设备（如 PC 、电视盒子、手机）接路由器 LAN 口。本文的透明代理需要一台 Linux 主机接路由器 LAN 口，作为局域网中的网关，为其他接入局域网中的设备提供翻墙功能。这样的方式与我原来的透明代理教程是一样的，都是搭建在一个 Linux 主机上。这样可以透明代理的设备，有的人叫“透明网关”，也有的叫“旁路由”。我觉得这种不是很严肃的场合，叫什么都行，只要不妨碍理解。
 
@@ -324,10 +324,11 @@ iptables -t mangle -A OUTPUT -j V2RAY_MASK
 
 ## 参考资料
 
-* [DNS及其应用](https://steemit.com/cn/@v2ray/dns)
+* [DNS 及其应用](https://steemit.com/cn/@v2ray/dns)
 * [漫谈各种黑科技式 DNS 技术在代理环境中的应用](https://medium.com/@TachyonDevel/%E6%BC%AB%E8%B0%88%E5%90%84%E7%A7%8D%E9%BB%91%E7%A7%91%E6%8A%80%E5%BC%8F-dns-%E6%8A%80%E6%9C%AF%E5%9C%A8%E4%BB%A3%E7%90%86%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8-62c50e58cbd0)
 * [Linux transparent proxy support](https://powerdns.org/tproxydoc/tproxy.md.html)
 * [V2Ray 透明代理样例](https://v2ray.com/chapter_02/protocols/dokodemo.html#example)
+* [iptables - Wikipedia](https://en.wikipedia.org/wiki/Iptables)
 
 
 ## 更新历史
