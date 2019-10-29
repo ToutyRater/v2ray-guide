@@ -49,7 +49,17 @@
         }
       }
     },
-    ...
+    {
+      "port": 1080, 
+      "protocol": "socks", // 入口协议为 SOCKS 5
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
+      "settings": {
+        "auth": "noauth"
+      }
+    }
   ],
   "outbounds": [
     {
