@@ -76,7 +76,7 @@
         }
       },
       "mux": {
-        "enabled": mux
+        "enabled": true
       }
     },
     {
