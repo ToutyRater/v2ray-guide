@@ -241,4 +241,4 @@ Configuration OK.
 - 2018-09-03 更进一些 V2Ray 的变化，并修改一些描述
 - 2018-11-09 跟进新 v4.0+ 的配置格式
 - 2018-02-01 domainOverride 改为 sniffing
-- 2019-10-27 删去关闭 sniffing 才能用 tor 的提示 
+- 2019-10-27 sniffing 不再影响 tor 的使用
