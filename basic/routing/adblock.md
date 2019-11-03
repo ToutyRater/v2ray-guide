@@ -78,7 +78,7 @@
       },
       {
         "type": "field",
-        "outboundTag": "direct"，
+        "outboundTag": "direct",
         "domain": ["geosite:cn"]
       },
       {
@@ -164,3 +164,4 @@
 ## 更新历史
 
 - 2018-11-09 跟进 v4.0+ 配置格式
+- 2019-11-03 修正编辑错误
