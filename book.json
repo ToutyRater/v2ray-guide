@@ -2,13 +2,14 @@
   "title" : "V2Ray 配置指南|V2Ray 白话文教程",
   "description": "关于 V2Ray 配置的详细教程",
   "plugins": [
-     "splitter",
-     "codeblock-filename",
-     "editlink",
-     "anchors",
-     "anchor-navigation-ex",
-     "theme-comscore",
-     "code"
+    "splitter",
+    "codeblock-filename",
+    "editlink",
+    "anchors",
+    "anchor-navigation-ex",
+    "theme-comscore",
+    "code",
+    "codeblock-filename"
   ],
   "pluginsConfig":{
     "editlink": {
@@ -16,9 +17,9 @@
       "label": "修订"
     }
   },
-     "links" : {
-        "sidebar" : {
-            "My GitHub" : "https://github.com/ToutyRater"
-        }
+  "links" : {
+    "sidebar" : {
+      "My GitHub" : "https://github.com/ToutyRater"
     }
+  }
 }
