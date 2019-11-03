@@ -7,7 +7,8 @@
      "editlink",
      "anchors",
      "anchor-navigation-ex",
-     "theme-comscore"
+     "theme-comscore",
+     "code"
   ],
   "pluginsConfig":{
     "editlink": {
