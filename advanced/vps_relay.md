@@ -16,7 +16,7 @@
   "inbounds": [
     {
       "port": 1234,
-      "protocol": "vmess",    // 在这里使用 [VMess 协议](../chapter_02/protocols/vmess.md)
+      "protocol": "vmess",    // 入站协议为 VMess
       "settings": {
         "clients": [
           {
@@ -35,7 +35,7 @@
     }
   ],
   // ========== BEGIN STEP 1 ==========
-  // 国内服务器当作国外服务器的“客户端”
+  // 国内中转服务器当作国外服务器的“客户端”
   // 国际流量发往国外服务器上
   "outbounds": [
     {
