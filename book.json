@@ -9,7 +9,10 @@
     "anchor-navigation-ex",
     "theme-comscore",
     "code",
-    "codeblock-filename"
+    "codeblock-filename",
+    "-highlight",
+    "prism",
+    "prism-themes"
   ],
   "pluginsConfig":{
     "editlink": {
