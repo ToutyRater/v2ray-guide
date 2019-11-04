@@ -18,6 +18,11 @@
     "editlink": {
       "base": "https://github.com/toutyrater/v2ray-guide/edit/master",
       "label": "修订"
+    },
+    "prism": {
+      "css": [
+        "prismjs/themes/prism-atom-dark.css"
+      ]
     }
   },
   "links" : {
