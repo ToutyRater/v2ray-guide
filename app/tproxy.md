@@ -67,6 +67,7 @@
       "protocol": "vmess", // 代理服务器
       "settings": {
         "vnext": [
+          // 注意： address必须使用IP，不然v2ray初始化时会陷入DNS死循环
           ...
         ]
       },
