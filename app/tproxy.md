@@ -198,7 +198,7 @@
 ```
 
 以上是 V2Ray 透明代理的参考配置，关于配置有一些注意点及说明:
-* dokodemo-door 是用来接收透明代理的入站协议，followRedirect 项须为 true 以及 sockopt.tproxy 项须为 tproxy，建议开启 snifing，否则路由无法匹配域名；
+* dokodemo-door 是用来接收透明代理的入站协议，followRedirect 项须为 true 以及 sockopt.tproxy 项须为 tproxy，建议开启 sniffing，否则路由无法匹配域名；
 * 本节添加了 DNS 配置，用来对国内外域名进行 DNS 分流，需要 `DNS 配置`、`DNS 入站`、`DNS 出站`和`路由`四者配合，在本例中 DNS 入站直接使用透明代理入站，可参考[ DNS 及其应用](https://steemit.com/cn/@v2ray/dns)；
 * 在 DNS 配置中，依次配置了 Google、Cloudflare、114 和阿里的 DNS，由于在阿里的 DNS 中指定了 domain，所以匹配的域名会用阿里的 DNS 查询，其他的先查询 Google 的 DNS，如果查不到的话再依次查 Cloudflare 及 114 的。所以达到了国内外域名 DNS 分流，以及 DNS 备用。要注意把 NTP 服务器和你自己 VPS 域名也加入到直连的 DNS ，否则会导致 V2Ray 无法与 VPS 正常连接；
 * DNS 配置只是说明哪些域名查哪个 DNS，至于哪个 DNS 走代理哪个 DNS 直连要在 routing 里设置规则；
