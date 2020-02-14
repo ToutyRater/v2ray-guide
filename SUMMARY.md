@@ -40,5 +40,6 @@
     * [内存优化](app/optimization.md)
 * [路由篇](routing/README.md)
     * [域名文件](routing/sitedata.md)
+    * [路由规则设定方法](routing/configurate_rules.md)
     * [禁止 BT](routing/bittorrent.md)
     * [负载均衡 2](routing/balance2.md)
