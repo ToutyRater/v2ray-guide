@@ -333,9 +333,8 @@ iptables -t mangle -A OUTPUT -j V2RAY_MASK
 
 1. TPROXY 与 REDIRECT 是针对 TCP 而言的两种透明代理模式，两者的差异主要在于 TPROXY 可以透明代理 IPV6，而 REDIRECT 不行，本文主要是将透明代理模式改为 TPROXY 并且使用了 V2Ray 的 DNS。但我没有 IPV6 环境，无法进行测试，所以本文只适用于 IPV4。
 2. 据我了解，到目前（2019.10）为止，在我所知的具备透明代理功能的翻墙工具中，TCP 透明代理方式可以使用的 TPROXY 的只有 V2Ray。所以你要找其他资料参考的话，要注意透明代理方式，因为基本上都是 REDIRECT 模式的（包括 V2Ray 官网给的示例）。
-3. 在透明代理中，不要用 V2Ray 开放 53 端口做 DNS 服务器。如果这么做了，DNS 会出问题，这应该是个 BUG。等我整理好之后再反馈到 V2Ray 项目。
-4. 我用 [NatTypeTester](https://github.com/HMBSbige/NatTypeTester) 测试过 NAT 类型，结果是 FullCone，但也看到有反馈说玩游戏依然是 PortRestrictedCone。我也不清楚是怎么回事，这点需要玩游戏的朋友来确认了。不过目前测试发现代理 QUIC 的效果还不不错的。
-5. 本文的说明内容还不够完善，后续还要针对配置进行详细说明，大约改 3~5 个版本，然后再提交到新教程上。
+3. 在透明代理中，不要用 V2Ray 开放 53 端口做 DNS 服务器。如果这么做了，DNS 会出问题，这应该是个 BUG。(详情见[此 Issue](https://github.com/v2ray/v2ray-core/issues/1971))
+4. ~~我用 [NatTypeTester](https://github.com/HMBSbige/NatTypeTester) 测试过 NAT 类型，结果是 FullCone，但也看到有反馈说玩游戏依然是 PortRestrictedCone。我也不清楚是怎么回事，这点需要玩游戏的朋友来确认了。不过目前测试发现代理 QUIC 的效果还不不错的。~~ V2Ray 仍然不支持 FullCone，详情见[此 Issue](https://github.com/v2ray/v2ray-core/issues/1429)。
 
 ## 参考资料
 
