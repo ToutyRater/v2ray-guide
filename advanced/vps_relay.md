@@ -72,7 +72,7 @@
       {
         "type": "field",      // 不允许客户端访问服务端的局域网地址，以提升安全性
         "ip": [
-          "geoip:cn"
+          "geoip:private"
         ],
         "outboundTag": "block"
       },
@@ -88,7 +88,7 @@
         "type": "field", // 对于所有国内的 IP，都采用直连模式
         "ip": [
           "geoip:cn"
-        ]
+        ],
         "outboundTag": "direct"
       }
     ]
