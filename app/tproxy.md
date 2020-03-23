@@ -278,6 +278,9 @@ iptables -t mangle -A OUTPUT -j V2RAY_MASK
   Type=oneshot
   #注意分号前后要有空格
   ExecStart=/sbin/ip rule add fwmark 1 table 100 ; /sbin/ip route add local 0.0.0.0/0 dev lo table 100 ; /sbin/iptables-restore /etc/iptables/rules.v4
+  ExecReload=/sbin/iptables-restore /etc/iptables/rules.v4
+  ExecStop=/sbin/ip rule delete fwmark 1 table 100 ; /sbin/ip route delete local 0.0.0.0/0 dev lo table 100 ; /usr/lib/systemd/scripts/iptables-flush
+  RemainAfterExit=yes
 
   [Install]
   WantedBy=multi-user.target
