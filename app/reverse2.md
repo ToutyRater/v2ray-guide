@@ -138,7 +138,7 @@ B 的配置只有 inbound 部分发生了变化。
       {  //路由规则，接收 C 的请求后发给 A
         "type":"field",
         "inboundTag":[  
-          "external"
+          "interconn"
         ],
         "outboundTag":"portal"
       },
