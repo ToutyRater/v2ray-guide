@@ -98,7 +98,7 @@
     },
     {
       // VPS1 的配置
-      "tag": "VPS1"
+      "tag": "VPS1",
       "protocol": "vmess",
       "settings": {
         "vnext": [{
@@ -147,7 +147,7 @@
   "outbounds": [
     {
       // VPS1 的配置
-      "tag": "VPS1"
+      "tag": "VPS1",
       "protocol": "vmess",
       "settings": {
         "vnext": [{
