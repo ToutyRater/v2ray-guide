@@ -36,7 +36,7 @@ VPN(Virtual Private Network)，中文译名虛拟私人网络，以在公共信�
   }
 }
 ```
-如上面的配置，就是简单的黑名单模式。规则从上往下一次匹配，首先是 ext:h2y.dat:gfw，这可以认为是 GWFList 的另一种形式，使用方式见[域名文件](https://toutyrater.github.io/routing/sitedata.html)小节。第一条规则中，outboundTag 是 proxy，则表明中国大陆网站直连。在第二条规则中，netwrok 为 udp,tcp，而且没有指定 domain 和 IP，这条规则本身表示所有流量，但是它位于第一条规则之后，也就是代表着除 GFWList 之外的所有域名都会匹配第二条规则，这样只指定了"network": "udp,tcp"，并且指定"outboundTag": "direct"，我们可以理解为上面所有规则都不匹配的情况下则默认为 direct。这正是前面说的黑名单模式：如果访问的网站被收录在 GFWList 里，那么访问这个网站会走代理，否则直连。这种黑名单模式我认为比较适合于主要上国内网站，只是偶尔上一下国外且是知名大公司的网站，这种情况下遇到不收录在 GFWList 的国外域名概率比较低。
+如上面的配置，就是简单的黑名单模式。规则从上往下一次匹配，首先是 ext:h2y.dat:gfw，这可以认为是 GWFList 的另一种形式，使用方式见[域名文件](https://toutyrater.github.io/routing/sitedata.html)小节。第一条规则中，outboundTag 是 proxy，则表明黑名单中匹配域名的流量通过代理出站。在第二条规则中，netwrok 为 udp,tcp，而且没有指定 domain 和 IP，这条规则本身表示所有流量，但是它位于第一条规则之后，也就是代表着除 GFWList 之外的所有域名都会匹配第二条规则，这样只指定了"network": "udp,tcp"，并且指定"outboundTag": "direct"，我们可以理解为上面所有规则都不匹配的情况下则默认为 direct。这正是前面说的黑名单模式：如果访问的网站被收录在 GFWList 里，那么访问这个网站会走代理，否则直连。这种黑名单模式我认为比较适合于主要上国内网站，只是偶尔上一下国外且是知名大公司的网站，这种情况下遇到不收录在 GFWList 的国外域名概率比较低。
 
 这里解释一句，从 V2Ray 项目发起至今，有许多网友请求集成 GFWList，但 V2Ray 始终没有做，这是有原因的。一是因为 GFWList 是 GPL 许可，没法直接用；二是因为 Raymond 认为 GFWList 项目形式不利于维护（大致意思，不是原话）。
 
