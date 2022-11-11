@@ -42,60 +42,22 @@ Sun 22 Jan 16:16:23 GMT 2017
 
 首先下载脚本：
 
-```
-$ wget https://install.direct/go.sh
---2018-03-17 22:49:09--  https://install.direct/go.sh
-Resolving install.direct (install.direct)... 104.27.174.71, 104.27.175.71, 2400:cb00:2048:1::681b:af47, ...
-Connecting to install.direct (install.direct)|104.27.174.71|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: unspecified [text/plain]
-Saving to: ‘go.sh’
+```bash
+$ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
-go.sh                             [ <=>                                                 ]  11.24K  --.-KB/s    in 0.001s  
-
-2018-03-17 22:49:09 (17.2 MB/s) - ‘go.sh’ saved [11510]
-```
-
-然后执行脚本安装 V2Ray:
-
-```
-$ sudo bash go.sh
-Installing curl
-Updating software repo
-Installing curl
-Selecting previously unselected package curl.
-(Reading database ... 36028 files and directories currently installed.)
-Preparing to unpack .../curl_7.38.0-4+deb8u5_amd64.deb ...
-Unpacking curl (7.38.0-4+deb8u5) ...
-Processing triggers for man-db (2.7.0.2-5) ...
-Setting up curl (7.38.0-4+deb8u5) ...
-Installing V2Ray v2.33 on x86_64
-Donwloading V2Ray.
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   608    0   608    0     0   2403      0 --:--:-- --:--:-- --:--:--  2412
-100 2583k  100 2583k    0     0  1229k      0  0:00:02  0:00:02 --:--:-- 1847k
-Installing unzip
-Installing unzip
-Selecting previously unselected package unzip.
-(Reading database ... 36035 files and directories currently installed.)
-Preparing to unpack .../unzip_6.0-16+deb8u3_amd64.deb ...
-Unpacking unzip (6.0-16+deb8u3) ...
-Processing triggers for mime-support (3.58) ...
-Processing triggers for man-db (2.7.0.2-5) ...
-Setting up unzip (6.0-16+deb8u3) ...
-Extracting V2Ray package to /tmp/v2ray.
-Archive:  /tmp/v2ray/v2ray.zip
-  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/readme.md  
-  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/systemd/v2ray.service  
-  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/systemv/v2ray  
-  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/v2ray  
-  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/vpoint_socks_vmess.json  
-  inflating: /tmp/v2ray/v2ray-v2.33-linux-64/vpoint_vmess_freedom.json  
-PORT:40827
-UUID:505f001d-4aa8-4519-9c54-6b65749ee3fb
-Created symlink from /etc/systemd/system/multi-user.target.wants/v2ray.service to /lib/systemd/system/v2ray.service.
-V2Ray v2.33 is installed.
+installed: /usr/local/bin/v2ray
+installed: /usr/local/share/v2ray/geoip.dat
+installed: /usr/local/share/v2ray/geosite.dat
+installed: /usr/local/etc/v2ray/config.json
+installed: /var/log/v2ray/
+installed: /var/log/v2ray/access.log
+installed: /var/log/v2ray/error.log
+installed: /etc/systemd/system/v2ray.service
+installed: /etc/systemd/system/v2ray@.service
+removed: /tmp/tmp.enSNCuSrVP
+info: V2Ray v5.1.0 is installed.
+You may need to execute a command to remove dependent software: apt purge curl unzip
+Please execute the command: systemctl enable v2ray; systemctl start v2ray
 ```
 
 看到类似于这样的提示就算安装成功了。如果安装不成功脚本会有红色的提示语句，这个时候你应当按照提示除错，除错后再重新执行一遍脚本安装 V2Ray。对于错误提示如果看不懂，使用翻译软件翻译一下就好。
@@ -117,7 +79,7 @@ $ sudo systemctl start v2ray
 在 VPS，重新执行一遍安装脚本就可以更新了，在更新过程中会自动重启 V2Ray，配置文件保持不变。
 
 ```
-$ sudo bash go.sh
+$ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 ```
 
 V2Ray 的更新策略是快速迭代，每周更新(无意外的情况下)。版本号的格式是 `vX.Y.Z`，如 `v2.44.0`。v是固定的字母v，version 的首字母；X、Y、Z都是数字，X是大版本号，每年更新一个大版本(现在是 v4.Y.Z，V2Ray 已经走到了第四个年头)，Y 是小版本，每周五更新一个小版本。Z是区分正式版和测试版，Z是0代表着是正式版，不是0说明是测试版。例如，v4.7.0 是正式版，v4.7.1是测试版，建议只使用正式版，不手动指定的情况下V2Ray 的安装脚本也只会安装最新的正式版。
